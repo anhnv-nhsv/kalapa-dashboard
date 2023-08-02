@@ -1,51 +1,68 @@
 <template>
   <div class="dataTables_wrapper dt-bootstrap4 no-footer">
     <div class="table-responsive">
-      <table class="table table-striped table-bordered border align-middle fs-6 gy-5 dataTable no-footer"
-             id="kt_customers_table" role="grid">
+      <table
+        class="
+          table table-striped table-bordered
+          border
+          align-middle
+          fs-6
+          gy-5
+          dataTable
+          no-footer
+        "
+        id="kt_customers_table"
+        role="grid"
+      >
         <!--begin::Table head-->
         <thead style="background-color: #ffc342">
-        <template v-for="(row, i) in tableHeader" :key="i">
-          <!--begin::Table row-->
-          <tr class="text-center text-gray-800 fw-bolder fs-7 text-uppercase gs-0" role="row">
-            <template v-for="(cell, i) in row" :key="i">
-              <th
-                :class="[
-                  cell.name && 'min-w-125px',
-                  'text-middle'
-                ]"
-                :rowspan="cell.rowspan"
-                :colspan="cell.colspan"
-              >
-                {{ cell.name }}
-              </th>
-            </template>
-          </tr>
-          <!--end::Table row-->
-        </template>
+          <template v-for="(row, i) in tableHeader" :key="i">
+            <!--begin::Table row-->
+            <tr
+              class="
+                text-center text-gray-800
+                fw-bolder
+                fs-7
+                text-uppercase
+                gs-0
+              "
+              role="row"
+            >
+              <template v-for="(cell, i) in row" :key="i">
+                <th
+                  :class="[cell.name && 'min-w-125px', 'text-middle']"
+                  :rowspan="cell.rowspan"
+                  :colspan="cell.colspan"
+                >
+                  {{ cell.name }}
+                </th>
+              </template>
+            </tr>
+            <!--end::Table row-->
+          </template>
         </thead>
         <!--end::Table head-->
         <!--begin::Table body-->
         <tbody class="">
-        <template v-if="!isEmptyTableData">
-          <template v-for="(item, i) in getItems" :key="i">
-            <tr>
-              <template v-for="(cell, i) in tableHeaderFlattened" :key="i">
-                <td class="text-center">
-                  <slot :name="`cell-${cell.key}`" :row="item">
-                    {{ item[prop] }}
-                  </slot>
-                </td>
-              </template>
-              <!--end::Item=-->
+          <template v-if="!isEmptyTableData">
+            <template v-for="(item, i) in getItems" :key="i">
+              <tr>
+                <template v-for="(cell, i) in tableHeaderFlattened" :key="i">
+                  <td class="text-center">
+                    <slot :name="`cell-${cell.key}`" :row="item">
+                      {{ item[prop] }}
+                    </slot>
+                  </td>
+                </template>
+                <!--end::Item=-->
+              </tr>
+            </template>
+          </template>
+          <template v-else>
+            <tr class="odd">
+              <td colspan="8" class="dataTables_empty">No data found</td>
             </tr>
           </template>
-        </template>
-        <template v-else>
-          <tr class="odd">
-            <td colspan="8" class="dataTables_empty">No data found</td>
-          </tr>
-        </template>
         </tbody>
         <!--end::Table body-->
       </table>
@@ -105,7 +122,15 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, ref, onMounted, watch, toRaw, onUpdated} from "vue";
+import {
+  computed,
+  defineComponent,
+  ref,
+  onMounted,
+  watch,
+  toRaw,
+  onUpdated,
+} from "vue";
 
 interface IPagination {
   page: number;
@@ -116,10 +141,16 @@ interface IPagination {
 export default defineComponent({
   name: "customer-datatable",
   props: {
-    tableHeader: {type: Array, required: true, default: () => []},
-    tableHeaderFlattened: {type: Array, required: true, default: () => []},
-    tableData: {type: Array, required: true, default: () => []},
-    pagination: {type: Object, required: false, default: () => {return {}}}
+    tableHeader: { type: Array, required: true, default: () => [] },
+    tableHeaderFlattened: { type: Array, required: true, default: () => [] },
+    tableData: { type: Array, required: true, default: () => [] },
+    pagination: {
+      type: Object,
+      required: false,
+      default: () => {
+        return {};
+      },
+    },
   },
   components: {},
   setup(props, ctx) {
@@ -129,14 +160,20 @@ export default defineComponent({
     let paginationObj = ref(JSON.parse(JSON.stringify(paginationData.value)));
     let isEmptyTableData = ref(getItems.value.length === 0);
 
-    watch(() => props.tableData, (newVal, oldVal) => {
-      getItems.value = newVal;
-      isEmptyTableData.value = getItems.value.length === 0;
-    });
+    watch(
+      () => props.tableData,
+      (newVal, oldVal) => {
+        getItems.value = newVal;
+        isEmptyTableData.value = getItems.value.length === 0;
+      }
+    );
 
-    watch(() => props.pagination, (newVal, oldVal) => {
-      paginationObj.value = newVal;
-    });
+    watch(
+      () => props.pagination,
+      (newVal, oldVal) => {
+        paginationObj.value = newVal;
+      }
+    );
     onMounted(() => {
       // paginationObj.value.rowsPerPage = props.rowsPerPage ? props.rowsPerPage : 10;
       // paginationObj.value.total = data.value['totalCount'];
@@ -148,7 +185,7 @@ export default defineComponent({
     });
     const setCurrent = (val) => {
       paginationObj.value.pageNo = val;
-      ctx.emit('change-page', val);
+      ctx.emit("change-page", val);
     };
 
     return {

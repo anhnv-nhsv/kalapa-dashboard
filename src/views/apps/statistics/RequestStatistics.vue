@@ -19,15 +19,20 @@
           <div
             class="col-md-3 d-flex align-items-center position-relative my-1"
           >
-            <span class="svg-icon svg-icon-1 position-absolute ms-6">
-              <inline-svg src="media/icons/duotune/general/gen021.svg"/>
-            </span>
-            <input
-              autoFocus
-              type="text"
-              class="form-control form-control-solid w-180px ps-15"
-              placeholder="Username"
+            <!--            <span class="svg-icon svg-icon-1 position-absolute ms-6">-->
+            <!--              <inline-svg src="media/icons/duotune/general/gen021.svg"/>-->
+            <!--            </span>-->
+            <!--            <input-->
+            <!--              autoFocus-->
+            <!--              type="text"-->
+            <!--              class="form-control form-control-solid w-180px ps-15"-->
+            <!--              placeholder="Username"-->
+            <!--              v-model="formSearchData.username"-->
+            <!--            />-->
+            <el-input
+              autofocus
               v-model="formSearchData.username"
+              placeholder="Username"
             />
           </div>
           <div
@@ -39,7 +44,6 @@
             <!--              <input type="text" class="form-control form-control-solid w-180px ps-15"-->
             <!--                     placeholder="To date" />-->
             <el-date-picker
-              class="form-control form-control-solid w-180px ps-15"
               type="daterange"
               range-separator="-"
               start-placeholder="Start date"
@@ -52,14 +56,18 @@
           <div
             class="col-md-3 d-flex align-items-center position-relative my-1"
           >
-            <button :data-kt-indicator="loading ? 'on' : null" type="submit" class="btn btn-primary">
+            <button
+              :data-kt-indicator="loading ? 'on' : null"
+              type="submit"
+              class="btn btn-primary"
+            >
               <span v-if="!loading" class="indicator-label">Search</span>
               <span v-if="loading" class="indicator-progress"
-              >Please wait...
-                  <span
-                    class="spinner-border spinner-border-sm align-middle ms-2"
-                  ></span
-                  ></span>
+                >Please wait...
+                <span
+                  class="spinner-border spinner-border-sm align-middle ms-2"
+                ></span
+              ></span>
             </button>
           </div>
         </form>
@@ -98,37 +106,37 @@
           {{ reqs.thirtyResponseTime }}
         </template>
       </Datatable>
-<!--      <div v-else class="dataTables_wrapper dt-bootstrap4 no-footer">-->
-<!--        <div class="table-responsive">-->
-<!--          <table-->
-<!--            class="-->
-<!--          table-->
-<!--          align-middle-->
-<!--          table-row-dashed-->
-<!--          fs-6-->
-<!--          gy-5-->
-<!--          dataTable-->
-<!--          no-footer-->
-<!--        "-->
-<!--            id="kt_customers_table"-->
-<!--            role="grid"-->
-<!--          >-->
-<!--            no data-->
-<!--          </table>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div v-else class="dataTables_wrapper dt-bootstrap4 no-footer">-->
+      <!--        <div class="table-responsive">-->
+      <!--          <table-->
+      <!--            class="-->
+      <!--          table-->
+      <!--          align-middle-->
+      <!--          table-row-dashed-->
+      <!--          fs-6-->
+      <!--          gy-5-->
+      <!--          dataTable-->
+      <!--          no-footer-->
+      <!--        "-->
+      <!--            id="kt_customers_table"-->
+      <!--            role="grid"-->
+      <!--          >-->
+      <!--            no data-->
+      <!--          </table>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, onBeforeMount, onMounted, ref} from "vue";
+import { defineComponent, onBeforeMount, onMounted, ref } from "vue";
 import Datatable from "@/components/kt-datatable/Datatable.vue";
 import store from "@/store";
-import {Actions} from "@/store/enums/StoreEnums";
+import { Actions } from "@/store/enums/StoreEnums";
 import moment from "moment/moment";
-import {setCurrentPageBreadcrumbs} from "@/core/helpers/breadcrumb";
-import {MenuComponent} from "@/assets/ts/components";
+import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
+import { MenuComponent } from "@/assets/ts/components";
 
 export default defineComponent({
   name: "request-statistics",
@@ -137,10 +145,10 @@ export default defineComponent({
   },
   setup() {
     const formSearchData = ref({
-      username: '',
+      username: "",
       dateRange: [
-        moment().startOf("month").format('DD/MM/YYYY'),
-        moment().format('DD/MM/YYYY')
+        moment().startOf("month").format("DD/MM/YYYY"),
+        moment().format("DD/MM/YYYY"),
       ],
     });
     const tableHeader = ref([
@@ -181,14 +189,22 @@ export default defineComponent({
     let dataRequestStatistics = ref();
     let pagination = ref();
 
-    async function getRequestStatistics(page?: number, username?: string, fromDate?: string, toDate?: string, pageSize = 10) {
-      console.log("call API")
+    async function getRequestStatistics(
+      page?: number,
+      username?: string,
+      fromDate?: string,
+      toDate?: string,
+      pageSize = 10
+    ) {
+      console.log("call API");
       loading.value = true;
       await store.dispatch(Actions.GET_REQUEST_STATISTICS_ACTION, {
         params: {
-          username: username ? username : '',
-          fromDate: fromDate ? fromDate : moment().startOf('month').format('DD/MM/YYYY'),
-          toDate: toDate ? toDate : moment().format('DD/MM/YYYY'),
+          username: username ? username : "",
+          fromDate: fromDate
+            ? fromDate
+            : moment().startOf("month").format("DD/MM/YYYY"),
+          toDate: toDate ? toDate : moment().format("DD/MM/YYYY"),
           page: page,
           pageSize: pageSize,
         },
@@ -224,15 +240,25 @@ export default defineComponent({
       // let formData = toRaw(formSearchData.value);
       // console.log('submitSearch')
       const formData = JSON.parse(JSON.stringify(formSearchData.value));
-      getRequestStatistics(1, formData.username, formData.dateRange[0], formData.dateRange[1]);
-    };
+      getRequestStatistics(
+        1,
+        formData.username,
+        formData.dateRange[0],
+        formData.dateRange[1]
+      );
+    }
 
     function changePage(page) {
       // let formData = toRaw(formSearchData.value);
       const formData = JSON.parse(JSON.stringify(formSearchData.value));
       // console.log(`changePage ${page}`)
       // console.log(formData)
-      getRequestStatistics(page, formData.username, formData.dateRange[0], formData.dateRange[1]);
+      getRequestStatistics(
+        page,
+        formData.username,
+        formData.dateRange[0],
+        formData.dateRange[1]
+      );
     }
 
     onBeforeMount(() => {

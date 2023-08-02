@@ -28,17 +28,17 @@
 
       <!--begin::Menu-->
       <ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
-<!--        <li class="menu-item">-->
-<!--          <a href="#" target="_blank" class="menu-link px-2">About</a>-->
-<!--        </li>-->
+        <!--        <li class="menu-item">-->
+        <!--          <a href="#" target="_blank" class="menu-link px-2">About</a>-->
+        <!--        </li>-->
 
-<!--        <li class="menu-item">-->
-<!--          <a href="#" target="_blank" class="menu-link px-2">Support</a>-->
-<!--        </li>-->
+        <!--        <li class="menu-item">-->
+        <!--          <a href="#" target="_blank" class="menu-link px-2">Support</a>-->
+        <!--        </li>-->
 
-<!--        <li class="menu-item">-->
-<!--          <a href="#" target="_blank" class="menu-link px-2">Purchase</a>-->
-<!--        </li>-->
+        <!--        <li class="menu-item">-->
+        <!--          <a href="#" target="_blank" class="menu-link px-2">Purchase</a>-->
+        <!--        </li>-->
       </ul>
       <!--end::Menu-->
     </div>
@@ -48,14 +48,14 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from "vue";
+import { defineComponent, ref } from "vue";
 import { footerWidthFluid } from "@/core/helpers/config";
 import moment from "moment/moment";
 
 export default defineComponent({
   name: "KTFooter",
   setup() {
-    const currentYear = ref(moment().format('YYYY'));
+    const currentYear = ref(moment().format("YYYY"));
     return {
       footerWidthFluid,
       currentYear,

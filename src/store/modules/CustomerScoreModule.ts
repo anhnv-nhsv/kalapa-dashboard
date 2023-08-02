@@ -1,10 +1,9 @@
-import {Action, Module, Mutation, VuexModule} from "vuex-module-decorators";
-import {Actions, Mutations} from "@/store/enums/StoreEnums";
+import { Action, Module, Mutation, VuexModule } from "vuex-module-decorators";
+import { Actions, Mutations } from "@/store/enums/StoreEnums";
 import ApiService from "@/core/services/ApiService";
 
 @Module
 export default class CustomerScoreModule extends VuexModule {
-
   customersScoreResp = [];
   syncKalapaStatusCode = -1;
   exportCustomerResp = -1;
@@ -56,7 +55,7 @@ export default class CustomerScoreModule extends VuexModule {
     return new Promise<void>((resolve, reject) => {
       ApiService.post("/account-info/sync-kalapa", params)
         .then((res) => {
-          console.log(res)
+          console.log(res);
           this.context.commit(Mutations.SYNC_KALAPA_SCORE_MUTATION, res.status);
           resolve();
         })
@@ -72,7 +71,7 @@ export default class CustomerScoreModule extends VuexModule {
     return new Promise<void>((resolve, reject) => {
       ApiService.query("/account-info/export/excel", params)
         .then((res) => {
-          console.log(res)
+          console.log(res);
           this.context.commit(Mutations.EXPORT_CUSTOMERS_SCORE_MUTATION, res);
           resolve();
         })

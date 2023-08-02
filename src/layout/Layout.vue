@@ -44,7 +44,7 @@
   </div>
   <!-- end:: Body -->
   <KTScrollTop></KTScrollTop>
-<!--  <KTExplore></KTExplore>-->
+  <!--  <KTExplore></KTExplore>-->
   <KTDrawerMessenger></KTDrawerMessenger>
   <KTUserMenu></KTUserMenu>
   <KTCreateApp></KTCreateApp>

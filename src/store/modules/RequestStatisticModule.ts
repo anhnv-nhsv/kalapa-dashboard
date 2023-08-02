@@ -1,7 +1,7 @@
 import ApiService from "@/core/services/ApiService";
 import JwtService from "@/core/services/JwtService";
-import {Actions, Mutations} from "@/store/enums/StoreEnums";
-import {Module, Action, Mutation, VuexModule} from "vuex-module-decorators";
+import { Actions, Mutations } from "@/store/enums/StoreEnums";
+import { Module, Action, Mutation, VuexModule } from "vuex-module-decorators";
 
 export interface RequestStatisticsInfo {
   seq?: string;
@@ -32,7 +32,10 @@ export default class RequestStatisticModule extends VuexModule {
     return new Promise<void>((resolve, reject) => {
       ApiService.query("/search-history", params)
         .then((res) => {
-          this.context.commit(Mutations.GET_REQUEST_STATISTICS_MUTATION, res.data);
+          this.context.commit(
+            Mutations.GET_REQUEST_STATISTICS_MUTATION,
+            res.data
+          );
           resolve();
         })
         .catch((err) => {

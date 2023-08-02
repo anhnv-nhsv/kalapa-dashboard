@@ -180,28 +180,28 @@
           <div class="separator mx-1 my-4"></div>
         </div>
       </div>
-<!--      <div class="menu-item">-->
-<!--        <a-->
-<!--          class="menu-link"-->
-<!--          href="https://preview.keenthemes.com/metronic8/vue/docs/#/changelog"-->
-<!--        >-->
-<!--          <span class="menu-icon">-->
-<!--            <i-->
-<!--              v-if="asideMenuIcons === 'font'"-->
-<!--              class="bi bi-card-text fs-3"-->
-<!--            ></i>-->
-<!--            <span-->
-<!--              v-else-if="asideMenuIcons === 'svg'"-->
-<!--              class="svg-icon svg-icon-2"-->
-<!--            >-->
-<!--              <inline-svg src="media/icons/duotune/general/gen005.svg" />-->
-<!--            </span>-->
-<!--          </span>-->
-<!--          <span class="menu-title"-->
-<!--            >{{ translate("changelog") }} v{{ version }}</span-->
-<!--          >-->
-<!--        </a>-->
-<!--      </div>-->
+      <!--      <div class="menu-item">-->
+      <!--        <a-->
+      <!--          class="menu-link"-->
+      <!--          href="https://preview.keenthemes.com/metronic8/vue/docs/#/changelog"-->
+      <!--        >-->
+      <!--          <span class="menu-icon">-->
+      <!--            <i-->
+      <!--              v-if="asideMenuIcons === 'font'"-->
+      <!--              class="bi bi-card-text fs-3"-->
+      <!--            ></i>-->
+      <!--            <span-->
+      <!--              v-else-if="asideMenuIcons === 'svg'"-->
+      <!--              class="svg-icon svg-icon-2"-->
+      <!--            >-->
+      <!--              <inline-svg src="media/icons/duotune/general/gen005.svg" />-->
+      <!--            </span>-->
+      <!--          </span>-->
+      <!--          <span class="menu-title"-->
+      <!--            >{{ translate("changelog") }} v{{ version }}</span-->
+      <!--          >-->
+      <!--        </a>-->
+      <!--      </div>-->
     </div>
     <!--end::Menu-->
   </div>

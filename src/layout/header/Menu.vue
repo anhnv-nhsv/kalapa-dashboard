@@ -199,278 +199,278 @@
         </div>
       </template>
 
-<!--      <div-->
-<!--        data-kt-menu-trigger="click"-->
-<!--        data-kt-menu-placement="bottom-start"-->
-<!--        class="menu-item menu-lg-down-accordion me-lg-1"-->
-<!--      >-->
-<!--        <span class="menu-link py-3">-->
-<!--          <span class="menu-title">{{ translate("resources") }}</span>-->
-<!--          <span class="menu-arrow d-lg-none"></span>-->
-<!--        </span>-->
-<!--        <div-->
-<!--          class="-->
-<!--            menu-sub-->
-<!--            menu-sub-lg-down-accordion-->
-<!--            menu-sub-lg-dropdown-->
-<!--            menu-rounded-0-->
-<!--            py-lg-4-->
-<!--            w-lg-225px-->
-<!--          "-->
-<!--        >-->
-<!--          <div class="menu-item">-->
-<!--            <a-->
-<!--              class="menu-link py-3"-->
-<!--              href="https://preview.keenthemes.com/metronic8/vue/docs/#/utilities"-->
-<!--            >-->
-<!--              <span class="menu-icon">-->
-<!--                <i v-if="headerMenuIcons === 'font'" class="bi bi-box fs-3"></i>-->
-<!--                <span-->
-<!--                  v-if="headerMenuIcons === 'svg'"-->
-<!--                  class="svg-icon svg-icon-2"-->
-<!--                >-->
-<!--                  <inline-svg src="media/icons/duotune/general/gen002.svg" />-->
-<!--                </span>-->
-<!--              </span>-->
-<!--              <span class="menu-title">{{ translate("components") }}</span>-->
-<!--            </a>-->
-<!--          </div>-->
-<!--          <div class="menu-item">-->
-<!--            <a-->
-<!--              class="menu-link py-3"-->
-<!--              href="https://preview.keenthemes.com/metronic8/vue/docs/#/doc-overview"-->
-<!--            >-->
-<!--              <span class="menu-icon">-->
-<!--                <i-->
-<!--                  v-if="headerMenuIcons === 'font'"-->
-<!--                  class="bi bi-card-text fs-3"-->
-<!--                ></i>-->
-<!--                <span-->
-<!--                  v-else-if="headerMenuIcons === 'svg'"-->
-<!--                  class="svg-icon svg-icon-2"-->
-<!--                >-->
-<!--                  <inline-svg src="media/icons/duotune/abstract/abs027.svg" />-->
-<!--                </span>-->
-<!--              </span>-->
-<!--              <span class="menu-title">{{ translate("documentation") }}</span>-->
-<!--            </a>-->
-<!--          </div>-->
-<!--          <div class="menu-item">-->
-<!--            <a-->
-<!--              class="menu-link py-3"-->
-<!--              href="https://preview.keenthemes.com/metronic8/vue/docs/#/changelog"-->
-<!--            >-->
-<!--              <span class="menu-icon">-->
-<!--                <i-->
-<!--                  v-if="headerMenuIcons === 'font'"-->
-<!--                  class="bi bi-journal-code fs-3"-->
-<!--                ></i>-->
-<!--                <span-->
-<!--                  v-else-if="headerMenuIcons === 'svg'"-->
-<!--                  class="svg-icon svg-icon-2"-->
-<!--                >-->
-<!--                  <inline-svg src="media/icons/duotune/coding/cod003.svg" />-->
-<!--                </span>-->
-<!--              </span>-->
-<!--              <span class="menu-title"-->
-<!--                >{{ translate("changelog") }} v{{ version }}</span-->
-<!--              >-->
-<!--            </a>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div-->
+      <!--        data-kt-menu-trigger="click"-->
+      <!--        data-kt-menu-placement="bottom-start"-->
+      <!--        class="menu-item menu-lg-down-accordion me-lg-1"-->
+      <!--      >-->
+      <!--        <span class="menu-link py-3">-->
+      <!--          <span class="menu-title">{{ translate("resources") }}</span>-->
+      <!--          <span class="menu-arrow d-lg-none"></span>-->
+      <!--        </span>-->
+      <!--        <div-->
+      <!--          class="-->
+      <!--            menu-sub-->
+      <!--            menu-sub-lg-down-accordion-->
+      <!--            menu-sub-lg-dropdown-->
+      <!--            menu-rounded-0-->
+      <!--            py-lg-4-->
+      <!--            w-lg-225px-->
+      <!--          "-->
+      <!--        >-->
+      <!--          <div class="menu-item">-->
+      <!--            <a-->
+      <!--              class="menu-link py-3"-->
+      <!--              href="https://preview.keenthemes.com/metronic8/vue/docs/#/utilities"-->
+      <!--            >-->
+      <!--              <span class="menu-icon">-->
+      <!--                <i v-if="headerMenuIcons === 'font'" class="bi bi-box fs-3"></i>-->
+      <!--                <span-->
+      <!--                  v-if="headerMenuIcons === 'svg'"-->
+      <!--                  class="svg-icon svg-icon-2"-->
+      <!--                >-->
+      <!--                  <inline-svg src="media/icons/duotune/general/gen002.svg" />-->
+      <!--                </span>-->
+      <!--              </span>-->
+      <!--              <span class="menu-title">{{ translate("components") }}</span>-->
+      <!--            </a>-->
+      <!--          </div>-->
+      <!--          <div class="menu-item">-->
+      <!--            <a-->
+      <!--              class="menu-link py-3"-->
+      <!--              href="https://preview.keenthemes.com/metronic8/vue/docs/#/doc-overview"-->
+      <!--            >-->
+      <!--              <span class="menu-icon">-->
+      <!--                <i-->
+      <!--                  v-if="headerMenuIcons === 'font'"-->
+      <!--                  class="bi bi-card-text fs-3"-->
+      <!--                ></i>-->
+      <!--                <span-->
+      <!--                  v-else-if="headerMenuIcons === 'svg'"-->
+      <!--                  class="svg-icon svg-icon-2"-->
+      <!--                >-->
+      <!--                  <inline-svg src="media/icons/duotune/abstract/abs027.svg" />-->
+      <!--                </span>-->
+      <!--              </span>-->
+      <!--              <span class="menu-title">{{ translate("documentation") }}</span>-->
+      <!--            </a>-->
+      <!--          </div>-->
+      <!--          <div class="menu-item">-->
+      <!--            <a-->
+      <!--              class="menu-link py-3"-->
+      <!--              href="https://preview.keenthemes.com/metronic8/vue/docs/#/changelog"-->
+      <!--            >-->
+      <!--              <span class="menu-icon">-->
+      <!--                <i-->
+      <!--                  v-if="headerMenuIcons === 'font'"-->
+      <!--                  class="bi bi-journal-code fs-3"-->
+      <!--                ></i>-->
+      <!--                <span-->
+      <!--                  v-else-if="headerMenuIcons === 'svg'"-->
+      <!--                  class="svg-icon svg-icon-2"-->
+      <!--                >-->
+      <!--                  <inline-svg src="media/icons/duotune/coding/cod003.svg" />-->
+      <!--                </span>-->
+      <!--              </span>-->
+      <!--              <span class="menu-title"-->
+      <!--                >{{ translate("changelog") }} v{{ version }}</span-->
+      <!--              >-->
+      <!--            </a>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
 
-<!--      <div-->
-<!--        data-kt-menu-trigger="click"-->
-<!--        data-kt-menu-placement="bottom-start"-->
-<!--        class="menu-item menu-lg-down-accordion me-lg-1"-->
-<!--      >-->
-<!--        <span class="menu-link py-3">-->
-<!--          <span class="menu-title">{{ translate("megaMenu") }}</span>-->
-<!--          <span class="menu-arrow d-lg-none"></span>-->
-<!--        </span>-->
-<!--        <div-->
-<!--          class="-->
-<!--            menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown-->
-<!--            w-100 w-lg-600px-->
-<!--            p-5 p-lg-5-->
-<!--          "-->
-<!--          style=""-->
-<!--        >-->
-<!--          &lt;!&ndash;begin:Row&ndash;&gt;-->
-<!--          <div class="row" data-kt-menu-dismiss="true">-->
-<!--            &lt;!&ndash;begin:Col&ndash;&gt;-->
-<!--            <div class="col-lg-4 border-left-lg-1">-->
-<!--              <div class="menu-inline menu-column menu-active-bg">-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash;end:Col&ndash;&gt;-->
-<!--            &lt;!&ndash;begin:Col&ndash;&gt;-->
-<!--            <div class="col-lg-4 border-left-lg-1">-->
-<!--              <div class="menu-inline menu-column menu-active-bg">-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash;end:Col&ndash;&gt;-->
-<!--            &lt;!&ndash;begin:Col&ndash;&gt;-->
-<!--            <div class="col-lg-4 border-left-lg-1">-->
-<!--              <div class="menu-inline menu-column menu-active-bg">-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--                <div class="menu-item">-->
-<!--                  <a href="#" class="menu-link">-->
-<!--                    <span class="menu-bullet">-->
-<!--                      <span class="bullet bullet-dot"></span>-->
-<!--                    </span>-->
-<!--                    <span class="menu-title">{{-->
-<!--                      translate("exampleLink")-->
-<!--                    }}</span>-->
-<!--                  </a>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            &lt;!&ndash;end:Col&ndash;&gt;-->
-<!--          </div>-->
-<!--          &lt;!&ndash;end:Row&ndash;&gt;-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div-->
+      <!--        data-kt-menu-trigger="click"-->
+      <!--        data-kt-menu-placement="bottom-start"-->
+      <!--        class="menu-item menu-lg-down-accordion me-lg-1"-->
+      <!--      >-->
+      <!--        <span class="menu-link py-3">-->
+      <!--          <span class="menu-title">{{ translate("megaMenu") }}</span>-->
+      <!--          <span class="menu-arrow d-lg-none"></span>-->
+      <!--        </span>-->
+      <!--        <div-->
+      <!--          class="-->
+      <!--            menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown-->
+      <!--            w-100 w-lg-600px-->
+      <!--            p-5 p-lg-5-->
+      <!--          "-->
+      <!--          style=""-->
+      <!--        >-->
+      <!--          &lt;!&ndash;begin:Row&ndash;&gt;-->
+      <!--          <div class="row" data-kt-menu-dismiss="true">-->
+      <!--            &lt;!&ndash;begin:Col&ndash;&gt;-->
+      <!--            <div class="col-lg-4 border-left-lg-1">-->
+      <!--              <div class="menu-inline menu-column menu-active-bg">-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--            &lt;!&ndash;end:Col&ndash;&gt;-->
+      <!--            &lt;!&ndash;begin:Col&ndash;&gt;-->
+      <!--            <div class="col-lg-4 border-left-lg-1">-->
+      <!--              <div class="menu-inline menu-column menu-active-bg">-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--            &lt;!&ndash;end:Col&ndash;&gt;-->
+      <!--            &lt;!&ndash;begin:Col&ndash;&gt;-->
+      <!--            <div class="col-lg-4 border-left-lg-1">-->
+      <!--              <div class="menu-inline menu-column menu-active-bg">-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--                <div class="menu-item">-->
+      <!--                  <a href="#" class="menu-link">-->
+      <!--                    <span class="menu-bullet">-->
+      <!--                      <span class="bullet bullet-dot"></span>-->
+      <!--                    </span>-->
+      <!--                    <span class="menu-title">{{-->
+      <!--                      translate("exampleLink")-->
+      <!--                    }}</span>-->
+      <!--                  </a>-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--            &lt;!&ndash;end:Col&ndash;&gt;-->
+      <!--          </div>-->
+      <!--          &lt;!&ndash;end:Row&ndash;&gt;-->
+      <!--        </div>-->
+      <!--      </div>-->
       <!--end::Menu-->
     </div>
   </div>

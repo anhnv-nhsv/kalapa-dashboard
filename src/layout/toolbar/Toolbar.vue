@@ -60,36 +60,36 @@
       <!--begin::Actions-->
       <div class="d-flex align-items-center py-1">
         <!--begin::Wrapper-->
-<!--        <div class="me-4">-->
-<!--          &lt;!&ndash;begin::Menu&ndash;&gt;-->
-<!--          <a-->
-<!--            href="#"-->
-<!--            class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder"-->
-<!--            data-kt-menu-trigger="click"-->
-<!--            data-kt-menu-placement="bottom-end"-->
-<!--            data-kt-menu-flip="top-end"-->
-<!--          >-->
-<!--            <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1">-->
-<!--              <inline-svg src="media/icons/duotune/general/gen031.svg" />-->
-<!--            </span>-->
-<!--            Filter-->
-<!--          </a>-->
+        <!--        <div class="me-4">-->
+        <!--          &lt;!&ndash;begin::Menu&ndash;&gt;-->
+        <!--          <a-->
+        <!--            href="#"-->
+        <!--            class="btn btn-sm btn-flex btn-light btn-active-primary fw-bolder"-->
+        <!--            data-kt-menu-trigger="click"-->
+        <!--            data-kt-menu-placement="bottom-end"-->
+        <!--            data-kt-menu-flip="top-end"-->
+        <!--          >-->
+        <!--            <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1">-->
+        <!--              <inline-svg src="media/icons/duotune/general/gen031.svg" />-->
+        <!--            </span>-->
+        <!--            Filter-->
+        <!--          </a>-->
 
-<!--          <Dropdown1></Dropdown1>-->
-<!--          &lt;!&ndash;end::Menu&ndash;&gt;-->
-<!--        </div>-->
+        <!--          <Dropdown1></Dropdown1>-->
+        <!--          &lt;!&ndash;end::Menu&ndash;&gt;-->
+        <!--        </div>-->
         <!--end::Wrapper-->
 
         <!--begin::Button-->
-<!--        <a-->
-<!--          href="#"-->
-<!--          class="btn btn-sm btn-primary"-->
-<!--          data-bs-toggle="modal"-->
-<!--          data-bs-target="#kt_modal_create_app"-->
-<!--          id="kt_toolbar_primary_button"-->
-<!--        >-->
-<!--          Create-->
-<!--        </a>-->
+        <!--        <a-->
+        <!--          href="#"-->
+        <!--          class="btn btn-sm btn-primary"-->
+        <!--          data-bs-toggle="modal"-->
+        <!--          data-bs-target="#kt_modal_create_app"-->
+        <!--          id="kt_toolbar_primary_button"-->
+        <!--        >-->
+        <!--          Create-->
+        <!--        </a>-->
         <!--end::Button-->
       </div>
       <!--end::Actions-->

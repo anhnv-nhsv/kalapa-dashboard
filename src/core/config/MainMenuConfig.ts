@@ -282,7 +282,7 @@ const DocMenuConfig = [
             route: "/apps/statistics/request-statistics",
           },
         ],
-      }
+      },
     ],
   },
 ];

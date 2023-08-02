@@ -111,7 +111,8 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/apps/statistics/request-statistics",
         name: "apps-request-statistics",
-        component: () => import("@/views/apps/statistics/RequestStatistics.vue"),
+        component: () =>
+          import("@/views/apps/statistics/RequestStatistics.vue"),
       },
       {
         path: "/apps/chat/private-chat",

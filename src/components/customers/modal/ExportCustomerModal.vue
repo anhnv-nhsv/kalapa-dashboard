@@ -1,10 +1,10 @@
 <template>
   <div
-      class="modal fade"
-      id="kt_customer_export_modal"
-      ref="exportCustomerModalRef"
-      tabindex="-1"
-      aria-hidden="true"
+    class="modal fade"
+    id="kt_customer_export_modal"
+    ref="exportCustomerModalRef"
+    tabindex="-1"
+    aria-hidden="true"
   >
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -18,12 +18,12 @@
 
           <!--begin::Close-->
           <div
-              id="kt_customer_export_close"
-              data-bs-dismiss="modal"
-              class="btn btn-icon btn-sm btn-active-icon-primary"
+            id="kt_customer_export_close"
+            data-bs-dismiss="modal"
+            class="btn btn-icon btn-sm btn-active-icon-primary"
           >
             <span class="svg-icon svg-icon-1">
-              <inline-svg src="media/icons/duotune/arrows/arr061.svg"/>
+              <inline-svg src="media/icons/duotune/arrows/arr061.svg" />
             </span>
           </div>
           <!--end::Close-->
@@ -34,9 +34,9 @@
         <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
           <!--begin::Form-->
           <el-form
-              @submit.prevent="submitExport"
-              :model="checkedTypes"
-              ref="formRef"
+            @submit.prevent="submitExport"
+            :model="checkedTypes"
+            ref="formRef"
           >
             <!--begin::Row-->
             <div class="row fv-row mb-15">
@@ -47,16 +47,20 @@
               <!--begin::Radio group-->
               <div class="d-flex flex-column">
                 <el-checkbox
-                    v-model="checkAll"
-                    :indeterminate="isIndeterminate"
-                    @change="handleCheckAllChange"
-                >Check all
+                  v-model="checkAll"
+                  :indeterminate="isIndeterminate"
+                  @change="handleCheckAllChange"
+                  >Check all
                 </el-checkbox>
                 <el-checkbox-group
-                    v-model="checkedTypes"
-                    @change="handleCheckedTypesChange"
+                  v-model="checkedTypes"
+                  @change="handleCheckedTypesChange"
                 >
-                  <el-checkbox v-for="type in exportTypes" :key="type.typeId" :label="type.typeId">
+                  <el-checkbox
+                    v-for="type in exportTypes"
+                    :key="type.typeId"
+                    :label="type.typeId"
+                  >
                     {{ type.typeName }}
                   </el-checkbox>
                 </el-checkbox-group>
@@ -68,30 +72,30 @@
             <!--begin::Actions-->
             <div class="text-center">
               <button
-                  type="reset"
-                  id="kt_customer_export_cancel"
-                  class="btn btn-light me-3"
-                  data-bs-dismiss="modal"
+                type="reset"
+                id="kt_customer_export_cancel"
+                class="btn btn-light me-3"
+                data-bs-dismiss="modal"
               >
                 Discard
               </button>
 
               <!--begin::Button-->
               <button
-                  :data-kt-indicator="loading ? 'on' : null"
-                  type="submit"
-                  class="btn btn-lg btn-primary"
+                :data-kt-indicator="loading ? 'on' : null"
+                type="submit"
+                class="btn btn-lg btn-primary"
               >
                 <span v-if="!loading" class="indicator-label">
                   Submit
                   <span class="svg-icon svg-icon-3 ms-2 me-0">
-                    <inline-svg src="icons/duotune/arrows/arr064.svg"/>
+                    <inline-svg src="icons/duotune/arrows/arr064.svg" />
                   </span>
                 </span>
                 <span v-if="loading" class="indicator-progress">
                   Please wait...
                   <span
-                      class="spinner-border spinner-border-sm align-middle ms-2"
+                    class="spinner-border spinner-border-sm align-middle ms-2"
                   ></span>
                 </span>
               </button>
@@ -110,75 +114,86 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from "vue";
+import { defineComponent, ref } from "vue";
 import store from "@/store";
-import {Actions} from "@/store/enums/StoreEnums";
-import {hideModal} from "@/core/helpers/dom";
+import { Actions } from "@/store/enums/StoreEnums";
+import { hideModal } from "@/core/helpers/dom";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 
 export default defineComponent({
   name: "export-customer-modal",
   setup() {
     const formData = ref({
-      exportType: '',
+      exportType: "",
     });
-    const checkAll = ref(false)
-    const isIndeterminate = ref(false)
+    const checkAll = ref(false);
+    const isIndeterminate = ref(false);
     const checkedTypes = ref<number[]>([]);
     const exportTypes = [
       {
         typeId: 1,
-        typeName: 'User score'
+        typeName: "User score",
       },
       {
         typeId: 2,
-        typeName: 'Blacklist score'
-      }, {
+        typeName: "Blacklist score",
+      },
+      {
         typeId: 3,
-        typeName: 'Job score'
-      }, {
+        typeName: "Job score",
+      },
+      {
         typeId: 4,
-        typeName: 'Credit score'
-      }
+        typeName: "Credit score",
+      },
     ];
     const loading = ref<boolean>(false);
     const exportCustomerModalRef = ref<null | HTMLElement>(null);
 
-    async function exportCustomersScoreAPI(searchType?: string, idNo?: string, phone?: string, fullName?: string) {
-      console.log(`call API`)
+    async function exportCustomersScoreAPI(
+      searchType?: string,
+      idNo?: string,
+      phone?: string,
+      fullName?: string
+    ) {
+      console.log(`call API`);
       loading.value = true;
       await store.dispatch(Actions.EXPORT_CUSTOMERS_SCORE_ACTION, {
         params: {
-          idNo: idNo ? idNo : '',
-          phone: phone ? phone : '',
-          name: fullName ? fullName : '',
-          searchType: searchType ? searchType : '',
+          idNo: idNo ? idNo : "",
+          phone: phone ? phone : "",
+          name: fullName ? fullName : "",
+          searchType: searchType ? searchType : "",
         },
-        responseType: 'blob',
+        responseType: "blob",
       });
       const exportCustomerResp = store.getters.getExportCustomerResp;
       loading.value = false;
       return exportCustomerResp;
-    };
+    }
 
     const submitExport = async () => {
-      console.log(`submit export ${checkedTypes.value}`)
-      const exportCustomerResp = await exportCustomersScoreAPI(checkedTypes.value.join(","));
+      console.log(`submit export ${checkedTypes.value}`);
+      const exportCustomerResp = await exportCustomersScoreAPI(
+        checkedTypes.value.join(",")
+      );
       if (exportCustomerResp.status == 200) {
         console.log(exportCustomerResp);
         let filename = "";
-        let disposition = exportCustomerResp.headers['content-disposition'];
-        if (disposition && disposition.indexOf('attachment') !== -1) {
+        let disposition = exportCustomerResp.headers["content-disposition"];
+        if (disposition && disposition.indexOf("attachment") !== -1) {
           let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
           let matches = filenameRegex.exec(disposition);
           if (matches != null && matches[1]) {
-            filename = matches[1].replace(/['"]/g, '');
+            filename = matches[1].replace(/['"]/g, "");
           }
         }
-        const temp = window.URL.createObjectURL(new Blob([exportCustomerResp.data]));
-        const link = document.createElement('a');
+        const temp = window.URL.createObjectURL(
+          new Blob([exportCustomerResp.data])
+        );
+        const link = document.createElement("a");
         link.href = temp;
-        link.setAttribute('download', filename); //or any other extension
+        link.setAttribute("download", filename); //or any other extension
         document.body.appendChild(link);
         link.click();
       } else {
@@ -194,19 +209,20 @@ export default defineComponent({
           hideModal(exportCustomerModalRef.value);
         });
       }
-    }
+    };
 
     const handleCheckAllChange = (val: boolean) => {
-      console.log(checkAll.value)
+      console.log(checkAll.value);
       checkedTypes.value = val ? exportTypes.map((e) => e.typeId) : [];
       isIndeterminate.value = false;
-      console.log(checkAll.value)
-    }
+      console.log(checkAll.value);
+    };
     const handleCheckedTypesChange = (value: any[]) => {
       const checkedCount = value.length;
       checkAll.value = checkedCount === exportTypes.length;
-      isIndeterminate.value = checkedCount > 0 && checkedCount < exportTypes.length;
-    }
+      isIndeterminate.value =
+        checkedCount > 0 && checkedCount < exportTypes.length;
+    };
 
     return {
       submitExport,
@@ -218,12 +234,10 @@ export default defineComponent({
       exportTypes,
       handleCheckAllChange,
       handleCheckedTypesChange,
-      exportCustomerModalRef
-    }
-  }
+      exportCustomerModalRef,
+    };
+  },
 });
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

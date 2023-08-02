@@ -65,7 +65,7 @@ const messages = {
     customerScoreListing: "Customers Score",
     customerDetails: "Customers Details",
     statistics: "Statistics",
-    requestStatistics: "Request Statistics"
+    requestStatistics: "Request Statistics",
   },
   es: {
     dashboard: "Tablero",
@@ -131,7 +131,7 @@ const messages = {
     customerDetails: "Detalles De Los Clientes",
     customerScoreListing: "Customers Score",
     statistics: "Statistics",
-    requestStatistics: "Request Statistics"
+    requestStatistics: "Request Statistics",
   },
   de: {
     dashboard: "Instrumententafel",
@@ -197,7 +197,7 @@ const messages = {
     customerDetails: "Kundenangaben",
     customerScoreListing: "Customers Score",
     statistics: "Statistics",
-    requestStatistics: "Request Statistics"
+    requestStatistics: "Request Statistics",
   },
   ja: {
     dashboard: "ダッシュボード",
@@ -263,7 +263,7 @@ const messages = {
     customerDetails: "お客様の詳細",
     customerScoreListing: "Customers Score",
     statistics: "Statistics",
-    requestStatistics: "Request Statistics"
+    requestStatistics: "Request Statistics",
   },
   fr: {
     dashboard: "Générateur de mise",
@@ -329,7 +329,7 @@ const messages = {
     customerDetails: "Détails Des Clients",
     customerScoreListing: "Customers Score",
     statistics: "Statistics",
-    requestStatistics: "Request Statistics"
+    requestStatistics: "Request Statistics",
   },
 };
 

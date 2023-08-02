@@ -68,11 +68,7 @@
       created-at="4 days ago"
     ></KTFile>
 
-    <KTFile
-      file-title="Logo"
-      file-type="ai"
-      created-at="5 days ago"
-    ></KTFile>
+    <KTFile file-title="Logo" file-type="ai" created-at="5 days ago"></KTFile>
 
     <KTFile
       file-title="Orders backup"

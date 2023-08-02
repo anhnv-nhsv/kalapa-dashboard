@@ -1,5 +1,11 @@
 <template>
-  <div class="modal fade" id="kt_modal_sync_kalapa_data" ref="syncKalapaModalRef" tabindex="-1" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="kt_modal_sync_kalapa_data"
+    ref="syncKalapaModalRef"
+    tabindex="-1"
+    aria-hidden="true"
+  >
     <div class="modal-dialog modal-dialog-centered mw-650px">
       <div class="modal-content">
         <div class="modal-header" id="kt_modal_sync_kalapa_data_header">
@@ -7,7 +13,11 @@
           <h2 class="fw-bolder">Sync data from Kalapa</h2>
           <!--end::Modal title-->
           <!--begin::Close-->
-          <div id="kt_modal_sync_kalapa_data_close" data-bs-dismiss="modal" class="btn btn-icon btn-sm btn-active-icon-primary">
+          <div
+            id="kt_modal_sync_kalapa_data_close"
+            data-bs-dismiss="modal"
+            class="btn btn-icon btn-sm btn-active-icon-primary"
+          >
             <span class="svg-icon svg-icon-1">
               <inline-svg src="media/icons/duotune/arrows/arr061.svg" />
             </span>
@@ -24,7 +34,12 @@
         <!--begin::Modal footer-->
         <div class="modal-footer">
           <!--begin::Button-->
-          <button type="reset" id="kt_modal_sync_kalapa_data_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">
+          <button
+            type="reset"
+            id="kt_modal_sync_kalapa_data_cancel"
+            class="btn btn-light me-3"
+            data-bs-dismiss="modal"
+          >
             Discard
           </button>
           <!--end::Button-->
@@ -36,18 +51,18 @@
             type="submit"
             @click.prevent="syncKalapa"
           >
-              <span v-if="!loading" class="indicator-label">
-                Submit
-                <span class="svg-icon svg-icon-3 ms-2 me-0">
-                  <inline-svg src="icons/duotune/arrows/arr064.svg" />
-                </span>
+            <span v-if="!loading" class="indicator-label">
+              Submit
+              <span class="svg-icon svg-icon-3 ms-2 me-0">
+                <inline-svg src="icons/duotune/arrows/arr064.svg" />
               </span>
+            </span>
             <span v-if="loading" class="indicator-progress">
-                Please wait...
-                <span
-                    class="spinner-border spinner-border-sm align-middle ms-2"
-                ></span>
-              </span>
+              Please wait...
+              <span
+                class="spinner-border spinner-border-sm align-middle ms-2"
+              ></span>
+            </span>
           </button>
           <!--end::Button-->
         </div>
@@ -58,26 +73,26 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from "vue";
-import {hideModal} from "@/core/helpers/dom";
+import { defineComponent, ref } from "vue";
+import { hideModal } from "@/core/helpers/dom";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import store from "@/store";
-import {Actions} from "@/store/enums/StoreEnums";
+import { Actions } from "@/store/enums/StoreEnums";
 
-export default defineComponent ({
+export default defineComponent({
   name: "sync-kalapa-modal",
   setup() {
     const loading = ref(false);
     const syncKalapaModalRef = ref<null | HTMLElement>(null);
 
     async function callAPISyncKalapaData() {
-      console.log(`call API sync Kalapa`)
+      console.log(`call API sync Kalapa`);
       loading.value = true;
       await store.dispatch(Actions.SYNC_KALAPA_SCORE_ACTION, null);
       const syncStatusCode = store.getters.getSyncKalapaStatusCode;
       loading.value = false;
       return syncStatusCode;
-    };
+    }
 
     function syncKalapa() {
       loading.value = true;
@@ -116,10 +131,8 @@ export default defineComponent ({
       syncKalapaModalRef,
       syncKalapa,
     };
-  }
+  },
 });
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
