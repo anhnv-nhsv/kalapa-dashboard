@@ -4,10 +4,7 @@ import { Actions, Mutations } from "@/store/enums/StoreEnums";
 import { Module, Action, Mutation, VuexModule } from "vuex-module-decorators";
 
 export interface User {
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
+  success: boolean;
   token: string;
 }
 
@@ -65,10 +62,10 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
     this.user = user;
   }
 
-  @Mutation
-  [Mutations.SET_PASSWORD](password) {
-    this.user.password = password;
-  }
+  // @Mutation
+  // [Mutations.SET_PASSWORD](password) {
+  //   this.user.password = password;
+  // }
 
   @Mutation
   [Mutations.PURGE_AUTH]() {
@@ -79,9 +76,9 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
   }
 
   @Action
-  [Actions.LOGIN](credentials) {
+  [Actions.LOGIN](config) {
     return new Promise<void>((resolve, reject) => {
-      ApiService.post("login", credentials)
+      ApiService.post("/auth", config)
         .then(({ data }) => {
           this.context.commit(Mutations.SET_AUTH, data);
           resolve();
@@ -93,71 +90,71 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
     });
   }
 
-  @Action
-  [Actions.LOGOUT]() {
-    this.context.commit(Mutations.PURGE_AUTH);
-  }
+  // @Action
+  // [Actions.LOGOUT]() {
+  //   this.context.commit(Mutations.PURGE_AUTH);
+  // }
+  //
+  // @Action
+  // [Actions.REGISTER](credentials) {
+  //   return new Promise<void>((resolve, reject) => {
+  //     ApiService.post("registration", credentials)
+  //       .then(({ data }) => {
+  //         this.context.commit(Mutations.SET_AUTH, data);
+  //         resolve();
+  //       })
+  //       .catch(({ response }) => {
+  //         this.context.commit(Mutations.SET_ERROR, response.data.errors);
+  //         reject();
+  //       });
+  //   });
+  // }
+  //
+  // @Action
+  // [Actions.FORGOT_PASSWORD](payload) {
+  //   return new Promise<void>((resolve, reject) => {
+  //     ApiService.post("forgot_password", payload)
+  //       .then(({ data }) => {
+  //         this.context.commit(Mutations.SET_AUTH, data);
+  //         resolve();
+  //       })
+  //       .catch(({ response }) => {
+  //         console.log(response.data.errors);
+  //         this.context.commit(Mutations.SET_ERROR, response.data.errors);
+  //         reject();
+  //       });
+  //   });
+  // }
 
-  @Action
-  [Actions.REGISTER](credentials) {
-    return new Promise<void>((resolve, reject) => {
-      ApiService.post("registration", credentials)
-        .then(({ data }) => {
-          this.context.commit(Mutations.SET_AUTH, data);
-          resolve();
-        })
-        .catch(({ response }) => {
-          this.context.commit(Mutations.SET_ERROR, response.data.errors);
-          reject();
-        });
-    });
-  }
+  // @Action
+  // [Actions.VERIFY_AUTH]() {
+  //   if (JwtService.getToken()) {
+  //     ApiService.setHeader();
+  //     ApiService.get("verify")
+  //       .then(({ data }) => {
+  //         this.context.commit(Mutations.SET_AUTH, data);
+  //       })
+  //       .catch(({ response }) => {
+  //         this.context.commit(Mutations.SET_ERROR, response.data.errors);
+  //       });
+  //   } else {
+  //     this.context.commit(Mutations.PURGE_AUTH);
+  //   }
+  // }
 
-  @Action
-  [Actions.FORGOT_PASSWORD](payload) {
-    return new Promise<void>((resolve, reject) => {
-      ApiService.post("forgot_password", payload)
-        .then(({ data }) => {
-          this.context.commit(Mutations.SET_AUTH, data);
-          resolve();
-        })
-        .catch(({ response }) => {
-          console.log(response.data.errors);
-          this.context.commit(Mutations.SET_ERROR, response.data.errors);
-          reject();
-        });
-    });
-  }
-
-  @Action
-  [Actions.VERIFY_AUTH]() {
-    if (JwtService.getToken()) {
-      ApiService.setHeader();
-      ApiService.get("verify")
-        .then(({ data }) => {
-          this.context.commit(Mutations.SET_AUTH, data);
-        })
-        .catch(({ response }) => {
-          this.context.commit(Mutations.SET_ERROR, response.data.errors);
-        });
-    } else {
-      this.context.commit(Mutations.PURGE_AUTH);
-    }
-  }
-
-  @Action
-  [Actions.UPDATE_USER](payload) {
-    ApiService.setHeader();
-    return new Promise<void>((resolve, reject) => {
-      ApiService.post("update_user", payload)
-        .then(({ data }) => {
-          this.context.commit(Mutations.SET_USER, data);
-          resolve();
-        })
-        .catch(({ response }) => {
-          this.context.commit(Mutations.SET_ERROR, response.data.errors);
-          reject();
-        });
-    });
-  }
+  // @Action
+  // [Actions.UPDATE_USER](payload) {
+  //   ApiService.setHeader();
+  //   return new Promise<void>((resolve, reject) => {
+  //     ApiService.post("update_user", payload)
+  //       .then(({ data }) => {
+  //         this.context.commit(Mutations.SET_USER, data);
+  //         resolve();
+  //       })
+  //       .catch(({ response }) => {
+  //         this.context.commit(Mutations.SET_ERROR, response.data.errors);
+  //         reject();
+  //       });
+  //   });
+  // }
 }

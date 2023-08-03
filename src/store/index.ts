@@ -12,7 +12,7 @@ config.rawError = true;
 
 const store = createStore({
   modules: {
-    // AuthModule,
+    AuthModule,
     BodyModule,
     BreadcrumbsModule,
     ConfigModule,

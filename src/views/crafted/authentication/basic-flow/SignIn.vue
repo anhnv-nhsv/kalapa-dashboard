@@ -15,41 +15,41 @@
         <!--end::Title-->
 
         <!--begin::Link-->
-        <div class="text-gray-400 fw-bold fs-4">
-          New Here?
+        <!--        <div class="text-gray-400 fw-bold fs-4">-->
+        <!--          New Here?-->
 
-          <router-link to="/sign-up" class="link-primary fw-bolder">
-            Create an Account
-          </router-link>
-        </div>
+        <!--          <router-link to="/sign-up" class="link-primary fw-bolder">-->
+        <!--            Create an Account-->
+        <!--          </router-link>-->
+        <!--        </div>-->
         <!--end::Link-->
       </div>
       <!--begin::Heading-->
 
-      <div class="mb-10 bg-light-info p-8 rounded">
-        <div class="text-info">
-          Use account <strong>admin@demo.com</strong> and password
-          <strong>demo</strong> to continue.
-        </div>
-      </div>
+      <!--      <div class="mb-10 bg-light-info p-8 rounded">-->
+      <!--        <div class="text-info">-->
+      <!--          Use account <strong>admin@demo.com</strong> and password-->
+      <!--          <strong>demo</strong> to continue.-->
+      <!--        </div>-->
+      <!--      </div>-->
 
       <!--begin::Input group-->
       <div class="fv-row mb-10">
         <!--begin::Label-->
-        <label class="form-label fs-6 fw-bolder text-dark">Email</label>
+        <label class="form-label fs-6 fw-bolder text-dark">Username</label>
         <!--end::Label-->
 
         <!--begin::Input-->
         <Field
           class="form-control form-control-lg form-control-solid"
           type="text"
-          name="email"
+          name="username"
           autocomplete="off"
         />
         <!--end::Input-->
         <div class="fv-plugins-message-container">
           <div class="fv-help-block">
-            <ErrorMessage name="email" />
+            <ErrorMessage name="username"/>
           </div>
         </div>
       </div>
@@ -61,14 +61,14 @@
         <div class="d-flex flex-stack mb-2">
           <!--begin::Label-->
           <label class="form-label fw-bolder text-dark fs-6 mb-0"
-            >Password</label
+          >Password</label
           >
           <!--end::Label-->
 
           <!--begin::Link-->
-          <router-link to="/password-reset" class="link-primary fs-6 fw-bolder">
-            Forgot Password ?
-          </router-link>
+          <!--          <router-link to="/password-reset" class="link-primary fs-6 fw-bolder">-->
+          <!--            Forgot Password ?-->
+          <!--          </router-link>-->
           <!--end::Link-->
         </div>
         <!--end::Wrapper-->
@@ -83,7 +83,7 @@
         <!--end::Input-->
         <div class="fv-plugins-message-container">
           <div class="fv-help-block">
-            <ErrorMessage name="password" />
+            <ErrorMessage name="password"/>
           </div>
         </div>
       </div>
@@ -98,7 +98,7 @@
           id="kt_sign_in_submit"
           class="btn btn-lg btn-primary w-100 mb-5"
         >
-          <span class="indicator-label"> Continue </span>
+          <span class="indicator-label"> Sign in </span>
 
           <span class="indicator-progress">
             Please wait...
@@ -110,48 +110,48 @@
         <!--end::Submit button-->
 
         <!--begin::Separator-->
-        <div class="text-center text-muted text-uppercase fw-bolder mb-5">
-          or
-        </div>
+        <!--        <div class="text-center text-muted text-uppercase fw-bolder mb-5">-->
+        <!--          or-->
+        <!--        </div>-->
         <!--end::Separator-->
 
         <!--begin::Google link-->
-        <a
-          href="#"
-          class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5"
-        >
-          <img
-            alt="Logo"
-            src="media/svg/brand-logos/google-icon.svg"
-            class="h-20px me-3"
-          />
-          Continue with Google
-        </a>
+        <!--        <a-->
+        <!--          href="#"-->
+        <!--          class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5"-->
+        <!--        >-->
+        <!--          <img-->
+        <!--            alt="Logo"-->
+        <!--            src="media/svg/brand-logos/google-icon.svg"-->
+        <!--            class="h-20px me-3"-->
+        <!--          />-->
+        <!--          Continue with Google-->
+        <!--        </a>-->
         <!--end::Google link-->
 
         <!--begin::Google link-->
-        <a
-          href="#"
-          class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5"
-        >
-          <img
-            alt="Logo"
-            src="media/svg/brand-logos/facebook-4.svg"
-            class="h-20px me-3"
-          />
-          Continue with Facebook
-        </a>
+        <!--        <a-->
+        <!--          href="#"-->
+        <!--          class="btn btn-flex flex-center btn-light btn-lg w-100 mb-5"-->
+        <!--        >-->
+        <!--          <img-->
+        <!--            alt="Logo"-->
+        <!--            src="media/svg/brand-logos/facebook-4.svg"-->
+        <!--            class="h-20px me-3"-->
+        <!--          />-->
+        <!--          Continue with Facebook-->
+        <!--        </a>-->
         <!--end::Google link-->
 
         <!--begin::Google link-->
-        <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100">
-          <img
-            alt="Logo"
-            src="media/svg/brand-logos/apple-black.svg"
-            class="h-20px me-3"
-          />
-          Continue with Apple
-        </a>
+        <!--        <a href="#" class="btn btn-flex flex-center btn-light btn-lg w-100">-->
+        <!--          <img-->
+        <!--            alt="Logo"-->
+        <!--            src="media/svg/brand-logos/apple-black.svg"-->
+        <!--            class="h-20px me-3"-->
+        <!--          />-->
+        <!--          Continue with Apple-->
+        <!--        </a>-->
         <!--end::Google link-->
       </div>
       <!--end::Actions-->
@@ -162,11 +162,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import { ErrorMessage, Field, Form } from "vee-validate";
-import { Actions } from "@/store/enums/StoreEnums";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import {defineComponent, ref} from "vue";
+import {ErrorMessage, Field, Form} from "vee-validate";
+import {Actions} from "@/store/enums/StoreEnums";
+import {useStore} from "vuex";
+import {useRouter} from "vue-router";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
 import * as Yup from "yup";
 
@@ -185,14 +185,14 @@ export default defineComponent({
 
     //Create form validation object
     const login = Yup.object().shape({
-      email: Yup.string().email().required().label("Email"),
-      password: Yup.string().min(4).required().label("Password"),
+      username: Yup.string().required().label("Username"),
+      password: Yup.string().required().label("Password"),
     });
 
     //Form submit function
     const onSubmitLogin = (values) => {
       // Clear existing errors
-      store.dispatch(Actions.LOGOUT);
+      // store.dispatch(Actions.LOGOUT);
 
       if (submitButton.value) {
         // Activate indicator
@@ -203,7 +203,10 @@ export default defineComponent({
       setTimeout(() => {
         // Send login request
         store
-          .dispatch(Actions.LOGIN, values)
+          .dispatch(Actions.LOGIN, {
+            headers: {'content-type': 'application/x-www-form-urlencoded'},
+            data: values
+          })
           .then(() => {
             Swal.fire({
               text: "All is cool! Now you submit this form",
@@ -215,7 +218,7 @@ export default defineComponent({
               },
             }).then(function () {
               // Go to page after successfully login
-              router.push({ name: "dashboard" });
+              router.push({name: "dashboard"});
             });
           })
           .catch(() => {

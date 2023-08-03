@@ -19,7 +19,8 @@ class ApiService {
   public static init(app: App<Element>) {
     ApiService.vueInstance = app;
     ApiService.vueInstance.use(VueAxios, axios);
-    ApiService.vueInstance.axios.defaults.baseURL = process.env.VUE_APP_API_URL;
+    ApiService.vueInstance.axios.defaults.baseURL = process.env.VUE_APP_GW_URL;
+    ApiService.vueInstance.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
   }
 
   /**
