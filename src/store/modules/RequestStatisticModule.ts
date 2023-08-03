@@ -30,7 +30,7 @@ export default class RequestStatisticModule extends VuexModule {
   @Action
   [Actions.GET_REQUEST_STATISTICS_ACTION](params) {
     return new Promise<void>((resolve, reject) => {
-      ApiService.query("/search-history", params)
+      ApiService.query("/api/search-history", params)
         .then((res) => {
           this.context.commit(
             Mutations.GET_REQUEST_STATISTICS_MUTATION,

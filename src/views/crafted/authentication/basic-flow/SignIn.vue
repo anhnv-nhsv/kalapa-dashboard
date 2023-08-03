@@ -203,16 +203,13 @@ export default defineComponent({
       setTimeout(() => {
         // Send login request
         store
-          .dispatch(Actions.LOGIN, {
-            headers: {'content-type': 'application/x-www-form-urlencoded'},
-            data: values
-          })
+          .dispatch(Actions.LOGIN, new URLSearchParams(values))
           .then(() => {
             Swal.fire({
-              text: "All is cool! Now you submit this form",
+              text: "Sign in successfully",
               icon: "success",
               buttonsStyling: false,
-              confirmButtonText: "Ok, got it!",
+              confirmButtonText: "Continue",
               customClass: {
                 confirmButton: "btn fw-bold btn-light-primary",
               },
@@ -223,10 +220,11 @@ export default defineComponent({
           })
           .catch(() => {
             Swal.fire({
-              text: store.getters.getErrors[0],
+              // text: store.getters.getErrors[0],
+              text: 'Sing in failed. Please contact administrator',
               icon: "error",
               buttonsStyling: false,
-              confirmButtonText: "Try again!",
+              confirmButtonText: "Try again",
               customClass: {
                 confirmButton: "btn fw-bold btn-light-danger",
               },

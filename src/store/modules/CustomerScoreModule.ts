@@ -38,7 +38,7 @@ export default class CustomerScoreModule extends VuexModule {
   @Action
   [Actions.GET_CUSTOMERS_SCORE_ACTION](params) {
     return new Promise<void>((resolve, reject) => {
-      ApiService.query("/account-info", params)
+      ApiService.query("/api/account-info", params)
         .then((res) => {
           this.context.commit(Mutations.GET_CUSTOMERS_SCORE_MUTATION, res.data);
           resolve();
@@ -53,7 +53,7 @@ export default class CustomerScoreModule extends VuexModule {
   @Action
   [Actions.SYNC_KALAPA_SCORE_ACTION](params) {
     return new Promise<void>((resolve, reject) => {
-      ApiService.post("/account-info/sync-kalapa", params)
+      ApiService.post("/api/account-info/sync-kalapa", params)
         .then((res) => {
           console.log(res);
           this.context.commit(Mutations.SYNC_KALAPA_SCORE_MUTATION, res.status);
@@ -69,7 +69,7 @@ export default class CustomerScoreModule extends VuexModule {
   @Action
   [Actions.EXPORT_CUSTOMERS_SCORE_ACTION](params) {
     return new Promise<void>((resolve, reject) => {
-      ApiService.query("/account-info/export/excel", params)
+      ApiService.query("/api/account-info/export/excel", params)
         .then((res) => {
           console.log(res);
           this.context.commit(Mutations.EXPORT_CUSTOMERS_SCORE_MUTATION, res);

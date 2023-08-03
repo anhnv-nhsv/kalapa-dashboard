@@ -76,9 +76,9 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
   }
 
   @Action
-  [Actions.LOGIN](config) {
+  [Actions.LOGIN](credentials) {
     return new Promise<void>((resolve, reject) => {
-      ApiService.post("/auth", config)
+      ApiService.post("/auth", credentials)
         .then(({ data }) => {
           this.context.commit(Mutations.SET_AUTH, data);
           resolve();
