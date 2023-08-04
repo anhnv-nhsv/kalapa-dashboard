@@ -29,7 +29,7 @@ class ApiService {
   public static setHeader(): void {
     ApiService.vueInstance.axios.defaults.headers.common[
       "Authorization"
-    ] = `Token ${JwtService.getToken()}`;
+    ] = `Bearer ${JwtService.getToken()}`;
   }
 
   /**
@@ -42,9 +42,7 @@ class ApiService {
     resource: string,
     params: AxiosRequestConfig
   ): Promise<AxiosResponse> {
-    return ApiService.vueInstance.axios.get(resource, params).catch((error) => {
-      throw new Error(`[KT] ApiService ${error}`);
-    });
+    return ApiService.vueInstance.axios.get(resource, params);
   }
 
   /**

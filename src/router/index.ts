@@ -268,12 +268,16 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(() => {
+router.beforeEach((to, from, next) => {
   // reset config to initial state
   store.commit(Mutations.RESET_LAYOUT_CONFIG);
 
   store.dispatch(Actions.VERIFY_AUTH);
-
+  if (to.name !== 'sign-in' && !store.getters.isUserAuthenticated) {
+    next({ name: 'sign-in' });
+  } else {
+    next();
+  }
   // Scroll page to top on every route change
   setTimeout(() => {
     window.scrollTo(0, 0);
