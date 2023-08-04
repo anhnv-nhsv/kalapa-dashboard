@@ -190,50 +190,49 @@ export default defineComponent({
     });
 
     //Form submit function
-    const onSubmitLogin = (values) => {
+    const onSubmitLogin = async (values) => {
       // Clear existing errors
-      // store.dispatch(Actions.LOGOUT);
+      await store.dispatch(Actions.LOGOUT);
 
       if (submitButton.value) {
         // Activate indicator
         submitButton.value.setAttribute("data-kt-indicator", "on");
+        submitButton.value.setAttribute("disabled", "");
+      }
+      // Send login request
+      await store.dispatch(Actions.LOGIN, new URLSearchParams(values));
+      const signinResponse = store.getters.currentUser;
+      if (signinResponse.success) {
+        Swal.fire({
+          text: "Sign in successfully",
+          icon: "success",
+          buttonsStyling: false,
+          confirmButtonText: "Continue",
+          customClass: {
+            confirmButton: "btn fw-bold btn-light-primary",
+          },
+        }).then(function () {
+          // Go to page after successfully login
+          router.push({name: "dashboard"});
+        });
+      } else {
+        {
+          Swal.fire({
+            // text: store.getters.getErrors[0],
+            text: 'Sing in failed. Please contact administrator',
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Try again",
+            customClass: {
+              confirmButton: "btn fw-bold btn-light-danger",
+            },
+          });
+        }
       }
 
-      // Dummy delay
-      setTimeout(() => {
-        // Send login request
-        store
-          .dispatch(Actions.LOGIN, new URLSearchParams(values))
-          .then(() => {
-            Swal.fire({
-              text: "Sign in successfully",
-              icon: "success",
-              buttonsStyling: false,
-              confirmButtonText: "Continue",
-              customClass: {
-                confirmButton: "btn fw-bold btn-light-primary",
-              },
-            }).then(function () {
-              // Go to page after successfully login
-              router.push({name: "dashboard"});
-            });
-          })
-          .catch(() => {
-            Swal.fire({
-              // text: store.getters.getErrors[0],
-              text: 'Sing in failed. Please contact administrator',
-              icon: "error",
-              buttonsStyling: false,
-              confirmButtonText: "Try again",
-              customClass: {
-                confirmButton: "btn fw-bold btn-light-danger",
-              },
-            });
-          });
-
-        //Deactivate indicator
-        submitButton.value?.removeAttribute("data-kt-indicator");
-      }, 2000);
+      //Deactivate indicator
+      submitButton.value?.removeAttribute("data-kt-indicator");
+      submitButton.value?.removeAttribute("disabled");
     };
 
     return {

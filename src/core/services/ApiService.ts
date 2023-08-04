@@ -32,6 +32,10 @@ class ApiService {
     ] = `Bearer ${JwtService.getToken()}`;
   }
 
+  public static clearAuthorizationHeader(): void {
+    delete ApiService.vueInstance.axios.defaults.headers.common["Authorization"];
+  }
+
   /**
    * @description send the GET HTTP request
    * @param resource: string

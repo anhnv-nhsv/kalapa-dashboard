@@ -231,6 +231,13 @@ const routes: Array<RouteRecordRaw> = [
         name: "sign-in",
         component: () =>
           import("@/views/crafted/authentication/basic-flow/SignIn.vue"),
+        beforeEnter:  async (to, from, next) => {
+          const isLoggedIn = store.getters.isUserAuthenticated;
+          if (isLoggedIn) {
+            return next({ name: "dashboard" });
+          }
+          next();
+        },
       },
       {
         path: "/sign-up",
