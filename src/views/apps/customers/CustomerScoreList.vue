@@ -212,22 +212,31 @@
         <template v-slot:cell-custNM="{ row: reqs }">{{
           reqs.custNM
         }}</template>
-        <template v-slot:cell-score="{ row: reqs }">{{
-          reqs.userScore.score
-        }}</template>
-        <template v-slot:cell-cnte="{ row: reqs }">{{ reqs.cnte }}</template>
+        <template v-slot:cell-score="{ row: reqs }">
+          <span v-if="reqs.userScore.score >= 801 && reqs.userScore.score <= 850" class="badge badge-lg badge-success">{{ reqs.userScore.score }}</span>
+          <span v-if="reqs.userScore.score >= 600 && reqs.userScore.score <= 800" class="badge badge-lg badge-primary">{{ reqs.userScore.score }}</span>
+          <span v-if="reqs.userScore.score >= 500 && reqs.userScore.score <= 599" class="badge badge-lg badge-warning">{{ reqs.userScore.score }}</span>
+          <span v-if="reqs.userScore.score >= 350 && reqs.userScore.score <= 499" class="badge badge-lg badge-danger">{{ reqs.userScore.score }}</span>
+        </template>
+        <template v-slot:cell-cnte="{ row: reqs }">
+          {{ reqs.cnte }}
+        </template>
         <template v-slot:cell-nameSimilarScore="{ row: reqs }">{{
           reqs.userScore.nameSimilarScore
         }}</template>
         <template v-slot:cell-phoneMatched="{ row: reqs }">{{
           reqs.userScore.phoneMatched
         }}</template>
-        <template v-slot:cell-fi="{ row: reqs }">{{
-          reqs.blacklist.fi
-        }}</template>
-        <template v-slot:cell-pdl="{ row: reqs }">{{
-          reqs.blacklist.pdl
-        }}</template>
+        <template v-slot:cell-fi="{ row: reqs }">
+          <span class="badge badge-lg" :class="{ 'badge-success': reqs.blacklist.fi === '0', 'badge-danger': reqs.blacklist.fi === '1'}">
+            {{ reqs.blacklist.fi }}
+          </span>
+        </template>
+        <template v-slot:cell-pdl="{ row: reqs }">
+          <span class="badge badge-lg" :class="{ 'badge-success': reqs.blacklist.pdl === '0', 'badge-danger': reqs.blacklist.pdl === '1'}">
+            {{ reqs.blacklist.pdl }}
+          </span>
+        </template>
         <template v-slot:cell-creditScore1="{ row: reqs }">{{
           reqs.creditScore.creditScore1
         }}</template>
@@ -428,6 +437,17 @@ export default defineComponent({
       );
       setCurrentPageBreadcrumbs("Customers Score", ["Apps", "Customers"]);
     });
+    const truncatedText = (txt, length) => {
+      if (txt) {
+        if (txt.length <= length) {
+          return txt;
+        } else {
+          return txt.substring(0, length) + '...';
+        }
+      } else {
+        return '';
+      }
+    }
     return {
       searchType,
       tableHeader,
@@ -438,6 +458,7 @@ export default defineComponent({
       pagination,
       searchCustomerScore,
       formSearch1,
+      truncatedText,
     };
   },
 });

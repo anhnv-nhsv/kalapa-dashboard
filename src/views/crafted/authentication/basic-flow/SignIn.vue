@@ -219,7 +219,7 @@ export default defineComponent({
         {
           Swal.fire({
             // text: store.getters.getErrors[0],
-            text: 'Sing in failed. Please contact administrator',
+            text: 'Sign in failed. Please contact administrator',
             icon: "error",
             buttonsStyling: false,
             confirmButtonText: "Try again",

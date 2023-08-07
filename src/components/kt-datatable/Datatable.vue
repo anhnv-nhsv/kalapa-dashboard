@@ -41,7 +41,7 @@
             <template v-for="(item, i) in getItems" :key="i">
               <tr class="odd">
                 <template v-for="(cell, i) in tableHeader" :key="i">
-                  <td :class="{ 'text-end': tableHeader.length - 1 === i }">
+                  <td class="text-center">
                     <slot :name="`cell-${cell.key}`" :row="item">
                       {{ item[prop] }}
                     </slot>

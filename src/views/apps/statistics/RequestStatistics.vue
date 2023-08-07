@@ -165,7 +165,7 @@ export default defineComponent({
         key: "fromIP",
       },
       {
-        name: "API URI",
+        name: "NH API",
         key: "apiUri",
       },
       {
@@ -177,11 +177,11 @@ export default defineComponent({
         key: "message",
       },
       {
-        name: "3rd API URI",
+        name: "Kalapa API",
         key: "thirtyServiceAPIURI",
       },
       {
-        name: "Thời gian phản hồi 3rd",
+        name: "Thời gian phản hồi Kalapa (ms)",
         key: "thirtyResponseTime",
       },
     ]);
