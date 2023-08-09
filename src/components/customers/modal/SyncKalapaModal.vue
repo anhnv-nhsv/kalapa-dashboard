@@ -73,7 +73,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import {defineComponent, ref, watch} from "vue";
 import { hideModal } from "@/core/helpers/dom";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import store from "@/store";
@@ -81,14 +81,34 @@ import { Actions } from "@/store/enums/StoreEnums";
 
 export default defineComponent({
   name: "sync-kalapa-modal",
-  setup() {
+  props: {
+    syncPayload: { type: Array, required: false, default: () => [] },
+  },
+  setup(props) {
     const loading = ref(false);
     const syncKalapaModalRef = ref<null | HTMLElement>(null);
+    const syncPropData = ref(props.syncPayload);
+    watch(
+      () => props.syncPayload,
+      (newVal, oldVal) => {
+        syncPropData.value = newVal;
+        console.log(syncPropData.value)
+      }
+    );
 
     async function callAPISyncKalapaData() {
       console.log(`call API sync Kalapa`);
       loading.value = true;
-      await store.dispatch(Actions.SYNC_KALAPA_SCORE_ACTION, null);
+      const rawPropData = JSON.parse(JSON.stringify(syncPropData.value));
+      console.log(rawPropData)
+      const syncPayload = rawPropData.map(e => {
+        return {
+          id: e.idno,
+          name: e.custNM,
+          mobile: e.tel
+        }
+      });
+      await store.dispatch(Actions.SYNC_KALAPA_SCORE_ACTION, syncPayload);
       const syncStatusCode = store.getters.getSyncKalapaStatusCode;
       loading.value = false;
       return syncStatusCode;

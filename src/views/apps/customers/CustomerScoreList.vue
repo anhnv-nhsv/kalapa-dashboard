@@ -20,7 +20,7 @@
                 </label>
               </div>
             </div>
-            <div class="w-auto me-10">
+            <div v-if="userRole === 'all'" class="w-auto me-10">
               <div class="form-check form-check-custom form-check-solid">
                 <input
                   class="form-check-input"
@@ -36,7 +36,7 @@
                 </label>
               </div>
             </div>
-            <div class="w-auto me-10">
+            <div v-if="userRole === 'all'" class="w-auto me-10">
               <div class="form-check form-check-custom form-check-solid">
                 <input
                   class="form-check-input"
@@ -196,109 +196,36 @@
         </div>
       </div>
       <!--end::Card title-->
+      <div class="card-toolbar">
+        <button  type="button"
+                 class="btn btn-primary"
+                 disabled
+                 ref="syncKLPBtn"
+                 data-bs-toggle="modal"
+                 data-bs-target="#kt_modal_sync_kalapa_data">
+          Sync selected user from Kalapa
+        </button>
+      </div>
     </div>
     <div class="card-body pt-0">
       <CustomerDatatable
         v-if="customerScoreData && pagination"
-        :table-header="tableHeader"
-        :table-header-flattened="tableHeaderFlattened"
+        :table-header="tableHeader2"
         :table-data="customerScoreData"
         :pagination="pagination"
+        :user-role="userRole"
+        :enable-items-per-page-dropdown="true"
+        :loading="loading"
         @change-page="changePage"
+        @change-page-size="changePageSize"
+        @single-select="handleSingleSelection"
+        @multiple-select="handleMultipleSelection"
       >
-        <template v-slot:cell-seq="{ row: reqs }">{{ reqs.seq }}</template>
-        <template v-slot:cell-idno="{ row: reqs }">{{ reqs.idno }}</template>
-        <template v-slot:cell-tel="{ row: reqs }">{{ reqs.tel }}</template>
-        <template v-slot:cell-custNM="{ row: reqs }">{{
-          reqs.custNM
-        }}</template>
-        <template v-slot:cell-score="{ row: reqs }">
-          <span v-if="reqs.userScore.score >= 801 && reqs.userScore.score <= 850" class="badge badge-lg badge-success">{{ reqs.userScore.score }}</span>
-          <span v-if="reqs.userScore.score >= 600 && reqs.userScore.score <= 800" class="badge badge-lg badge-primary">{{ reqs.userScore.score }}</span>
-          <span v-if="reqs.userScore.score >= 500 && reqs.userScore.score <= 599" class="badge badge-lg badge-warning">{{ reqs.userScore.score }}</span>
-          <span v-if="reqs.userScore.score >= 350 && reqs.userScore.score <= 499" class="badge badge-lg badge-danger">{{ reqs.userScore.score }}</span>
-        </template>
-        <template v-slot:cell-cnte="{ row: reqs }">
-          {{ reqs.cnte }}
-        </template>
-        <template v-slot:cell-nameSimilarScore="{ row: reqs }">{{
-          reqs.userScore.nameSimilarScore
-        }}</template>
-        <template v-slot:cell-phoneMatched="{ row: reqs }">{{
-          reqs.userScore.phoneMatched
-        }}</template>
-        <template v-slot:cell-fi="{ row: reqs }">
-          <span class="badge badge-lg" :class="{ 'badge-success': reqs.blacklist.fi === '0', 'badge-danger': reqs.blacklist.fi === '1'}">
-            {{ reqs.blacklist.fi }}
-          </span>
-        </template>
-        <template v-slot:cell-pdl="{ row: reqs }">
-          <span class="badge badge-lg" :class="{ 'badge-success': reqs.blacklist.pdl === '0', 'badge-danger': reqs.blacklist.pdl === '1'}">
-            {{ reqs.blacklist.pdl }}
-          </span>
-        </template>
-        <template v-slot:cell-creditScore1="{ row: reqs }">{{
-          reqs.creditScore.creditScore1
-        }}</template>
-        <template v-slot:cell-creditScore2="{ row: reqs }">{{
-          reqs.creditScore.creditScore2
-        }}</template>
-        <template v-slot:cell-creditScore3="{ row: reqs }">{{
-          reqs.creditScore.creditScore3
-        }}</template>
-        <template v-slot:cell-job1Score="{ row: reqs }">{{
-          reqs.jobScore.job1Score
-        }}</template>
-        <template v-slot:cell-job1Nm="{ row: reqs }">{{
-          reqs.jobScore.job1Nm
-        }}</template>
-        <template v-slot:cell-job1TaxCd="{ row: reqs }">{{
-          reqs.jobScore.job1TaxCd
-        }}</template>
-        <template v-slot:cell-job1StrtDt="{ row: reqs }">{{
-          reqs.jobScore.job1StrtDt
-        }}</template>
-        <template v-slot:cell-job1EndDt="{ row: reqs }">{{
-          reqs.jobScore.job1EndDt
-        }}</template>
-        <template v-slot:cell-job2Score="{ row: reqs }">{{
-          reqs.jobScore.job2Score
-        }}</template>
-        <template v-slot:cell-job2Nm="{ row: reqs }">{{
-          reqs.jobScore.job2Nm
-        }}</template>
-        <template v-slot:cell-job2TaxCd="{ row: reqs }">{{
-          reqs.jobScore.job2TaxCd
-        }}</template>
-        <template v-slot:cell-job2StrtDt="{ row: reqs }">{{
-          reqs.jobScore.job2StrtDt
-        }}</template>
-        <template v-slot:cell-job2EndDt="{ row: reqs }">{{
-          reqs.jobScore.job2EndDt
-        }}</template>
-        <template v-slot:cell-job3Score="{ row: reqs }">{{
-          reqs.jobScore.job3Score
-        }}</template>
-        <template v-slot:cell-job3Nm="{ row: reqs }">{{
-          reqs.jobScore.job3Nm
-        }}</template>
-        <template v-slot:cell-job3TaxCd="{ row: reqs }">{{
-          reqs.jobScore.job3TaxCd
-        }}</template>
-        <template v-slot:cell-job3StrtDt="{ row: reqs }">{{
-          reqs.jobScore.job3StrtDt
-        }}</template>
-        <template v-slot:cell-job3EndDt="{ row: reqs }">{{
-          reqs.jobScore.job3EndDt
-        }}</template>
-        <template v-slot:cell-acntNo="{ row: reqs }">{{
-          reqs.acntNo
-        }}</template>
       </CustomerDatatable>
     </div>
   </div>
 
-  <SyncKalapaModal />
+  <SyncKalapaModal :sync-payload="syncPayload" />
   <ExportCustomerModal />
 </template>
 
@@ -365,10 +292,60 @@ export default defineComponent({
         { name: "End date 3", key: "job3EndDt" },
       ],
     ]);
+    const tableHeader2 = ref([
+      {label: "STT", prop: "seq"},
+      {label: "Số ID của KH", prop: "idno"},
+      {label: "Số điện thoại của KH", prop: "tel"},
+      {label: "Tên khách hàng", prop: "custNM"},
+      {
+        label: "USER SCORE", children: [
+          {label: "Score", prop: "userScore.score"},
+          {label: "Mô tả kết quả", prop: "cnte"},
+          {label: "Name similar score", prop: "userScore.nameSimilarScore"},
+          {label: "Phone similar score", prop: "userScore.phoneMatched"},
+        ]
+      },
+      {
+        label: "BLACKLIST", children: [
+          {label: "FI", prop: "blacklist.fi"},
+          {label: "PDL", prop: "blacklist.pdl"},
+        ]
+      },
+      {
+        label: "CREDIT SCORE", children: [
+          {label: "E-wallet, Buy now pay later", prop: "creditScore.creditScore1"},
+          {label: "Bank & FI", prop: "creditScore.creditScore2"},
+          {label: "Microlending (Short-term loan app)", prop: "creditScore.creditScore3"},
+        ]
+      },
+      {
+        label: "JOB SCORE", children: [
+          {label: "Score 1", prop: "jobScore.job1Score"},
+          {label: "Tên Công ty của KH 1", prop: "jobScore.job1Nm"},
+          {label: "Mã số thuế của Công ty 1", prop: "jobScore.job1TaxCd"},
+          {label: "Start date 1", prop: "jobScore.job1StrtDt"},
+          {label: "End date 1", prop: "jobScore.job1EndDt"},
+          {label: "Score 2", prop: "jobScore.job2Score"},
+          {label: "Tên Công ty của KH 2", prop: "jobScore.job2Nm"},
+          {label: "Mã số thuế của Công ty 2", prop: "jobScore.job2TaxCd"},
+          {label: "Start date 2", prop: "jobScore.job2StrtDt"},
+          {label: "End date 2", prop: "jobScore.job2EndDt"},
+          {label: "Score 3", prop: "jobScore.job3Score"},
+          {label: "Tên Công ty của KH 3", prop: "jobScore.job3Nm"},
+          {label: "Mã số thuế của Công ty 3", prop: "jobScore.job3TaxCd"},
+          {label: "Start date 3", prop: "jobScore.job3StrtDt"},
+          {label: "End date 3", prop: "jobScore.job3EndDt"},
+        ]
+      },
+      {label: "Số Tài khoản GDCK", prop: "acntNo"},
+    ]);
     let tableHeaderFlattened = ref();
     const loading = ref(false);
     let customerScoreData = ref();
     let pagination = ref();
+    let userRole = ref('all');
+    let syncKLPBtn = ref<HTMLElement | null>(null);
+    let syncPayload = ref<any[]>([]);
 
     function moveElement(array, fromIndex, toIndex) {
       const arrayCopy = [...array];
@@ -414,14 +391,34 @@ export default defineComponent({
         1,
         formDataRaw.idNo,
         formDataRaw.phoneNum,
-        formDataRaw.fullName
+        formDataRaw.fullName,
+        pagination.value.pageSize
       );
     }
 
-    function changePage(page) {
+    const changePage = (page) => {
       console.log("changePage");
-      getCustomersScore(page);
-    }
+      const formDataRaw = JSON.parse(JSON.stringify(formSearch1.value));
+      getCustomersScore(
+          page,
+          formDataRaw.idNo,
+          formDataRaw.phoneNum,
+          formDataRaw.fullName,
+          pagination.value.pageSize
+      );
+    };
+    const changePageSize = (pageSize) => {
+      console.log("changePageSize");
+      const formDataRaw = JSON.parse(JSON.stringify(formSearch1.value));
+      pagination.value.pageSize = pageSize;
+      getCustomersScore(
+          1,
+          formDataRaw.idNo,
+          formDataRaw.phoneNum,
+          formDataRaw.fullName,
+          pageSize
+      );
+    };
     onBeforeMount(() => {
       getCustomersScore(1);
     });
@@ -447,18 +444,50 @@ export default defineComponent({
       } else {
         return '';
       }
-    }
+    };
+
+    const handleSingleSelection = (val) => {
+      if (!syncKLPBtn.value) {
+        return;
+      }
+      if (val) {
+        syncKLPBtn.value.removeAttribute("disabled");
+      } else {
+        syncKLPBtn.value?.setAttribute("disabled", "");
+      }
+      syncPayload.value = [val];
+    };
+
+    const handleMultipleSelection = (val) => {
+      if (!syncKLPBtn.value) {
+        return;
+      }
+      if (val.length > 0) {
+        syncKLPBtn.value.removeAttribute("disabled");
+      } else {
+        syncKLPBtn.value?.setAttribute("disabled", "");
+      }
+      syncPayload.value = val;
+    };
+
     return {
       searchType,
       tableHeader,
+      tableHeader2,
       tableHeaderFlattened,
       customerScoreData,
       changePage,
+      changePageSize,
       loading,
       pagination,
       searchCustomerScore,
       formSearch1,
       truncatedText,
+      userRole,
+      handleSingleSelection,
+      handleMultipleSelection,
+      syncKLPBtn,
+      syncPayload,
     };
   },
 });
