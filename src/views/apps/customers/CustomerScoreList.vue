@@ -164,6 +164,7 @@
                 class="btn btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#kt_modal_sync_kalapa_data"
+                @click="resetSyncData"
               >
                 <span class="indicator-label">Sync from Kalapa</span>
               </button>
@@ -293,14 +294,14 @@ export default defineComponent({
       ],
     ]);
     const tableHeader2 = ref([
-      {label: "STT", prop: "seq"},
+      {label: "STT", prop: "seq", width: 70},
       {label: "Số ID của KH", prop: "idno"},
       {label: "Số điện thoại của KH", prop: "tel"},
-      {label: "Tên khách hàng", prop: "custNM"},
+      {label: "Tên khách hàng", prop: "custNM", width: 150},
       {
         label: "USER SCORE", children: [
           {label: "Score", prop: "userScore.score"},
-          {label: "Mô tả kết quả", prop: "cnte"},
+          {label: "Mô tả kết quả", prop: "cnte", width: 300},
           {label: "Name similar score", prop: "userScore.nameSimilarScore"},
           {label: "Phone similar score", prop: "userScore.phoneMatched"},
         ]
@@ -470,6 +471,10 @@ export default defineComponent({
       syncPayload.value = val;
     };
 
+    const resetSyncData = () => {
+      syncPayload.value = [];
+    }
+
     return {
       searchType,
       tableHeader,
@@ -488,6 +493,7 @@ export default defineComponent({
       handleMultipleSelection,
       syncKLPBtn,
       syncPayload,
+      resetSyncData,
     };
   },
 });
