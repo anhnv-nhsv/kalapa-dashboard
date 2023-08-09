@@ -73,28 +73,32 @@
         :header-cell-style="{'background-color': '#ffc342'}"
         header-row-class-name="text-gray-800 fw-bolder fs-7 text-uppercase gs-0"
         :highlight-current-row="userRole === 'single'"
+        max-height="600"
         v-on="userRole === 'all' ? { 'selection-change': handleSelectionChange } : { 'current-change': handleCurrentChange }"
         v-loading="loading"
       >
         <el-table-column v-if="userRole === 'all'" type="selection" width="55"/>
-        <el-table-column
-          header-align="center" class-name="text-center"
-          v-for="(item, i) in tableHeader"
-          :key="i"
-          v-bind="item.hasOwnProperty('width') ? { 'width' : item.width} : { 'min-width' : 125}"
-          :label="item.label">
-          <template #default="scope" v-if="item.hasOwnProperty('prop')">{{ scope.row[item.prop] }}</template>
-          <template v-if="item.hasOwnProperty('children')">
-            <el-table-column
-              header-align="center"
-              class-name="text-center"
-              v-for="(child, j) in item.children"
-              :key="`${i}${j}`"
-              v-bind="child.hasOwnProperty('width') ? { 'width' : child.width} : { 'min-width' : 125}"
-              :label="child.label"
-              :prop="child.prop"/>
-          </template>
-        </el-table-column>
+        <template
+            v-for="(item, i) in tableHeader"
+            :key="i">
+          <el-table-column
+              header-align="center" class-name="text-center"
+              v-if="item.visible"
+              v-bind="item.hasOwnProperty('width') ? { 'width' : item.width} : { 'min-width' : 125}"
+              :label="item.label">
+            <template #default="scope" v-if="item.hasOwnProperty('prop')">{{ scope.row[item.prop] }}</template>
+            <template v-if="item.hasOwnProperty('children')">
+              <el-table-column
+                  header-align="center"
+                  class-name="text-center"
+                  v-for="(child, j) in item.children"
+                  :key="`${i}${j}`"
+                  v-bind="child.hasOwnProperty('width') ? { 'width' : child.width} : { 'min-width' : 125}"
+                  :label="child.label"
+                  :prop="child.prop"/>
+            </template>
+          </el-table-column>
+        </template>
       </el-table>
     </div>
 

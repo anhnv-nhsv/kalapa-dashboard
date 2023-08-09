@@ -16,7 +16,7 @@
                   id="searchType1"
                 />
                 <label class="form-check-label" for="searchType1">
-                  Single customer
+                  Search
                 </label>
               </div>
             </div>
@@ -32,7 +32,7 @@
                   id="searchType2"
                 />
                 <label class="form-check-label" for="searchType2">
-                  All customers
+                  Sync & Export
                 </label>
               </div>
             </div>
@@ -48,7 +48,7 @@
                   id="searchType3"
                 />
                 <label class="form-check-label" for="searchType3">
-                  Import customers
+                  Import
                 </label>
               </div>
             </div>
@@ -204,8 +204,21 @@
                  ref="syncKLPBtn"
                  data-bs-toggle="modal"
                  data-bs-target="#kt_modal_sync_kalapa_data">
-          Sync selected user from Kalapa
+          Sync Kalapa
         </button>
+        <button
+            type="button"
+            class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
+            data-kt-menu-trigger="click"
+            data-kt-menu-placement="bottom-end"
+            data-kt-menu-flip="top-end"
+            data-kt-menu-attach="parent"
+        >
+          <span class="svg-icon svg-icon-2">
+            <inline-svg src="media/icons/duotune/general/gen031.svg" />
+          </span>
+        </button>
+        <ShowHideColumns />
       </div>
     </div>
     <div class="card-body pt-0">
@@ -239,10 +252,12 @@ import { Actions } from "@/store/enums/StoreEnums";
 import CustomerDatatable from "@/components/customers/table/CustomerDatatable.vue";
 import SyncKalapaModal from "@/components/customers/modal/SyncKalapaModal.vue";
 import ExportCustomerModal from "@/components/customers/modal/ExportCustomerModal.vue";
+import ShowHideColumns from "@/components/customers/dropdown/ShowHideColumns.vue";
 
 export default defineComponent({
   name: "customer-score-list",
   components: {
+    ShowHideColumns,
     ExportCustomerModal,
     SyncKalapaModal,
     CustomerDatatable,
@@ -294,12 +309,12 @@ export default defineComponent({
       ],
     ]);
     const tableHeader2 = ref([
-      {label: "STT", prop: "seq", width: 70},
-      {label: "Số ID của KH", prop: "idno"},
-      {label: "Số điện thoại của KH", prop: "tel"},
-      {label: "Tên khách hàng", prop: "custNM", width: 150},
+      {label: "STT", prop: "seq", visible: true, width: 70},
+      {label: "Số ID của KH", prop: "idno", visible: true},
+      {label: "Số điện thoại của KH", prop: "tel", visible: true},
+      {label: "Tên khách hàng", prop: "custNM", visible: true, width: 150},
       {
-        label: "USER SCORE", children: [
+        label: "USER SCORE", visible: false, children: [
           {label: "Score", prop: "userScore.score"},
           {label: "Mô tả kết quả", prop: "cnte", width: 300},
           {label: "Name similar score", prop: "userScore.nameSimilarScore"},
@@ -307,20 +322,20 @@ export default defineComponent({
         ]
       },
       {
-        label: "BLACKLIST", children: [
+        label: "BLACKLIST", visible: true, children: [
           {label: "FI", prop: "blacklist.fi"},
           {label: "PDL", prop: "blacklist.pdl"},
         ]
       },
       {
-        label: "CREDIT SCORE", children: [
+        label: "CREDIT SCORE", visible: true, children: [
           {label: "E-wallet, Buy now pay later", prop: "creditScore.creditScore1"},
           {label: "Bank & FI", prop: "creditScore.creditScore2"},
           {label: "Microlending (Short-term loan app)", prop: "creditScore.creditScore3"},
         ]
       },
       {
-        label: "JOB SCORE", children: [
+        label: "JOB SCORE", visible: false, children: [
           {label: "Score 1", prop: "jobScore.job1Score"},
           {label: "Tên Công ty của KH 1", prop: "jobScore.job1Nm"},
           {label: "Mã số thuế của Công ty 1", prop: "jobScore.job1TaxCd"},
@@ -338,7 +353,10 @@ export default defineComponent({
           {label: "End date 3", prop: "jobScore.job3EndDt"},
         ]
       },
-      {label: "Số Tài khoản GDCK", prop: "acntNo"},
+      {label: "Số Tài khoản GDCK", visible: true, prop: "acntNo"},
+      {label: "Người xử lý", visible: true, prop: "procNm"},
+      {label: "Ngày xử lý", visible: true, prop: "procDt"},
+      {label: "Kalapa data application", visible: true, prop: "kalapaAppDat"},
     ]);
     let tableHeaderFlattened = ref();
     const loading = ref(false);
