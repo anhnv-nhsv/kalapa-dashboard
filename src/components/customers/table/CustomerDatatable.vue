@@ -294,4 +294,30 @@ export default defineComponent({
 :deep(.el-pagination.is-background .el-pager li:not(.disabled).active) {
   background-color: #009ef7;
 }
+
+/*Scroll bar nav*/
+:deep(::-webkit-scrollbar) {
+  height: 10px;
+  width: 10px;
+}
+
+/* Track */
+//:deep(::-webkit-scrollbar-track) {
+//  background: #000 !important;
+//}
+
+/* Handle */
+:deep(::-webkit-scrollbar-thumb) {
+  background: #cccccc;
+}
+
+/* Handle on hover */
+:deep(::-webkit-scrollbar-thumb:hover) {
+  background: #aaaaaa;
+}
+
+/* Handle on active, holding */
+:deep(::-webkit-scrollbar-thumb:active) {
+  background: #888888;
+}
 </style>
