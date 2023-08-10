@@ -27,7 +27,7 @@
 
         <!--begin::Modal body-->
         <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-          <template v-if="syncPayload.length > 0">
+          <template v-if="syncType === 'selection'">
             Do you want to synchronize selected data from Kalapa?
           </template>
           <template v-else>
@@ -88,16 +88,30 @@ export default defineComponent({
   name: "sync-kalapa-modal",
   props: {
     syncPayload: { type: Array, required: false, default: () => [] },
+    syncType: { type: String, required: false, default: () => ""}
   },
   setup(props) {
     const loading = ref(false);
     const syncKalapaModalRef = ref<null | HTMLElement>(null);
     const syncPropData = ref(props.syncPayload);
+    const temSyncData = ref(JSON.parse(JSON.stringify(syncPropData.value)));
     watch(
       () => props.syncPayload,
       (newVal, oldVal) => {
         syncPropData.value = newVal;
+        temSyncData.value = syncPropData.value;
       }
+    );
+
+    watch(
+        () => props.syncType,
+        (newVal, oldVal) => {
+          if (newVal === 'all') {
+            syncPropData.value = [];
+          } else {
+            syncPropData.value = temSyncData.value;
+          }
+        }
     );
 
     async function callAPISyncKalapaData() {

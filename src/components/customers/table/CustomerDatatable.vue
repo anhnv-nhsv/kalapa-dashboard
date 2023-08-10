@@ -77,7 +77,7 @@
         v-on="userRole === 'all' ? { 'selection-change': handleSelectionChange } : { 'current-change': handleCurrentChange }"
         v-loading="loading"
       >
-        <el-table-column v-if="userRole === 'all'" type="selection" width="55"/>
+        <el-table-column header-align="center" class-name="text-center" v-if="userRole === 'all'" type="selection" width="55"/>
         <template
             v-for="(item, i) in tableHeader"
             :key="i">

@@ -26,6 +26,7 @@
                   class="btn btn-primary"
                   disabled
                   ref="syncKLPBtn"
+                  @click.prevent="changeSyncType('selection')"
                   data-bs-toggle="modal"
                   data-bs-target="#kt_modal_sync_kalapa_data">
                 <span class="svg-icon svg-icon-2">
@@ -38,6 +39,7 @@
               <button
                   type="button"
                   class="btn btn-icon btn-color-primary btn-active-light-primary"
+                  @click.prevent="changeSyncType('all')"
                   data-kt-menu-trigger="click"
                   data-kt-menu-placement="bottom-start"
                   data-kt-menu-flip="top-start"
@@ -106,7 +108,7 @@
     </div>
   </div>
 
-  <SyncKalapaModal :sync-payload="syncPayload"/>
+  <SyncKalapaModal :sync-payload="syncPayload" :sync-type="syncType"/>
 </template>
 
 <script lang="ts">
@@ -236,6 +238,7 @@ export default defineComponent({
     let userRole = ref('all');
     let syncKLPBtn = ref<HTMLElement | null>(null);
     let syncPayload = ref<any[]>([]);
+    let syncType = ref('');
 
     function moveElement(array, fromIndex, toIndex) {
       const arrayCopy = [...array];
@@ -415,6 +418,10 @@ export default defineComponent({
       }
     };
 
+    const changeSyncType = (val) => {
+      syncType.value = val;
+    };
+
     return {
       tableHeader,
       tableHeader2,
@@ -431,7 +438,9 @@ export default defineComponent({
       handleMultipleSelection,
       syncKLPBtn,
       syncPayload,
+      syncType,
       handleColumnsVisibility,
+      changeSyncType,
     };
   },
 });
