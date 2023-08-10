@@ -27,7 +27,12 @@
 
         <!--begin::Modal body-->
         <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-          Do you want to synchronize data from Kalapa?
+          <template v-if="syncPayload.length > 0">
+            Do you want to synchronize selected data from Kalapa?
+          </template>
+          <template v-else>
+            Do you want to synchronize all data from Kalapa?
+          </template>
         </div>
         <!--end::Modal body-->
 
@@ -92,7 +97,6 @@ export default defineComponent({
       () => props.syncPayload,
       (newVal, oldVal) => {
         syncPropData.value = newVal;
-        console.log(syncPropData.value)
       }
     );
 

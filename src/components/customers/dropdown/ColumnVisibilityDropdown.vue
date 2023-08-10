@@ -8,13 +8,25 @@
     <!--begin::Form-->
     <div class="px-7 py-5">
       <div class="mb-10">
-        <el-table show-header="false" :data="columns">
+        <el-table :show-header="true" :data="columns" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55"/>
           <el-table-column label="Columns name" prop="name" />
         </el-table>
       </div>
     </div>
     <!--end::Form-->
+    <!--begin::Actions-->
+    <div class="d-flex justify-content-end">
+      <button
+          type="submit"
+          class="btn btn-sm btn-primary"
+          @click.prevent="handleColumnVisibility"
+          data-kt-menu-dismiss="true"
+      >
+        Apply
+      </button>
+    </div>
+    <!--end::Actions-->
   </div>
   <!--end::Menu 1-->
 </template>
@@ -30,10 +42,11 @@ interface Filter {
 }
 
 export default defineComponent({
-  name: "show-hide-columns",
+  name: "column-visibility-dropdown",
   components: {},
-  setup() {
-    const columns = ref([{
+  setup(props, ctx) {
+    const columns = ref([
+        {
       name: 'User Score',
       key: 'user-score',
     },{
@@ -46,9 +59,20 @@ export default defineComponent({
       name: 'Job Score',
       key: 'job-score',
     }]);
+    let multipleSelection = ref<any[]>([]);
+
+    const handleSelectionChange = (val: any[]) => {
+      multipleSelection.value = val;
+    };
+
+    const handleColumnVisibility = () => {
+      ctx.emit("selection-change", multipleSelection.value);
+    };
 
     return {
       columns,
+      handleColumnVisibility,
+      handleSelectionChange,
     };
   },
 });

@@ -4,308 +4,179 @@
       <div class="card-title flex-column">
         <div class="row">
           <div class="d-flex">
-            <div class="w-auto me-10">
-              <div class="form-check form-check-custom form-check-solid">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  v-model="searchType"
-                  :checked="searchType == 'searchType1'"
-                  v-bind:value="'searchType1'"
-                  name="searchType"
-                  id="searchType1"
-                />
-                <label class="form-check-label" for="searchType1">
-                  Search
-                </label>
-              </div>
+            <div class="w-auto me-5">
+              <button
+                  type="button"
+                  class="btn btn-primary btn-active-light-primary"
+                  data-kt-menu-trigger="click"
+                  data-kt-menu-placement="bottom-start"
+                  data-kt-menu-flip="top-start"
+                  data-kt-menu-attach="parent"
+              >
+                <span class="svg-icon svg-icon-2">
+                  <inline-svg src="media/icons/duotune/general/gen021.svg"/>
+                </span>
+                Search
+              </button>
+              <SearchCustomerDropdown @search="searchCustomerScore"/>
             </div>
-            <div v-if="userRole === 'all'" class="w-auto me-10">
-              <div class="form-check form-check-custom form-check-solid">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  v-model="searchType"
-                  :checked="searchType == 'searchType2'"
-                  v-bind:value="'searchType2'"
-                  name="searchType"
-                  id="searchType2"
-                />
-                <label class="form-check-label" for="searchType2">
-                  Sync & Export
-                </label>
-              </div>
-            </div>
-            <div v-if="userRole === 'all'" class="w-auto me-10">
-              <div class="form-check form-check-custom form-check-solid">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  v-model="searchType"
-                  :checked="searchType == 'searchType3'"
-                  v-bind:value="'searchType3'"
-                  name="searchType"
-                  id="searchType3"
-                />
-                <label class="form-check-label" for="searchType3">
-                  Import
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="margin-top: 25px">
-          <div
-            v-if="searchType == 'searchType1'"
-            class="d-flex row"
-            id="single-customer"
-          >
-            <form
-              class="form row"
-              autoComplete="on"
-              @submit.prevent="searchCustomerScore"
-            >
-              <div
-                class="
-                  col-md-3
-                  d-flex
-                  align-items-center
-                  position-relative
-                  my-1
-                "
-              >
-                <!--                <input-->
-                <!--                  v-model="formSearch1.idNo"-->
-                <!--                  autoFocus-->
-                <!--                  type="text"-->
-                <!--                  class="form-control form-control-solid w-180px"-->
-                <!--                  placeholder="Identity number"-->
-                <!--                />-->
-                <el-input
-                  autofocus
-                  v-model="formSearch1.idNo"
-                  placeholder="Identity number"
-                />
-              </div>
-              <div
-                class="
-                  col-md-3
-                  d-flex
-                  align-items-center
-                  position-relative
-                  my-1
-                "
-              >
-                <!--                <input-->
-                <!--                  v-model="formSearch1.fullName"-->
-                <!--                  type="text"-->
-                <!--                  class="form-control form-control-solid w-180px"-->
-                <!--                  placeholder="Full name"-->
-                <!--                />-->
-                <el-input
-                  v-model="formSearch1.fullName"
-                  placeholder="Full name"
-                />
-              </div>
-              <div
-                class="
-                  col-md-3
-                  d-flex
-                  align-items-center
-                  position-relative
-                  my-1
-                "
-              >
-                <!--                <input-->
-                <!--                  v-model="formSearch1.phoneNum"-->
-                <!--                  type="text"-->
-                <!--                  class="form-control form-control-solid w-180px"-->
-                <!--                  placeholder="Phone number"-->
-                <!--                />-->
-                <el-input
-                  v-model="formSearch1.phoneNum"
-                  placeholder="Phone number"
-                />
-              </div>
-              <div
-                class="
-                  col-md-3
-                  d-flex
-                  align-items-center
-                  position-relative
-                  my-1
-                "
-              >
-                <button
-                  :data-kt-indicator="loading ? 'on' : null"
-                  type="submit"
+            <div class="w-auto me-5">
+              <button
+                  type="button"
                   class="btn btn-primary"
-                >
-                  <span v-if="!loading" class="indicator-label">Search</span>
-                  <span v-if="loading" class="indicator-progress"
-                    >Please wait...
-                    <span
-                      class="spinner-border spinner-border-sm align-middle ms-2"
-                    ></span
-                  ></span>
-                </button>
-              </div>
-            </form>
-          </div>
-          <div
-            v-if="searchType == 'searchType2'"
-            class="d-flex row"
-            id="all-customers"
-          >
-            <div
-              class="w-auto d-flex align-items-center position-relative my-1"
-            >
+                  disabled
+                  ref="syncKLPBtn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#kt_modal_sync_kalapa_data">
+                <span class="svg-icon svg-icon-2">
+                  <inline-svg src="media/icons/duotune/coding/cod007.svg"/>
+                </span>
+                Sync selected
+              </button>
+            </div>
+            <div v-if="userRole === 'all'" class="w-auto me-5">
               <button
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#kt_modal_sync_kalapa_data"
-                @click="resetSyncData"
+                  type="button"
+                  class="btn btn-icon btn-color-primary btn-active-light-primary"
+                  data-kt-menu-trigger="click"
+                  data-kt-menu-placement="bottom-start"
+                  data-kt-menu-flip="top-start"
+                  data-kt-menu-attach="parent"
               >
-                <span class="indicator-label">Sync from Kalapa</span>
+                <span class="svg-icon svg-icon-2">
+                  <inline-svg src="media/icons/duotune/general/gen053.svg"/>
+                </span>
+                <!--                Sync & Export-->
               </button>
+              <AdvancedActionDropdown />
             </div>
-            <div
-              class="w-auto d-flex align-items-center position-relative my-1"
-            >
-              <button
-                class="btn btn-secondary"
-                data-bs-toggle="modal"
-                data-bs-target="#kt_customer_export_modal"
-              >
-                <span class="indicator-label">Export report</span>
-              </button>
-            </div>
-          </div>
-          <div
-            v-if="searchType == 'searchType3'"
-            class="d-flex row"
-            id="import-customers"
-          >
-            <div
-              class="w-auto d-flex align-items-center position-relative my-1"
-            >
-              <button class="btn btn-secondary">
-                <span class="indicator-label">Import from excel</span>
-              </button>
-            </div>
+            <!--            <div v-if="userRole === 'all'" class="w-auto me-5">-->
+            <!--              <button-->
+            <!--                  type="button"-->
+            <!--                  class="btn btn-primary btn-active-light-primary"-->
+            <!--                  data-kt-menu-trigger="click"-->
+            <!--                  data-kt-menu-placement="bottom-start"-->
+            <!--                  data-kt-menu-flip="top-start"-->
+            <!--                  data-kt-menu-attach="parent"-->
+            <!--              >-->
+            <!--                <span class="svg-icon svg-icon-2">-->
+            <!--                  <inline-svg src="media/icons/duotune/files/fil009.svg" />-->
+            <!--                </span>-->
+            <!--                Import-->
+            <!--              </button>-->
+            <!--              <SearchCustomerDropdown />-->
+            <!--            </div>-->
           </div>
         </div>
       </div>
       <!--end::Card title-->
       <div class="card-toolbar">
-        <button  type="button"
-                 class="btn btn-primary"
-                 disabled
-                 ref="syncKLPBtn"
-                 data-bs-toggle="modal"
-                 data-bs-target="#kt_modal_sync_kalapa_data">
-          Sync Kalapa
-        </button>
-        <button
-            type="button"
-            class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-            data-kt-menu-trigger="click"
-            data-kt-menu-placement="bottom-end"
-            data-kt-menu-flip="top-end"
-            data-kt-menu-attach="parent"
-        >
+        <div>
+          <button
+              type="button"
+              class="btn btn-icon btn-color-primary btn-active-light-primary"
+              data-kt-menu-trigger="click"
+              data-kt-menu-placement="bottom-end"
+              data-kt-menu-flip="top-end"
+              data-kt-menu-attach="parent"
+          >
           <span class="svg-icon svg-icon-2">
-            <inline-svg src="media/icons/duotune/general/gen031.svg" />
+            <inline-svg src="media/icons/duotune/general/gen031.svg"/>
           </span>
-        </button>
-        <ShowHideColumns />
+          </button>
+          <ColumnVisibilityDropdown @selection-change="handleColumnsVisibility"/>
+        </div>
       </div>
     </div>
     <div class="card-body pt-0">
       <CustomerDatatable
-        v-if="customerScoreData && pagination"
-        :table-header="tableHeader2"
-        :table-data="customerScoreData"
-        :pagination="pagination"
-        :user-role="userRole"
-        :enable-items-per-page-dropdown="true"
-        :loading="loading"
-        @change-page="changePage"
-        @change-page-size="changePageSize"
-        @single-select="handleSingleSelection"
-        @multiple-select="handleMultipleSelection"
+          v-if="customerScoreData && pagination"
+          :table-header="tableHeader2"
+          :table-data="customerScoreData"
+          :pagination="pagination"
+          :user-role="userRole"
+          :enable-items-per-page-dropdown="true"
+          :loading="loading"
+          @change-page="changePage"
+          @change-page-size="changePageSize"
+          @single-select="handleSingleSelection"
+          @multiple-select="handleMultipleSelection"
       >
       </CustomerDatatable>
     </div>
   </div>
 
-  <SyncKalapaModal :sync-payload="syncPayload" />
-  <ExportCustomerModal />
+  <SyncKalapaModal :sync-payload="syncPayload"/>
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, onMounted, ref, toRaw } from "vue";
-import { MenuComponent } from "@/assets/ts/components";
-import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
+import {defineComponent, onBeforeMount, onMounted, ref, toRaw} from "vue";
+import {MenuComponent} from "@/assets/ts/components";
+import {setCurrentPageBreadcrumbs} from "@/core/helpers/breadcrumb";
 import store from "@/store";
-import { Actions } from "@/store/enums/StoreEnums";
+import {Actions} from "@/store/enums/StoreEnums";
 import CustomerDatatable from "@/components/customers/table/CustomerDatatable.vue";
 import SyncKalapaModal from "@/components/customers/modal/SyncKalapaModal.vue";
-import ExportCustomerModal from "@/components/customers/modal/ExportCustomerModal.vue";
-import ShowHideColumns from "@/components/customers/dropdown/ShowHideColumns.vue";
+import ColumnVisibilityDropdown from "@/components/customers/dropdown/ColumnVisibilityDropdown.vue";
+import SearchCustomerDropdown from "@/components/customers/dropdown/SearchCustomerDropdown.vue";
+import AdvancedActionDropdown from "@/components/customers/dropdown/AdvancedActionDropdown.vue";
 
 export default defineComponent({
   name: "customer-score-list",
   components: {
-    ShowHideColumns,
-    ExportCustomerModal,
+    ColumnVisibilityDropdown,
+    SearchCustomerDropdown,
+    AdvancedActionDropdown,
     SyncKalapaModal,
     CustomerDatatable,
   },
   setup() {
-    const searchType = ref("searchType1");
-    const formSearch1 = ref({
+    const formSearch = ref({
       idNo: "",
       phoneNum: "",
       fullName: "",
+      acctNo: "",
+      userScore: "",
+      blacklist: "",
+      dateRange: [],
     });
     const tableHeader = ref([
       [
-        { name: "STT", rowspan: 2, key: "seq" },
-        { name: "Số ID của KH", rowspan: 2, key: "idno" },
-        { name: "Số điện thoại của KH", rowspan: 2, key: "tel" },
-        { name: "Tên khách hàng", rowspan: 2, key: "custNM" },
-        { name: "USER SCORE", colspan: 4 },
-        { name: "BLACK_LIST", colspan: 2 },
-        { name: "CREDIT_SCORE", colspan: 3 },
-        { name: "JOB SCORE", colspan: 15 },
-        { name: "Số Tài khoản GDCK", rowspan: 2, key: "acntNo" },
+        {name: "STT", rowspan: 2, key: "seq"},
+        {name: "Số ID của KH", rowspan: 2, key: "idno"},
+        {name: "Số điện thoại của KH", rowspan: 2, key: "tel"},
+        {name: "Tên khách hàng", rowspan: 2, key: "custNM"},
+        {name: "USER SCORE", colspan: 4},
+        {name: "BLACK_LIST", colspan: 2},
+        {name: "CREDIT_SCORE", colspan: 3},
+        {name: "JOB SCORE", colspan: 15},
+        {name: "Số Tài khoản GDCK", rowspan: 2, key: "acntNo"},
       ],
       [
-        { name: "Score", key: "score" },
-        { name: "Mô tả kết quả", key: "cnte" },
-        { name: "Name similar score", key: "nameSimilarScore" },
-        { name: "Phone similar score", key: "phoneMatched" },
-        { name: "FI", key: "fi" },
-        { name: "PDL", key: "pdl" },
-        { name: "E-wallet, Buy now pay later", key: "creditScore1" },
-        { name: "Bank & FI", key: "creditScore2" },
-        { name: "Microlending (Short-term loan app)", key: "creditScore3" },
-        { name: "Score 1", key: "job1Score" },
-        { name: "Tên Công ty của KH 1", key: "job1Nm" },
-        { name: "Mã số thuế của Công ty 1", key: "job1TaxCd" },
-        { name: "Start date 1", key: "job1StrtDt" },
-        { name: "End date 1", key: "job1EndDt" },
-        { name: "Score 2", key: "job2Score" },
-        { name: "Tên Công ty của KH 2", key: "job2Nm" },
-        { name: "Mã số thuế của Công ty 2", key: "job2TaxCd" },
-        { name: "Start date 2", key: "job2StrtDt" },
-        { name: "End date 2", key: "job2EndDt" },
-        { name: "Score 3", key: "job3Score" },
-        { name: "Tên Công ty của KH 3", key: "job3Nm" },
-        { name: "Mã số thuế của Công ty 3", key: "job3TaxCd" },
-        { name: "Start date 3", key: "job3StrtDt" },
-        { name: "End date 3", key: "job3EndDt" },
+        {name: "Score", key: "score"},
+        {name: "Mô tả kết quả", key: "cnte"},
+        {name: "Name similar score", key: "nameSimilarScore"},
+        {name: "Phone similar score", key: "phoneMatched"},
+        {name: "FI", key: "fi"},
+        {name: "PDL", key: "pdl"},
+        {name: "E-wallet, Buy now pay later", key: "creditScore1"},
+        {name: "Bank & FI", key: "creditScore2"},
+        {name: "Microlending (Short-term loan app)", key: "creditScore3"},
+        {name: "Score 1", key: "job1Score"},
+        {name: "Tên Công ty của KH 1", key: "job1Nm"},
+        {name: "Mã số thuế của Công ty 1", key: "job1TaxCd"},
+        {name: "Start date 1", key: "job1StrtDt"},
+        {name: "End date 1", key: "job1EndDt"},
+        {name: "Score 2", key: "job2Score"},
+        {name: "Tên Công ty của KH 2", key: "job2Nm"},
+        {name: "Mã số thuế của Công ty 2", key: "job2TaxCd"},
+        {name: "Start date 2", key: "job2StrtDt"},
+        {name: "End date 2", key: "job2EndDt"},
+        {name: "Score 3", key: "job3Score"},
+        {name: "Tên Công ty của KH 3", key: "job3Nm"},
+        {name: "Mã số thuế của Công ty 3", key: "job3TaxCd"},
+        {name: "Start date 3", key: "job3StrtDt"},
+        {name: "End date 3", key: "job3EndDt"},
       ],
     ]);
     const tableHeader2 = ref([
@@ -322,13 +193,13 @@ export default defineComponent({
         ]
       },
       {
-        label: "BLACKLIST", visible: true, children: [
+        label: "BLACKLIST", visible: false, children: [
           {label: "FI", prop: "blacklist.fi"},
           {label: "PDL", prop: "blacklist.pdl"},
         ]
       },
       {
-        label: "CREDIT SCORE", visible: true, children: [
+        label: "CREDIT SCORE", visible: false, children: [
           {label: "E-wallet, Buy now pay later", prop: "creditScore.creditScore1"},
           {label: "Bank & FI", prop: "creditScore.creditScore2"},
           {label: "Microlending (Short-term loan app)", prop: "creditScore.creditScore3"},
@@ -374,19 +245,33 @@ export default defineComponent({
     }
 
     async function getCustomersScore(
-      page?: number,
-      idNo?: string,
-      phone?: string,
-      fullName?: string,
-      pageSize = 10
+        page?: number,
+        idNo?: string,
+        tel?: string,
+        fullName?: string,
+        accountNo?: string,
+        fromDate?: string,
+        toDate?: string,
+        startScore?: string,
+        endScore?: string,
+        blacklist?: string,
+        pageSize = 10,
+        updateFlag = 'N'
     ) {
       console.log(`call API`);
       loading.value = true;
       await store.dispatch(Actions.GET_CUSTOMERS_SCORE_ACTION, {
         params: {
           idNo: idNo ? idNo : "",
-          phone: phone ? phone : "",
+          tel: tel ? tel : "",
           name: fullName ? fullName : "",
+          accountNo: accountNo ? accountNo : "",
+          fromDate: fromDate ? fromDate : "",
+          toDate: toDate ? toDate : "",
+          startScore: startScore ? startScore : "",
+          endScore: endScore ? endScore : "",
+          blacklist: blacklist ? blacklist : "",
+          updateFlag: updateFlag ? updateFlag : "N",
           page: page,
           pageSize: pageSize,
         },
@@ -403,38 +288,57 @@ export default defineComponent({
       loading.value = false;
     }
 
-    function searchCustomerScore() {
+    function searchCustomerScore(formData) {
       console.log("searchCustomerScore");
-      const formDataRaw = JSON.parse(JSON.stringify(formSearch1.value));
+      formSearch.value = formData;
+      const formDataRaw = JSON.parse(JSON.stringify(formData));
       getCustomersScore(
-        1,
-        formDataRaw.idNo,
-        formDataRaw.phoneNum,
-        formDataRaw.fullName,
-        pagination.value.pageSize
+          1,
+          formDataRaw.idNo,
+          formDataRaw.phoneNum,
+          formDataRaw.fullName,
+          formDataRaw.acctNo,
+          formDataRaw.dateRange[0],
+          formDataRaw.dateRange[1],
+          formDataRaw.userScore.split("-")[0],
+          formDataRaw.userScore.split("-")[1],
+          formDataRaw.blacklist,
+          pagination.value.pageSize
       );
     }
 
     const changePage = (page) => {
       console.log("changePage");
-      const formDataRaw = JSON.parse(JSON.stringify(formSearch1.value));
+      const formDataRaw = JSON.parse(JSON.stringify(formSearch.value));
       getCustomersScore(
           page,
           formDataRaw.idNo,
           formDataRaw.phoneNum,
           formDataRaw.fullName,
+          formDataRaw.acctNo,
+          formDataRaw.dateRange[0],
+          formDataRaw.dateRange[1],
+          formDataRaw.userScore.split("-")[0],
+          formDataRaw.userScore.split("-")[1],
+          formDataRaw.blacklist,
           pagination.value.pageSize
       );
     };
     const changePageSize = (pageSize) => {
       console.log("changePageSize");
-      const formDataRaw = JSON.parse(JSON.stringify(formSearch1.value));
+      const formDataRaw = JSON.parse(JSON.stringify(formSearch.value));
       pagination.value.pageSize = pageSize;
       getCustomersScore(
           1,
           formDataRaw.idNo,
           formDataRaw.phoneNum,
           formDataRaw.fullName,
+          formDataRaw.acctNo,
+          formDataRaw.dateRange[0],
+          formDataRaw.dateRange[1],
+          formDataRaw.userScore.split("-")[0],
+          formDataRaw.userScore.split("-")[1],
+          formDataRaw.blacklist,
           pageSize
       );
     };
@@ -444,12 +348,12 @@ export default defineComponent({
     onMounted(() => {
       MenuComponent.reinitialization();
       const rawTableHeaderFlattened: any[] = []
-        .concat(...JSON.parse(JSON.stringify(tableHeader.value)))
-        .filter((e) => Object.prototype.hasOwnProperty.call(e, "key"));
+          .concat(...JSON.parse(JSON.stringify(tableHeader.value)))
+          .filter((e) => Object.prototype.hasOwnProperty.call(e, "key"));
       tableHeaderFlattened.value = moveElement(
-        rawTableHeaderFlattened,
-        4,
-        rawTableHeaderFlattened.length - 1
+          rawTableHeaderFlattened,
+          4,
+          rawTableHeaderFlattened.length - 1
       );
       setCurrentPageBreadcrumbs("Customers Score", ["Apps", "Customers"]);
     });
@@ -489,12 +393,29 @@ export default defineComponent({
       syncPayload.value = val;
     };
 
-    const resetSyncData = () => {
-      syncPayload.value = [];
-    }
+    const handleColumnsVisibility = (val) => {
+      const selectedCols = JSON.parse(JSON.stringify(val));
+      tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'USER SCORE')].visible = false;
+      tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'BLACKLIST')].visible = false;
+      tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'CREDIT SCORE')].visible = false;
+      tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'JOB SCORE')].visible = false;
+      for (const selectedCol of selectedCols) {
+        if (selectedCol.key == 'user-score') {
+          tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'USER SCORE')].visible = true;
+        }
+        if (selectedCol.key == 'blacklist') {
+          tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'BLACKLIST')].visible = true;
+        }
+        if (selectedCol.key == 'credit-score') {
+          tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'CREDIT SCORE')].visible = true;
+        }
+        if (selectedCol.key == 'job-score') {
+          tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'JOB SCORE')].visible = true;
+        }
+      }
+    };
 
     return {
-      searchType,
       tableHeader,
       tableHeader2,
       tableHeaderFlattened,
@@ -504,14 +425,13 @@ export default defineComponent({
       loading,
       pagination,
       searchCustomerScore,
-      formSearch1,
       truncatedText,
       userRole,
       handleSingleSelection,
       handleMultipleSelection,
       syncKLPBtn,
       syncPayload,
-      resetSyncData,
+      handleColumnsVisibility,
     };
   },
 });
