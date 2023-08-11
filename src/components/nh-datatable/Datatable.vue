@@ -1,73 +1,8 @@
 <template>
   <div class="dataTables_wrapper dt-bootstrap4 no-footer">
     <div class="table-responsive">
-      <!--      <table-->
-      <!--        class="-->
-      <!--          table table-striped table-bordered-->
-      <!--          border-->
-      <!--          align-middle-->
-      <!--          fs-6-->
-      <!--          gy-5-->
-      <!--          dataTable-->
-      <!--          no-footer-->
-      <!--        "-->
-      <!--        id="kt_customers_table"-->
-      <!--        role="grid"-->
-      <!--      >-->
-      <!--        &lt;!&ndash;begin::Table head&ndash;&gt;-->
-      <!--        <thead style="background-color: #ffc342">-->
-      <!--          <template v-for="(row, i) in tableHeader" :key="i">-->
-      <!--            &lt;!&ndash;begin::Table row&ndash;&gt;-->
-      <!--            <tr-->
-      <!--              class="-->
-      <!--                text-center text-gray-800-->
-      <!--                fw-bolder-->
-      <!--                fs-7-->
-      <!--                text-uppercase-->
-      <!--                gs-0-->
-      <!--              "-->
-      <!--              role="row"-->
-      <!--            >-->
-      <!--              <template v-for="(cell, i) in row" :key="i">-->
-      <!--                <th-->
-      <!--                  :class="[cell.name && 'min-w-125px', 'text-middle']"-->
-      <!--                  :rowspan="cell.rowspan"-->
-      <!--                  :colspan="cell.colspan"-->
-      <!--                >-->
-      <!--                  {{ cell.name }}-->
-      <!--                </th>-->
-      <!--              </template>-->
-      <!--            </tr>-->
-      <!--            &lt;!&ndash;end::Table row&ndash;&gt;-->
-      <!--          </template>-->
-      <!--        </thead>-->
-      <!--        &lt;!&ndash;end::Table head&ndash;&gt;-->
-      <!--        &lt;!&ndash;begin::Table body&ndash;&gt;-->
-      <!--        <tbody class="">-->
-      <!--          <template v-if="!isEmptyTableData">-->
-      <!--            <template v-for="(item, i) in getItems" :key="i">-->
-      <!--              <tr>-->
-      <!--                <template v-for="(cell, i) in tableHeaderFlattened" :key="i">-->
-      <!--                  <td class="text-center">-->
-      <!--                    <slot :name="`cell-${cell.key}`" :row="item">-->
-      <!--                      {{ item[prop] }}-->
-      <!--                    </slot>-->
-      <!--                  </td>-->
-      <!--                </template>-->
-      <!--                &lt;!&ndash;end::Item=&ndash;&gt;-->
-      <!--              </tr>-->
-      <!--            </template>-->
-      <!--          </template>-->
-      <!--          <template v-else>-->
-      <!--            <tr class="odd">-->
-      <!--              <td colspan="8" class="dataTables_empty">No data found</td>-->
-      <!--            </tr>-->
-      <!--          </template>-->
-      <!--        </tbody>-->
-      <!--        &lt;!&ndash;end::Table body&ndash;&gt;-->
-      <!--      </table>-->
       <el-table
-        class="customerTable"
+        class="customerTable el-table--border"
         ref="customerScoreTableRef"
         :data="getItems"
         :header-cell-style="{'background-color': '#ffc342'}"
@@ -82,13 +17,16 @@
             v-for="(item, i) in tableHeader"
             :key="i">
           <el-table-column
-              header-align="center" class-name="text-center"
+              :show-overflow-tooltip="showOverflowTooltip"
+              header-align="center"
+              class-name="text-center"
               v-if="item.visible"
               v-bind="item.hasOwnProperty('width') ? { 'width' : item.width} : { 'min-width' : 125}"
               :label="item.label">
             <template #default="scope" v-if="item.hasOwnProperty('prop')">{{ scope.row[item.prop] }}</template>
             <template v-if="item.hasOwnProperty('children')">
               <el-table-column
+                  :show-overflow-tooltip="showOverflowTooltip"
                   header-align="center"
                   class-name="text-center"
                   v-for="(child, j) in item.children"
@@ -117,18 +55,6 @@
               <el-option v-for="item in pageSizeList" :key="item" :label="item" :value="item"/>
             </el-select>
           </div>
-          <!--          <label-->
-          <!--          ><select-->
-          <!--              name="kt_customers_table_length"-->
-          <!--              class="form-select form-select-sm form-select-solid"-->
-          <!--              v-model="paginationObj.pageSize"-->
-          <!--          >-->
-          <!--            <option value="10">10</option>-->
-          <!--            <option value="25">25</option>-->
-          <!--            <option value="50">50</option>-->
-          <!--            <option value="100">100</option>-->
-          <!--          </select></label-->
-          <!--          >-->
         </div>
       </div>
       <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
@@ -161,10 +87,9 @@ import {
 } from "vue";
 
 export default defineComponent({
-  name: "customer-datatable",
+  name: "datatable",
   props: {
     tableHeader: {type: Array, required: true, default: () => []},
-    tableHeaderFlattened: {type: Array, required: false, default: () => []},
     tableData: {type: Array, required: true, default: () => []},
     pagination: {
       type: Object,
@@ -175,7 +100,8 @@ export default defineComponent({
     },
     enableItemsPerPageDropdown: {type: Boolean, required: false, default: false},
     loading: {type: Boolean, required: false, default: false},
-    userRole: {type: String, required: true, default: 'none'}
+    showOverflowTooltip: {type: Boolean, required: false, default: false},
+    userRole: {type: String, required: false, default: 'none'}
   },
   components: {},
   setup(props, ctx) {
@@ -202,10 +128,6 @@ export default defineComponent({
           paginationObj.value = newVal;
         }
     );
-    onMounted(() => {
-      // paginationObj.value.pageSize = props.pageSize ? props.pageSize : 10;
-      // paginationObj.value.total = data.value['totalCount'];
-    });
 
     const pages = computed(() => {
       // return Math.ceil(pagination.value.total / pagination.value.pageSize);
@@ -233,21 +155,22 @@ export default defineComponent({
 
     return {
       paginationObj,
-      pages,
-      setCurrent,
-      setCurrentPageSize,
       getItems,
       isEmptyTableData,
-      handleSelectionChange,
-      handleCurrentChange,
       multipleSelection,
       pageSizeList,
+      pages,
+      handleCurrentChange,
+      setCurrent,
+      setCurrentPageSize,
+      handleSelectionChange,
     };
   },
 });
 </script>
 
 <style scoped lang="scss">
+@import "~element-plus/lib/theme-chalk/el-table.css";
 
 .customerTable {
   clear: both;
@@ -261,25 +184,6 @@ export default defineComponent({
 :deep(.cell) {
   word-break: break-word;
 }
-
-//table.dataTable {
-//  clear: both;
-//  margin-top: 6px !important;
-//  margin-bottom: 6px !important;
-//  max-width: none !important;
-//  border-collapse: separate !important;
-//  border-spacing: 0;
-//}
-//
-//table.dataTable > thead {
-//  th.sorting {
-//    position: relative;
-//  }
-//
-//  .sorting:after {
-//    position: absolute;
-//  }
-//}
 
 :deep(.el-pagination.is-background .btn-next),
 :deep(.el-pagination.is-background .btn-prev),

@@ -142,3 +142,11 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss" scoped>
+:deep(.el-date-editor--daterange.el-input__inner), :deep(.el-select) {
+  width: 100%;
+}
+:deep(.el-range-editor.el-input__inner) {
+  justify-content: space-around;
+}
+</style>

@@ -6,12 +6,12 @@
           <div class="d-flex">
             <div class="w-auto me-5">
               <button
-                  type="button"
-                  class="btn btn-primary btn-active-light-primary"
-                  data-kt-menu-trigger="click"
-                  data-kt-menu-placement="bottom-start"
-                  data-kt-menu-flip="top-start"
-                  data-kt-menu-attach="parent"
+                type="button"
+                class="btn btn-primary btn-active-light-primary"
+                data-kt-menu-trigger="click"
+                data-kt-menu-placement="bottom-start"
+                data-kt-menu-flip="top-start"
+                data-kt-menu-attach="parent"
               >
                 <span class="svg-icon svg-icon-2">
                   <inline-svg src="media/icons/duotune/general/gen021.svg"/>
@@ -22,13 +22,13 @@
             </div>
             <div class="w-auto me-5">
               <button
-                  type="button"
-                  class="btn btn-primary"
-                  disabled
-                  ref="syncKLPBtn"
-                  @click.prevent="changeSyncType('selection')"
-                  data-bs-toggle="modal"
-                  data-bs-target="#kt_modal_sync_kalapa_data">
+                type="button"
+                class="btn btn-primary"
+                disabled
+                ref="syncKLPBtn"
+                @click.prevent="changeSyncType('selection')"
+                data-bs-toggle="modal"
+                data-bs-target="#kt_modal_sync_kalapa_data">
                 <span class="svg-icon svg-icon-2">
                   <inline-svg src="media/icons/duotune/coding/cod007.svg"/>
                 </span>
@@ -37,74 +37,54 @@
             </div>
             <div v-if="userRole === 'all'" class="w-auto me-5">
               <button
-                  type="button"
-                  class="btn btn-icon btn-color-primary btn-active-light-primary"
-                  @click.prevent="changeSyncType('all')"
-                  data-kt-menu-trigger="click"
-                  data-kt-menu-placement="bottom-start"
-                  data-kt-menu-flip="top-start"
-                  data-kt-menu-attach="parent"
+                type="button"
+                class="btn btn-icon btn-color-primary btn-active-light-primary"
+                @click.prevent="changeSyncType('all')"
+                data-kt-menu-trigger="click"
+                data-kt-menu-placement="bottom-start"
+                data-kt-menu-flip="top-start"
+                data-kt-menu-attach="parent"
               >
                 <span class="svg-icon svg-icon-2">
                   <inline-svg src="media/icons/duotune/general/gen053.svg"/>
                 </span>
-                <!--                Sync & Export-->
               </button>
               <AdvancedActionDropdown />
             </div>
-            <!--            <div v-if="userRole === 'all'" class="w-auto me-5">-->
-            <!--              <button-->
-            <!--                  type="button"-->
-            <!--                  class="btn btn-primary btn-active-light-primary"-->
-            <!--                  data-kt-menu-trigger="click"-->
-            <!--                  data-kt-menu-placement="bottom-start"-->
-            <!--                  data-kt-menu-flip="top-start"-->
-            <!--                  data-kt-menu-attach="parent"-->
-            <!--              >-->
-            <!--                <span class="svg-icon svg-icon-2">-->
-            <!--                  <inline-svg src="media/icons/duotune/files/fil009.svg" />-->
-            <!--                </span>-->
-            <!--                Import-->
-            <!--              </button>-->
-            <!--              <SearchCustomerDropdown />-->
-            <!--            </div>-->
           </div>
         </div>
       </div>
-      <!--end::Card title-->
       <div class="card-toolbar">
         <div>
           <button
-              type="button"
-              class="btn btn-icon btn-color-primary btn-active-light-primary"
-              data-kt-menu-trigger="click"
-              data-kt-menu-placement="bottom-end"
-              data-kt-menu-flip="top-end"
-              data-kt-menu-attach="parent"
+            type="button"
+            class="btn btn-icon btn-color-primary btn-active-light-primary"
+            data-kt-menu-trigger="click"
+            data-kt-menu-placement="bottom-end"
+            data-kt-menu-flip="top-end"
+            data-kt-menu-attach="parent"
           >
-          <span class="svg-icon svg-icon-2">
-            <inline-svg src="media/icons/duotune/general/gen031.svg"/>
-          </span>
+            <span class="svg-icon svg-icon-2">
+              <inline-svg src="media/icons/duotune/general/gen031.svg"/>
+            </span>
           </button>
           <ColumnVisibilityDropdown @selection-change="handleColumnsVisibility"/>
         </div>
       </div>
     </div>
     <div class="card-body pt-0">
-      <CustomerDatatable
-          v-if="customerScoreData && pagination"
-          :table-header="tableHeader2"
-          :table-data="customerScoreData"
-          :pagination="pagination"
-          :user-role="userRole"
-          :enable-items-per-page-dropdown="true"
-          :loading="loading"
-          @change-page="changePage"
-          @change-page-size="changePageSize"
-          @single-select="handleSingleSelection"
-          @multiple-select="handleMultipleSelection"
-      >
-      </CustomerDatatable>
+      <Datatable
+        :table-header="tableHeader2"
+        :table-data="customerScoreData"
+        :pagination="pagination"
+        :user-role="userRole"
+        :enable-items-per-page-dropdown="true"
+        :loading="loading"
+        @change-page="changePage"
+        @change-page-size="changePageSize"
+        @single-select="handleSingleSelection"
+        @multiple-select="handleMultipleSelection"
+      />
     </div>
   </div>
 
@@ -117,7 +97,7 @@ import {MenuComponent} from "@/assets/ts/components";
 import {setCurrentPageBreadcrumbs} from "@/core/helpers/breadcrumb";
 import store from "@/store";
 import {Actions} from "@/store/enums/StoreEnums";
-import CustomerDatatable from "@/components/customers/table/CustomerDatatable.vue";
+import Datatable from "@/components/nh-datatable/Datatable.vue";
 import SyncKalapaModal from "@/components/customers/modal/SyncKalapaModal.vue";
 import ColumnVisibilityDropdown from "@/components/customers/dropdown/ColumnVisibilityDropdown.vue";
 import SearchCustomerDropdown from "@/components/customers/dropdown/SearchCustomerDropdown.vue";
@@ -130,7 +110,7 @@ export default defineComponent({
     SearchCustomerDropdown,
     AdvancedActionDropdown,
     SyncKalapaModal,
-    CustomerDatatable,
+    Datatable,
   },
   setup() {
     const formSearch = ref({
@@ -142,45 +122,6 @@ export default defineComponent({
       blacklist: "",
       dateRange: [],
     });
-    const tableHeader = ref([
-      [
-        {name: "STT", rowspan: 2, key: "seq"},
-        {name: "Số ID của KH", rowspan: 2, key: "idno"},
-        {name: "Số điện thoại của KH", rowspan: 2, key: "tel"},
-        {name: "Tên khách hàng", rowspan: 2, key: "custNM"},
-        {name: "USER SCORE", colspan: 4},
-        {name: "BLACK_LIST", colspan: 2},
-        {name: "CREDIT_SCORE", colspan: 3},
-        {name: "JOB SCORE", colspan: 15},
-        {name: "Số Tài khoản GDCK", rowspan: 2, key: "acntNo"},
-      ],
-      [
-        {name: "Score", key: "score"},
-        {name: "Mô tả kết quả", key: "cnte"},
-        {name: "Name similar score", key: "nameSimilarScore"},
-        {name: "Phone similar score", key: "phoneMatched"},
-        {name: "FI", key: "fi"},
-        {name: "PDL", key: "pdl"},
-        {name: "E-wallet, Buy now pay later", key: "creditScore1"},
-        {name: "Bank & FI", key: "creditScore2"},
-        {name: "Microlending (Short-term loan app)", key: "creditScore3"},
-        {name: "Score 1", key: "job1Score"},
-        {name: "Tên Công ty của KH 1", key: "job1Nm"},
-        {name: "Mã số thuế của Công ty 1", key: "job1TaxCd"},
-        {name: "Start date 1", key: "job1StrtDt"},
-        {name: "End date 1", key: "job1EndDt"},
-        {name: "Score 2", key: "job2Score"},
-        {name: "Tên Công ty của KH 2", key: "job2Nm"},
-        {name: "Mã số thuế của Công ty 2", key: "job2TaxCd"},
-        {name: "Start date 2", key: "job2StrtDt"},
-        {name: "End date 2", key: "job2EndDt"},
-        {name: "Score 3", key: "job3Score"},
-        {name: "Tên Công ty của KH 3", key: "job3Nm"},
-        {name: "Mã số thuế của Công ty 3", key: "job3TaxCd"},
-        {name: "Start date 3", key: "job3StrtDt"},
-        {name: "End date 3", key: "job3EndDt"},
-      ],
-    ]);
     const tableHeader2 = ref([
       {label: "STT", prop: "seq", visible: true, width: 70},
       {label: "Số ID của KH", prop: "idno", visible: true},
@@ -231,7 +172,6 @@ export default defineComponent({
       {label: "Ngày xử lý", visible: true, prop: "procDt"},
       {label: "Kalapa data application", visible: true, prop: "kalapaAppDat"},
     ]);
-    let tableHeaderFlattened = ref();
     const loading = ref(false);
     let customerScoreData = ref();
     let pagination = ref();
@@ -240,26 +180,19 @@ export default defineComponent({
     let syncPayload = ref<any[]>([]);
     let syncType = ref('');
 
-    function moveElement(array, fromIndex, toIndex) {
-      const arrayCopy = [...array];
-      const element = arrayCopy.splice(fromIndex, 1)[0];
-      arrayCopy.splice(toIndex, 0, element);
-      return arrayCopy;
-    }
-
     async function getCustomersScore(
-        page?: number,
-        idNo?: string,
-        tel?: string,
-        fullName?: string,
-        accountNo?: string,
-        fromDate?: string,
-        toDate?: string,
-        startScore?: string,
-        endScore?: string,
-        blacklist?: string,
-        pageSize = 10,
-        updateFlag = 'N'
+      page?: number,
+      idNo?: string,
+      tel?: string,
+      fullName?: string,
+      accountNo?: string,
+      fromDate?: string,
+      toDate?: string,
+      startScore?: string,
+      endScore?: string,
+      blacklist?: string,
+      pageSize = 10,
+      updateFlag = 'N'
     ) {
       console.log(`call API`);
       loading.value = true;
@@ -291,7 +224,7 @@ export default defineComponent({
       loading.value = false;
     }
 
-    function searchCustomerScore(formData) {
+    const searchCustomerScore = (formData) => {
       console.log("searchCustomerScore");
       formSearch.value = formData;
       const formDataRaw = JSON.parse(JSON.stringify(formData));
@@ -308,7 +241,7 @@ export default defineComponent({
           formDataRaw.blacklist,
           pagination.value.pageSize
       );
-    }
+    };
 
     const changePage = (page) => {
       console.log("changePage");
@@ -327,6 +260,7 @@ export default defineComponent({
           pagination.value.pageSize
       );
     };
+
     const changePageSize = (pageSize) => {
       console.log("changePageSize");
       const formDataRaw = JSON.parse(JSON.stringify(formSearch.value));
@@ -345,32 +279,15 @@ export default defineComponent({
           pageSize
       );
     };
+
     onBeforeMount(() => {
       getCustomersScore(1);
     });
+
     onMounted(() => {
       MenuComponent.reinitialization();
-      const rawTableHeaderFlattened: any[] = []
-          .concat(...JSON.parse(JSON.stringify(tableHeader.value)))
-          .filter((e) => Object.prototype.hasOwnProperty.call(e, "key"));
-      tableHeaderFlattened.value = moveElement(
-          rawTableHeaderFlattened,
-          4,
-          rawTableHeaderFlattened.length - 1
-      );
       setCurrentPageBreadcrumbs("Customers Score", ["Apps", "Customers"]);
     });
-    const truncatedText = (txt, length) => {
-      if (txt) {
-        if (txt.length <= length) {
-          return txt;
-        } else {
-          return txt.substring(0, length) + '...';
-        }
-      } else {
-        return '';
-      }
-    };
 
     const handleSingleSelection = (val) => {
       if (!syncKLPBtn.value) {
@@ -423,22 +340,19 @@ export default defineComponent({
     };
 
     return {
-      tableHeader,
       tableHeader2,
-      tableHeaderFlattened,
       customerScoreData,
-      changePage,
-      changePageSize,
       loading,
       pagination,
-      searchCustomerScore,
-      truncatedText,
-      userRole,
-      handleSingleSelection,
-      handleMultipleSelection,
       syncKLPBtn,
       syncPayload,
       syncType,
+      userRole,
+      changePage,
+      changePageSize,
+      searchCustomerScore,
+      handleSingleSelection,
+      handleMultipleSelection,
       handleColumnsVisibility,
       changeSyncType,
     };

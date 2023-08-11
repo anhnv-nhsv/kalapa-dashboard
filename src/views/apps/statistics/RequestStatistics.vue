@@ -1,48 +1,18 @@
 <template>
   <div class="card">
     <div class="card-header border-0 pt-6">
-      <!--begin::Card title-->
       <div class="card-title">
-        <!--begin::Search-->
-        <!--        <div class="d-flex align-items-center position-relative my-1">-->
-        <!--          <span class="svg-icon svg-icon-1 position-absolute ms-6">-->
-        <!--            <inline-svg src="media/icons/duotune/general/gen021.svg"/>-->
-        <!--          </span>-->
-        <!--          <input-->
-        <!--              type="text"-->
-        <!--              class="form-control form-control-solid w-250px ps-15"-->
-        <!--              placeholder="Search Customers"-->
-        <!--          />-->
-        <!--        </div>-->
-        <!--end::Search-->
         <form class="form row" autoComplete="on" @submit.prevent="submitSearch">
           <div
             class="col-md-3 d-flex align-items-center position-relative my-1"
           >
-            <!--            <span class="svg-icon svg-icon-1 position-absolute ms-6">-->
-            <!--              <inline-svg src="media/icons/duotune/general/gen021.svg"/>-->
-            <!--            </span>-->
-            <!--            <input-->
-            <!--              autoFocus-->
-            <!--              type="text"-->
-            <!--              class="form-control form-control-solid w-180px ps-15"-->
-            <!--              placeholder="Username"-->
-            <!--              v-model="formSearchData.username"-->
-            <!--            />-->
             <el-input
               autofocus
               v-model="formSearchData.username"
               placeholder="Username"
             />
           </div>
-          <div
-            class="col-md-6 d-flex align-items-center position-relative my-1"
-          >
-            <!--                  <span class="svg-icon svg-icon-1 position-absolute ms-6">-->
-            <!--                    <inline-svg src="media/icons/duotune/general/gen014.svg" />-->
-            <!--                  </span>-->
-            <!--              <input type="text" class="form-control form-control-solid w-180px ps-15"-->
-            <!--                     placeholder="To date" />-->
+          <div class="col-md-6 d-flex align-items-center position-relative my-1">
             <el-date-picker
               type="daterange"
               range-separator="-"
@@ -53,9 +23,7 @@
               v-model="formSearchData.dateRange"
             />
           </div>
-          <div
-            class="col-md-3 d-flex align-items-center position-relative my-1"
-          >
+          <div class="col-md-3 d-flex align-items-center position-relative my-1">
             <button
               :data-kt-indicator="loading ? 'on' : null"
               type="submit"
@@ -72,76 +40,35 @@
           </div>
         </form>
       </div>
-      <!--end::Card title-->
     </div>
     <div class="card-body pt-0">
       <Datatable
-        :table-data="dataRequestStatistics"
-        :table-header="tableHeader"
-        :pagination="pagination"
-        @change-page="changePage"
-      >
-        <template v-slot:cell-seq="{ row: reqs }">
-          {{ reqs.seq }}
-        </template>
-        <template v-slot:cell-clientUserName="{ row: reqs }">
-          {{ reqs.clientUserName }}
-        </template>
-        <template v-slot:cell-fromIP="{ row: reqs }">
-          {{ reqs.fromIP }}
-        </template>
-        <template v-slot:cell-apiUri="{ row: reqs }">
-          {{ reqs.apiUri }}
-        </template>
-        <template v-slot:cell-statusCode="{ row: reqs }">
-          {{ reqs.statusCode }}
-        </template>
-        <template v-slot:cell-message="{ row: reqs }">
-          {{ reqs.message }}
-        </template>
-        <template v-slot:cell-thirtyServiceAPIURI="{ row: reqs }">
-          {{ reqs.thirtyServiceAPIURI }}
-        </template>
-        <template v-slot:cell-thirtyResponseTime="{ row: reqs }">
-          {{ reqs.thirtyResponseTime }}
-        </template>
-      </Datatable>
-      <!--      <div v-else class="dataTables_wrapper dt-bootstrap4 no-footer">-->
-      <!--        <div class="table-responsive">-->
-      <!--          <table-->
-      <!--            class="-->
-      <!--          table-->
-      <!--          align-middle-->
-      <!--          table-row-dashed-->
-      <!--          fs-6-->
-      <!--          gy-5-->
-      <!--          dataTable-->
-      <!--          no-footer-->
-      <!--        "-->
-      <!--            id="kt_customers_table"-->
-      <!--            role="grid"-->
-      <!--          >-->
-      <!--            no data-->
-      <!--          </table>-->
-      <!--        </div>-->
-      <!--      </div>-->
+          :table-header="tableHeader"
+          :table-data="dataRequestStatistics"
+          :pagination="pagination"
+          :enable-items-per-page-dropdown="true"
+          :loading="loading"
+          :show-overflow-tooltip="true"
+          @change-page="changePage"
+          @change-page-size="changePageSize"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onBeforeMount, onMounted, ref } from "vue";
-import Datatable from "@/components/kt-datatable/Datatable.vue";
 import store from "@/store";
 import { Actions } from "@/store/enums/StoreEnums";
 import moment from "moment/moment";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 import { MenuComponent } from "@/assets/ts/components";
+import Datatable from "@/components/nh-datatable/Datatable.vue";
 
 export default defineComponent({
   name: "request-statistics",
   components: {
-    Datatable,
+    Datatable
   },
   setup() {
     const formSearchData = ref({
@@ -153,36 +80,45 @@ export default defineComponent({
     });
     const tableHeader = ref([
       {
-        name: "STT",
-        key: "seq",
+        label: "STT",
+        prop: "seq",
+        visible: true,
+        width: 70
       },
       {
-        name: "Tên",
-        key: "clientUserName",
+        label: "Tên",
+        prop: "clientUserName",
+        visible: true
       },
       {
-        name: "IP",
-        key: "fromIP",
+        label: "IP",
+        prop: "fromIP",
+        visible: true
       },
       {
-        name: "NH API",
-        key: "apiUri",
+        label: "NH API",
+        prop: "apiUri",
+        visible: true
       },
       {
-        name: "Status code",
-        key: "statusCode",
+        label: "Status code",
+        prop: "statusCode",
+        visible: true
       },
       {
-        name: "Message",
-        key: "message",
+        label: "Message",
+        prop: "message",
+        visible: true
       },
       {
-        name: "Kalapa API",
-        key: "thirtyServiceAPIURI",
+        label: "Kalapa API",
+        prop: "thirtyServiceAPIURI",
+        visible: true
       },
       {
-        name: "Thời gian phản hồi Kalapa (ms)",
-        key: "thirtyResponseTime",
+        label: "Thời gian phản hồi Kalapa (ms)",
+        prop: "thirtyResponseTime",
+        visible: true
       },
     ]);
     const loading = ref<boolean>(false);
@@ -221,63 +157,57 @@ export default defineComponent({
       loading.value = false;
     }
 
-    // getRequestStatistics();
-    // const dataRequestStatistics = computed(() => {
-    //   return store.getters.requestStatisticsResponse.data;
-    // });
-    // const pagination = computed(() => {
-    //   return {
-    //     totalPages: store.getters.requestStatisticsResponse.totalPages,
-    //     pageNo: store.getters.requestStatisticsResponse.pageNo,
-    //     pageSize: store.getters.requestStatisticsResponse.pageSize,
-    //     totalCount: store.getters.requestStatisticsResponse.totalCount,
-    //     currentCount: store.getters.requestStatisticsResponse.currentCount,
-    //   };
-    // });
-
     function submitSearch() {
-      // getRequestStatistics();
-      // let formData = toRaw(formSearchData.value);
-      // console.log('submitSearch')
       const formData = JSON.parse(JSON.stringify(formSearchData.value));
       getRequestStatistics(
         1,
         formData.username,
-        formData.dateRange[0],
-        formData.dateRange[1]
+        formData.dateRange ? formData.dateRange[0] : '',
+        formData.dateRange ? formData.dateRange[1] : '',
+        pagination.value.pageSize
       );
     }
 
     function changePage(page) {
-      // let formData = toRaw(formSearchData.value);
       const formData = JSON.parse(JSON.stringify(formSearchData.value));
-      // console.log(`changePage ${page}`)
-      // console.log(formData)
       getRequestStatistics(
         page,
         formData.username,
-        formData.dateRange[0],
-        formData.dateRange[1]
+          formData.dateRange ? formData.dateRange[0] : '',
+          formData.dateRange ? formData.dateRange[1] : '',
+        pagination.value.pageSize
       );
-    }
+    };
+
+    const changePageSize = (pageSize) => {
+      console.log("changePageSize");
+      const formData = JSON.parse(JSON.stringify(formSearchData.value));
+      pagination.value.pageSize = pageSize;
+      getRequestStatistics(
+          1,
+          formData.username,
+          formData.dateRange ? formData.dateRange[0] : '',
+          formData.dateRange ? formData.dateRange[1] : '',
+          pageSize
+      );
+    };
 
     onBeforeMount(() => {
-      // console.log('onBeforeMount')
       getRequestStatistics(1);
     });
     onMounted(() => {
-      // console.log('onMounted')
       MenuComponent.reinitialization();
       setCurrentPageBreadcrumbs("Request Statistics", ["Apps", "Statistics"]);
     });
     return {
       dataRequestStatistics,
       tableHeader,
-      changePage,
       pagination,
       loading,
-      submitSearch,
       formSearchData,
+      changePage,
+      changePageSize,
+      submitSearch,
     };
   },
 });

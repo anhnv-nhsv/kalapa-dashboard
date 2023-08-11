@@ -13,20 +13,20 @@
           <el-table-column label="Columns name" prop="name" />
         </el-table>
       </div>
+      <!--begin::Actions-->
+      <div class="d-flex justify-content-end">
+        <button
+            type="submit"
+            class="btn btn-sm btn-primary"
+            @click.prevent="handleColumnVisibility"
+            data-kt-menu-dismiss="true"
+        >
+          Apply
+        </button>
+      </div>
+      <!--end::Actions-->
     </div>
     <!--end::Form-->
-    <!--begin::Actions-->
-    <div class="d-flex justify-content-end">
-      <button
-          type="submit"
-          class="btn btn-sm btn-primary"
-          @click.prevent="handleColumnVisibility"
-          data-kt-menu-dismiss="true"
-      >
-        Apply
-      </button>
-    </div>
-    <!--end::Actions-->
   </div>
   <!--end::Menu 1-->
 </template>
