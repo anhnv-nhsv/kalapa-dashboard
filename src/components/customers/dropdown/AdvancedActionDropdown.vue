@@ -11,6 +11,7 @@
           class="btn btn-light-primary me-5"
           data-bs-toggle="modal"
           data-bs-target="#kt_modal_sync_kalapa_data"
+          disabled
         >
           <span class="svg-icon svg-icon-2">
             <inline-svg src="media/icons/duotune/files/fil019.svg" />
@@ -33,6 +34,7 @@
           class="btn btn-light-primary"
           data-bs-toggle="modal"
           data-bs-target="#kt_customer_import_modal"
+          disabled
         >
           <span class="svg-icon svg-icon-2">
             <inline-svg src="media/icons/duotune/files/fil009.svg" />
