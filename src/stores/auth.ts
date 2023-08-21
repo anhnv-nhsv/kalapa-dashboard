@@ -6,6 +6,7 @@ import JwtService from "@/core/services/JwtService";
 export interface User {
   success: boolean;
   token: string;
+  limit_req_to_kalapa: string;
 }
 
 export const useAuthStore = defineStore("auth", () => {
@@ -18,6 +19,10 @@ export const useAuthStore = defineStore("auth", () => {
     user.value = authUser;
     errors.value = {};
     JwtService.saveToken(user.value.token);
+    window.localStorage.setItem(
+      "limit_req_to_kalapa",
+      user.value.limit_req_to_kalapa
+    );
   }
 
   function setError(error: any) {
@@ -29,6 +34,7 @@ export const useAuthStore = defineStore("auth", () => {
     user.value = {} as User;
     errors.value = [];
     JwtService.destroyToken();
+    window.localStorage.removeItem("limit_req_to_kalapa");
   }
 
   function login(credentials: User) {
