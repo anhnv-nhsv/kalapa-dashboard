@@ -135,9 +135,10 @@ export default defineComponent({
     function syncKalapa() {
       loading.value = true;
       if (
-        window.localStorage.getItem("limit_req_to_kalapa") &&
-        syncPropData.value.length >
-          Number(window.localStorage.getItem("limit_req_to_kalapa"))
+        (window.localStorage.getItem("limit_req_to_kalapa") &&
+          syncPropData.value.length >
+            Number(window.localStorage.getItem("limit_req_to_kalapa"))) ||
+        props.syncType == "all"
       ) {
         loading.value = false;
         Swal.fire({
