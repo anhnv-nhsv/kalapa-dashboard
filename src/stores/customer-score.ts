@@ -5,7 +5,7 @@ import ApiService from "@/core/services/ApiService";
 export const useCustomerStore = defineStore("customer-score", () => {
   const customersScoreResp = ref([]);
   const syncKalapaStatusCode = ref(-1);
-  const exportedCustomerResp = ref(-1);
+  const exportedCustomerResp = ref({});
   const errors = ref({});
 
   function setError(error: any) {

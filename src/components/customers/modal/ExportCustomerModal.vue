@@ -185,9 +185,8 @@ export default defineComponent({
         },
         responseType: "blob",
       });
-      const exportCustomerResp = store.customersScoreResp;
       loading.value = false;
-      return exportCustomerResp;
+      return store.exportedCustomerResp;
     }
 
     const submitExport = async () => {
@@ -207,23 +206,23 @@ export default defineComponent({
       );
       if (exportCustomerResp) {
         console.log(exportCustomerResp);
-        // let filename = "";
-        // let disposition = exportCustomerResp.headers["content-disposition"];
-        // if (disposition && disposition.indexOf("attachment") !== -1) {
-        //   let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-        //   let matches = filenameRegex.exec(disposition);
-        //   if (matches != null && matches[1]) {
-        //     filename = matches[1].replace(/['"]/g, "");
-        //   }
-        // }
-        // const temp = window.URL.createObjectURL(
-        //   new Blob([exportCustomerResp.data])
-        // );
-        // const link = document.createElement("a");
-        // link.href = temp;
-        // link.setAttribute("download", filename); //or any other extension
-        // document.body.appendChild(link);
-        // link.click();
+        let filename = "";
+        let disposition = exportCustomerResp["headers"]["content-disposition"];
+        if (disposition && disposition.indexOf("attachment") !== -1) {
+          let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+          let matches = filenameRegex.exec(disposition);
+          if (matches != null && matches[1]) {
+            filename = matches[1].replace(/['"]/g, "");
+          }
+        }
+        const temp = window.URL.createObjectURL(
+          new Blob([exportCustomerResp["data"]])
+        );
+        const link = document.createElement("a");
+        link.href = temp;
+        link.setAttribute("download", filename); //or any other extension
+        document.body.appendChild(link);
+        link.click();
       } else {
         Swal.fire({
           text: "Export failed. Please contact administrator!",
