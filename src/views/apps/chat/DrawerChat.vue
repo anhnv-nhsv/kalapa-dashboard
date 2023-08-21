@@ -2,9 +2,9 @@
   <!--begin::Heading-->
   <div class="d-flex flex-wrap flex-stack mb-6">
     <!--begin::Title-->
-    <h3 class="fw-bolder my-2">
+    <h3 class="fw-bold my-2">
       My Contacts
-      <span class="fs-6 text-gray-400 fw-bold ms-1">(59)</span>
+      <span class="fs-6 text-gray-400 fw-semobold ms-1">(59)</span>
     </h3>
     <!--end::Title-->
 
@@ -34,7 +34,7 @@
       name="Emma Smith"
       position="Art Director"
       :online="false"
-      avatar="media/avatars/150-1.jpg"
+      :avatar="getAssetPath('media/avatars/300-6.jpg')"
       :connected="false"
       avg-earnings="$14,560"
       total-sales="$236,400"
@@ -55,7 +55,7 @@
       name="Max Smith"
       position="Software Enginer"
       :online="false"
-      avatar="media/avatars/150-2.jpg"
+      :avatar="getAssetPath('media/avatars/300-1.jpg')"
       :connected="false"
       avg-earnings="$14,560"
       total-sales="$236,400"
@@ -65,7 +65,7 @@
       name="Sean Bean"
       position="Web Developer"
       :online="false"
-      avatar="media/avatars/150-4.jpg"
+      :avatar="getAssetPath('media/avatars/300-5.jpg')"
       :connected="false"
       avg-earnings="$14,560"
       total-sales="$236,400"
@@ -75,7 +75,7 @@
       name="Brian Cox"
       position="UI/UX Designer"
       :online="false"
-      avatar="media/avatars/150-15.jpg"
+      :avatar="getAssetPath('media/avatars/300-25.jpg')"
       :connected="false"
       avg-earnings="$14,560"
       total-sales="$236,400"
@@ -96,7 +96,7 @@
       name="Francis Mitcham"
       position="Software Arcitect"
       :online="false"
-      avatar="media/avatars/150-8.jpg"
+      :avatar="getAssetPath('media/avatars/300-9.jpg')"
       :connected="false"
       avg-earnings="$14,560"
       total-sales="$236,400"
@@ -128,7 +128,7 @@
       name="Dan Wilson"
       position="Web Desinger"
       :online="false"
-      avatar="media/avatars/150-6.jpg"
+      :avatar="getAssetPath('media/avatars/300-23.jpg')"
       :connected="false"
       avg-earnings="$14,560"
       total-sales="$236,400"
@@ -149,7 +149,7 @@
       name="Ana Crown"
       position="Customer Relationship"
       :online="false"
-      avatar="media/avatars/150-7.jpg"
+      :avatar="getAssetPath('media/avatars/300-12.jpg')"
       :connected="false"
       avg-earnings="$14,560"
       total-sales="$236,400"
@@ -159,7 +159,9 @@
 
   <!--begin::Pagination-->
   <div class="d-flex flex-stack flex-wrap pt-10">
-    <div class="fs-6 fw-bold text-gray-700">Showing 1 to 10 of 50 entries</div>
+    <div class="fs-6 fw-semobold text-gray-700">
+      Showing 1 to 10 of 50 entries
+    </div>
 
     <!--begin::Pages-->
     <ul class="pagination">
@@ -201,9 +203,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { getAssetPath } from "@/core/helpers/assets";
+import { defineComponent } from "vue";
 import Card4 from "@/components/cards/Card4.vue";
-import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 
 export default defineComponent({
   name: "drawer-chat",
@@ -211,9 +213,9 @@ export default defineComponent({
     Card4,
   },
   setup() {
-    onMounted(() => {
-      setCurrentPageBreadcrumbs("Drawer Chat", ["Chat"]);
-    });
+    return {
+      getAssetPath,
+    };
   },
 });
 </script>

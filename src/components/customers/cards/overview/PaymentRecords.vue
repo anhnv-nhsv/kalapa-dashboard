@@ -18,9 +18,7 @@
           data-bs-toggle="modal"
           data-bs-target="#kt_modal_add_payment"
         >
-          <span class="svg-icon svg-icon-3">
-            <inline-svg src="media/icons/duotune/general/gen035.svg" />
-          </span>
+          <KTIcon icon-name="plus-square" icon-class="fs-3" />
           Add payment
         </button>
         <!--end::Filter-->
@@ -32,25 +30,26 @@
     <!--begin::Card body-->
     <div class="card-body pt-0 pb-5">
       <Datatable
-        :table-header="tableHeader"
-        :table-data="tableData"
-        :rows-per-page="5"
+        :header="tableHeader"
+        :data="tableData"
+        :items-per-page="5"
+        :items-per-page-dropdown-enabled="false"
       >
-        <template v-slot:cell-invoice="{ row: payment }">
+        <template v-slot:invoice="{ row: payment }">
           {{ payment.invoice }}
         </template>
-        <template v-slot:cell-status="{ row: payment }">
+        <template v-slot:status="{ row: payment }">
           <span :class="`badge badge-light-${payment.status.state}`">{{
             payment.status.label
           }}</span>
         </template>
-        <template v-slot:cell-amount="{ row: payment }">
+        <template v-slot:amount="{ row: payment }">
           {{ payment.amount }}
         </template>
-        <template v-slot:cell-date="{ row: payment }">
+        <template v-slot:date="{ row: payment }">
           {{ payment.date }}
         </template>
-        <template v-slot:cell-actions="{ row: payment }">
+        <template v-slot:actions="{ row: payment }">
           <a
             href="#"
             class="btn btn-sm btn-light btn-active-light-primary"
@@ -58,25 +57,11 @@
             data-kt-menu-placement="bottom-end"
             data-kt-menu-flip="top-end"
             >Actions
-            <span class="svg-icon svg-icon-5 m-0">
-              <inline-svg src="media/icons/duotune/arrows/arr072.svg" />
-            </span>
+            <KTIcon icon-name="down" icon-class="fs-5 m-0" />
           </a>
           <!--begin::Menu-->
           <div
-            class="
-              menu
-              menu-sub
-              menu-sub-dropdown
-              menu-column
-              menu-rounded
-              menu-gray-600
-              menu-state-bg-light-primary
-              fw-bold
-              fs-7
-              w-125px
-              py-4
-            "
+            class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semobold fs-7 w-125px py-4"
             data-kt-menu="true"
           >
             <!--begin::Menu item-->
@@ -106,8 +91,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import Datatable from "@/components/kt-datatable/Datatable.vue";
+import {getAssetPath} from "@/core/helpers/assets";
+import {defineComponent, ref} from "vue";
+import Datatable from "@/components/kt-datatable/KTDataTable.vue";
 
 export default defineComponent({
   name: "payment-records",
@@ -120,30 +106,30 @@ export default defineComponent({
   setup() {
     const tableHeader = ref([
       {
-        name: "Invoice No.",
-        key: "invoice",
-        sortable: true,
+        columnName: "Invoice No.",
+        columnLabel: "invoice",
+        sortEnabled: false,
       },
       {
-        name: "Status",
-        key: "status",
+        columnName: "Status",
+        columnLabel: "status",
         sortingField: "status.label",
-        sortable: true,
+        sortEnabled: false,
       },
       {
-        name: "Amount",
-        key: "amount",
-        sortable: true,
+        columnName: "Amount",
+        columnLabel: "amount",
+        sortEnabled: false,
       },
       {
-        name: "Date",
-        key: "date",
-        sortable: true,
+        columnName: "Date",
+        columnLabel: "date",
+        sortEnabled: false,
       },
       {
-        name: "Actions",
-        key: "actions",
-        sortable: false,
+        columnName: "Actions",
+        columnLabel: "actions",
+        sortEnabled: false,
       },
     ]);
     const tableData = ref([
@@ -344,7 +330,7 @@ export default defineComponent({
       },
     ]);
 
-    const deleteRecord = (invoice) => {
+    const deleteRecord = (invoice: string) => {
       for (let i = 0; i < tableData.value.length; i++) {
         if (tableData.value[i].invoice === invoice) {
           tableData.value.splice(i, 1);
@@ -352,7 +338,7 @@ export default defineComponent({
       }
     };
 
-    return { tableHeader, tableData, deleteRecord };
+    return { tableHeader, tableData, deleteRecord, getAssetPath };
   },
 });
 </script>

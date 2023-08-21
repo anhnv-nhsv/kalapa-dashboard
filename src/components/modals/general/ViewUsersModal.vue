@@ -17,9 +17,7 @@
             class="btn btn-sm btn-icon btn-active-color-primary"
             data-bs-dismiss="modal"
           >
-            <span class="svg-icon svg-icon-1">
-              <inline-svg src="media/icons/duotune/arrows/arr061.svg" />
-            </span>
+            <KTIcon icon-name="cross" icon-class="fs-1" />
           </div>
           <!--end::Close-->
         </div>
@@ -34,9 +32,9 @@
             <!--end::Title-->
 
             <!--begin::Description-->
-            <div class="text-gray-400 fw-bold fs-5">
+            <div class="text-gray-400 fw-semobold fs-5">
               If you need more info, please check out our
-              <a href="#" class="link-primary fw-bolder">Users Directory</a>.
+              <a href="#" class="link-primary fw-bold">Users Directory</a>.
             </div>
             <!--end::Description-->
           </div>
@@ -49,12 +47,7 @@
               <template v-for="(user, index) in users" :key="index">
                 <!--begin::User-->
                 <div
-                  class="
-                    d-flex
-                    flex-stack
-                    py-5
-                    border-bottom border-gray-300 border-bottom-dashed
-                  "
+                  class="d-flex flex-stack py-5 border-bottom border-gray-300 border-bottom-dashed"
                 >
                   <!--begin::Details-->
                   <div class="d-flex align-items-center">
@@ -64,7 +57,7 @@
                       <span
                         v-else
                         :class="`bg-light-${user.state} text-${user.state}`"
-                        class="symbol-label fw-bold"
+                        class="symbol-label fw-semobold"
                       >
                         {{ user.name.charAt(0) }}
                       </span>
@@ -76,24 +69,20 @@
                       <!--begin::Name-->
                       <a
                         href="#"
-                        class="
-                          d-flex
-                          align-items-center
-                          fs-5
-                          fw-bolder
-                          text-dark text-hover-primary
-                        "
+                        class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary"
                       >
                         {{ user.name }}
 
-                        <span class="badge badge-light fs-8 fw-bold ms-2">
+                        <span class="badge badge-light fs-8 fw-semobold ms-2">
                           {{ user.position }}
                         </span>
                       </a>
                       <!--end::Name-->
 
                       <!--begin::Email-->
-                      <div class="fw-bold text-gray-400">{{ user.email }}</div>
+                      <div class="fw-semobold text-gray-400">
+                        {{ user.email }}
+                      </div>
                       <!--end::Email-->
                     </div>
                     <!--end::Details-->
@@ -104,7 +93,7 @@
                   <div class="d-flex">
                     <!--begin::Sales-->
                     <div class="text-end">
-                      <div class="fs-5 fw-bolder text-dark">
+                      <div class="fs-5 fw-bold text-dark">
                         ${{ user.sales }}
                       </div>
 
@@ -124,7 +113,7 @@
           <!--begin::Notice-->
           <div class="d-flex justify-content-between">
             <!--begin::Label-->
-            <div class="fw-bold">
+            <div class="fw-semobold">
               <label class="fs-6">Adding Users by Team Members</label>
 
               <div class="fs-7 text-gray-400">
@@ -141,10 +130,10 @@
                 class="form-check-input"
                 type="checkbox"
                 value=""
-                checked="checked"
+                checked
               />
 
-              <span class="form-check-label fw-bold text-gray-400">
+              <span class="form-check-label fw-semobold text-gray-400">
                 Allowed
               </span>
             </label>
@@ -162,6 +151,7 @@
 </template>
 
 <script lang="ts">
+import { getAssetPath } from "@/core/helpers/assets";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -170,7 +160,7 @@ export default defineComponent({
   setup() {
     const users = [
       {
-        avatar: "media/avatars/150-1.jpg",
+        avatar: getAssetPath("media/avatars/300-6.jpg"),
         name: "Emma Smith",
         email: "e.smith@kpmg.com.au",
         position: "Art Director",
@@ -184,21 +174,21 @@ export default defineComponent({
         sales: "50,500",
       },
       {
-        avatar: "media/avatars/150-2.jpg",
+        avatar: getAssetPath("media/avatars/300-1.jpg"),
         name: "Max Smith",
         email: "max@kt.com",
         position: "Software Enginer",
         sales: "75,900",
       },
       {
-        avatar: "media/avatars/150-2.jpg",
+        avatar: getAssetPath("media/avatars/300-1.jpg"),
         name: "Sean Bean",
         email: "sean@dellito.com",
         position: "Web Developer",
         sales: "10,500",
       },
       {
-        avatar: "media/avatars/150-15.jpg",
+        avatar: getAssetPath("media/avatars/300-25.jpg"),
         name: "Brian Cox",
         email: "brian@exchange.com",
         position: "UI/UX Designer",
@@ -212,7 +202,7 @@ export default defineComponent({
         sales: "9,300",
       },
       {
-        avatar: "media/avatars/150-8.jpg",
+        avatar: getAssetPath("media/avatars/300-9.jpg"),
         name: "Francis Mitcham",
         email: "f.mitcham@kpmg.com.au",
         position: "Software Arcitect",
@@ -233,7 +223,7 @@ export default defineComponent({
         sales: "45,000",
       },
       {
-        avatar: "media/avatars/150-6.jpg",
+        avatar: getAssetPath("media/avatars/300-23.jpg"),
         name: "Dan Wilson",
         email: "dam@consilting.com",
         position: "Web Desinger",
@@ -247,7 +237,7 @@ export default defineComponent({
         sales: "5,000",
       },
       {
-        avatar: "media/avatars/150-7.jpg",
+        avatar: getAssetPath("media/avatars/300-12.jpg"),
         name: "Ana Crown",
         email: "ana.cf@limtel.com",
         position: "Customer Relationship",
@@ -264,6 +254,7 @@ export default defineComponent({
 
     return {
       users,
+      getAssetPath,
     };
   },
 });

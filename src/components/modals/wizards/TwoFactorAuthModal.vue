@@ -21,9 +21,7 @@
             class="btn btn-sm btn-icon btn-active-color-primary"
             data-bs-dismiss="modal"
           >
-            <span class="svg-icon svg-icon-1">
-              <inline-svg src="media/icons/duotune/arrows/arr061.svg" />
-            </span>
+            <KTIcon icon-name="cross" icon-class="fs-1" />
           </div>
           <!--end::Close-->
         </div>
@@ -34,7 +32,7 @@
           <!--begin::Options-->
           <div :class="[state !== '' && 'd-none']">
             <!--begin::Notice-->
-            <p class="text-gray-400 fs-5 fw-bold mb-10">
+            <p class="text-gray-400 fs-5 fw-semobold mb-10">
               In addition to your username and password, you’ll have to enter a
               code (delivered via app or SMS) to log into your account.
             </p>
@@ -48,29 +46,21 @@
                 class="btn-check"
                 name="auth_option"
                 value="apps"
-                checked="checked"
+                checked
                 id="kt_modal_two_factor_authentication_option_1"
                 v-model="value"
               />
               <label
-                class="
-                  btn btn-outline btn-outline-dashed btn-outline-default
-                  p-7
-                  d-flex
-                  align-items-center
-                  mb-5
-                "
+                class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center mb-5"
                 for="kt_modal_two_factor_authentication_option_1"
               >
-                <span class="svg-icon svg-icon-4x me-4">
-                  <inline-svg src="media/icons/duotune/coding/cod001.svg" />
-                </span>
+                <KTIcon icon-name="setting-2" icon-class="fs-4x me-4" />
 
-                <span class="d-block fw-bold text-start">
-                  <span class="text-dark fw-bolder d-block fs-3"
+                <span class="d-block fw-semobold text-start">
+                  <span class="text-dark fw-bold d-block fs-3"
                     >Authenticator Apps</span
                   >
-                  <span class="text-gray-400 fw-bold fs-6">
+                  <span class="text-gray-400 fw-semobold fs-6">
                     Get codes from an app like Google Authenticator, Microsoft
                     Authenticator, Authy or 1Password.
                   </span>
@@ -88,23 +78,14 @@
                 v-model="value"
               />
               <label
-                class="
-                  btn btn-outline btn-outline-dashed btn-outline-default
-                  p-7
-                  d-flex
-                  align-items-center
-                "
+                class="btn btn-outline btn-outline-dashed btn-outline-default p-7 d-flex align-items-center"
                 for="kt_modal_two_factor_authentication_option_2"
               >
-                <span class="svg-icon svg-icon-4x me-4">
-                  <inline-svg
-                    src="media/icons/duotune/communication/com003.svg"
-                  />
-                </span>
+                <KTIcon icon-name="message-text-2" icon-class="fs-4x me-4" />
 
-                <span class="d-block fw-bold text-start">
-                  <span class="text-dark fw-bolder d-block fs-3">SMS</span>
-                  <span class="text-gray-400 fw-bold fs-6"
+                <span class="d-block fw-semobold text-start">
+                  <span class="text-dark fw-bold d-block fs-3">SMS</span>
+                  <span class="text-gray-400 fw-semobold fs-6"
                     >We will send a code via SMS if you need to use your backup
                     login method.</span
                   >
@@ -125,11 +106,11 @@
           <!--begin::Apps-->
           <div :class="[state !== 'apps' && 'd-none']" data-kt-element="apps">
             <!--begin::Heading-->
-            <h3 class="text-dark fw-bolder mb-7">Authenticator Apps</h3>
+            <h3 class="text-dark fw-bold mb-7">Authenticator Apps</h3>
             <!--end::Heading-->
 
             <!--begin::Description-->
-            <div class="text-gray-500 fw-bold fs-6 mb-10">
+            <div class="text-gray-500 fw-semobold fs-6 mb-10">
               Using an authenticator app like
               <a
                 href="https://support.google.com/accounts/answer/1066447?hl=en"
@@ -152,34 +133,31 @@
 
               <!--begin::QR code image-->
               <div class="pt-5 text-center">
-                <img src="media/misc/qr.png" alt="" class="mw-150px" />
+                <img
+                  :src="getAssetPath('media/misc/qr.png')"
+                  alt=""
+                  class="mw-150px"
+                />
               </div>
               <!--end::QR code image-->
             </div>
             <!--end::Description-->
 
             <div
-              class="
-                notice
-                d-flex
-                bg-light-warning
-                rounded
-                border-warning border border-dashed
-                mb-10
-                p-6
-              "
+              class="notice d-flex bg-light-warning rounded border-warning border border-dashed mb-10 p-6"
             >
-              <span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
-                <inline-svg src="media/icons/duotune/general/gen044.svg" />
-              </span>
+              <KTIcon
+                icon-name="formation-5"
+                icon-class="fs-2tx text-warning me-4"
+              />
               <!--begin::Wrapper-->
               <div class="d-flex flex-stack flex-grow-1">
                 <!--begin::Content-->
-                <div class="fw-bold">
+                <div class="fw-semobold">
                   <div class="fs-6 text-gray-600">
                     If you having trouble using the QR code, select manual entry
                     on your app, and enter your username and the code:
-                    <div class="fw-bolder text-dark pt-2">
+                    <div class="fw-bold text-dark pt-2">
                       KBSS3QDAAFUMCBY63YCKI5WSSVACUMPN
                     </div>
                   </div>
@@ -190,7 +168,7 @@
             </div>
 
             <!--begin::Form-->
-            <Form
+            <VForm
               class="form"
               @submit="submitAuthCodeForm()"
               :validation-schema="schema2"
@@ -216,7 +194,7 @@
                 <button
                   type="reset"
                   @click="state = ''"
-                  class="btn btn-white me-3"
+                  class="btn btn-light me-3"
                 >
                   Cancel
                 </button>
@@ -237,7 +215,7 @@
                 </button>
               </div>
               <!--end::Actions-->
-            </Form>
+            </VForm>
             <!--end::Form-->
           </div>
           <!--end::Options-->
@@ -245,20 +223,20 @@
           <!--begin::SMS-->
           <div :class="[state !== 'sms' && 'd-none']" data-kt-element="sms">
             <!--begin::Heading-->
-            <h3 class="text-dark fw-bolder fs-3 mb-5">
+            <h3 class="text-dark fw-bold fs-3 mb-5">
               SMS: Verify Your Mobile Number
             </h3>
             <!--end::Heading-->
 
             <!--begin::Notice-->
-            <div class="text-gray-400 fw-bold mb-10">
+            <div class="text-gray-400 fw-semobold mb-10">
               Enter your mobile phone number with country code and we will send
               you a verification code upon request.
             </div>
             <!--end::Notice-->
 
             <!--begin::Form-->
-            <Form
+            <VForm
               class="form"
               @submit="submitMobileForm()"
               :validation-schema="schema1"
@@ -281,7 +259,7 @@
 
               <!--begin::Actions-->
               <div class="d-flex flex-center">
-                <button @click="state = ''" class="btn btn-white me-3">
+                <button @click="state = ''" class="btn btn-light me-3">
                   Cancel
                 </button>
 
@@ -301,7 +279,7 @@
                 </button>
               </div>
               <!--end::Actions-->
-            </Form>
+            </VForm>
             <!--end::Form-->
           </div>
           <!--end::SMS-->
@@ -316,9 +294,10 @@
 </template>
 
 <script lang="ts">
+import { getAssetPath } from "@/core/helpers/assets";
 import { defineComponent, ref } from "vue";
 import * as Yup from "yup";
-import { ErrorMessage, Field, Form } from "vee-validate";
+import { ErrorMessage, Field, Form as VForm } from "vee-validate";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 
 export default defineComponent({
@@ -326,7 +305,7 @@ export default defineComponent({
   components: {
     ErrorMessage,
     Field,
-    Form,
+    VForm,
   },
   setup() {
     const value = ref("apps");
@@ -357,6 +336,7 @@ export default defineComponent({
             icon: "success",
             buttonsStyling: false,
             confirmButtonText: "Ok, got it!",
+            heightAuto: false,
             customClass: {
               confirmButton: "btn btn-primary",
             },
@@ -389,6 +369,7 @@ export default defineComponent({
           icon: "success",
           buttonsStyling: false,
           confirmButtonText: "Ok, got it!",
+          heightAuto: false,
           customClass: {
             confirmButton: "btn btn-primary",
           },
@@ -407,6 +388,7 @@ export default defineComponent({
       submitMobileForm,
       submitAuthCodeButtonRef,
       submitMobileButtonRef,
+      getAssetPath,
     };
   },
 });

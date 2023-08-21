@@ -10,9 +10,12 @@
               autofocus
               v-model="formSearchData.username"
               placeholder="Username"
+              clearable
             />
           </div>
-          <div class="col-md-6 d-flex align-items-center position-relative my-1">
+          <div
+            class="col-md-6 d-flex align-items-center position-relative my-1"
+          >
             <el-date-picker
               type="daterange"
               range-separator="-"
@@ -23,7 +26,9 @@
               v-model="formSearchData.dateRange"
             />
           </div>
-          <div class="col-md-3 d-flex align-items-center position-relative my-1">
+          <div
+            class="col-md-3 d-flex align-items-center position-relative my-1"
+          >
             <button
               :data-kt-indicator="loading ? 'on' : null"
               type="submit"
@@ -42,15 +47,15 @@
       </div>
     </div>
     <div class="card-body pt-0">
-      <Datatable
-          :table-header="tableHeader"
-          :table-data="dataRequestStatistics"
-          :pagination="pagination"
-          :enable-items-per-page-dropdown="true"
-          :loading="loading"
-          :show-overflow-tooltip="true"
-          @change-page="changePage"
-          @change-page-size="changePageSize"
+      <NHDatatable
+        :table-header="tableHeader"
+        :table-data="dataRequestStatistics"
+        :pagination="pagination"
+        :enable-items-per-page-dropdown="true"
+        :loading="loading"
+        :show-overflow-tooltip="true"
+        @change-page="changePage"
+        @change-page-size="changePageSize"
       />
     </div>
   </div>
@@ -58,19 +63,17 @@
 
 <script lang="ts">
 import { defineComponent, onBeforeMount, onMounted, ref } from "vue";
-import store from "@/store";
-import { Actions } from "@/store/enums/StoreEnums";
+import { useReqStatistic } from "@/stores/req-statistic";
 import moment from "moment/moment";
-import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
-import { MenuComponent } from "@/assets/ts/components";
-import Datatable from "@/components/nh-datatable/Datatable.vue";
+import NHDatatable from "@/components/nh-datatable/NHDatatable.vue";
 
 export default defineComponent({
   name: "request-statistics",
   components: {
-    Datatable
+    NHDatatable,
   },
   setup() {
+    const store = useReqStatistic();
     const formSearchData = ref({
       username: "",
       dateRange: [
@@ -83,42 +86,42 @@ export default defineComponent({
         label: "STT",
         prop: "seq",
         visible: true,
-        width: 70
+        width: 70,
       },
       {
         label: "Tên",
         prop: "clientUserName",
-        visible: true
+        visible: true,
       },
       {
         label: "IP",
         prop: "fromIP",
-        visible: true
+        visible: true,
       },
       {
         label: "NH API",
         prop: "apiUri",
-        visible: true
+        visible: true,
       },
       {
         label: "Status code",
         prop: "statusCode",
-        visible: true
+        visible: true,
       },
       {
         label: "Message",
         prop: "message",
-        visible: true
+        visible: true,
       },
       {
         label: "Kalapa API",
         prop: "thirtyServiceAPIURI",
-        visible: true
+        visible: true,
       },
       {
         label: "Thời gian phản hồi Kalapa (ms)",
         prop: "thirtyResponseTime",
-        visible: true
+        visible: true,
       },
     ]);
     const loading = ref<boolean>(false);
@@ -134,7 +137,7 @@ export default defineComponent({
     ) {
       console.log("call API");
       loading.value = true;
-      await store.dispatch(Actions.GET_REQUEST_STATISTICS_ACTION, {
+      await store.getReqStatistic({
         params: {
           username: username ? username : "",
           fromDate: fromDate
@@ -145,7 +148,9 @@ export default defineComponent({
           pageSize: pageSize,
         },
       });
-      const requestStatisticsResponse = store.getters.requestStatisticsResponse;
+      const requestStatisticsResponse = JSON.parse(
+        JSON.stringify(store.statisticResp)
+      );
       dataRequestStatistics.value = requestStatisticsResponse.data;
       pagination.value = {
         totalPages: requestStatisticsResponse.totalPages,
@@ -162,8 +167,8 @@ export default defineComponent({
       getRequestStatistics(
         1,
         formData.username,
-        formData.dateRange ? formData.dateRange[0] : '',
-        formData.dateRange ? formData.dateRange[1] : '',
+        formData.dateRange ? formData.dateRange[0] : "",
+        formData.dateRange ? formData.dateRange[1] : "",
         pagination.value.pageSize
       );
     }
@@ -173,31 +178,27 @@ export default defineComponent({
       getRequestStatistics(
         page,
         formData.username,
-          formData.dateRange ? formData.dateRange[0] : '',
-          formData.dateRange ? formData.dateRange[1] : '',
+        formData.dateRange ? formData.dateRange[0] : "",
+        formData.dateRange ? formData.dateRange[1] : "",
         pagination.value.pageSize
       );
-    };
+    }
 
     const changePageSize = (pageSize) => {
       console.log("changePageSize");
       const formData = JSON.parse(JSON.stringify(formSearchData.value));
       pagination.value.pageSize = pageSize;
       getRequestStatistics(
-          1,
-          formData.username,
-          formData.dateRange ? formData.dateRange[0] : '',
-          formData.dateRange ? formData.dateRange[1] : '',
-          pageSize
+        1,
+        formData.username,
+        formData.dateRange ? formData.dateRange[0] : "",
+        formData.dateRange ? formData.dateRange[1] : "",
+        pageSize
       );
     };
 
     onBeforeMount(() => {
       getRequestStatistics(1);
-    });
-    onMounted(() => {
-      MenuComponent.reinitialization();
-      setCurrentPageBreadcrumbs("Request Statistics", ["Apps", "Statistics"]);
     });
     return {
       dataRequestStatistics,

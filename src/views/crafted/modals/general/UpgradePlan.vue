@@ -2,7 +2,7 @@
   <KTModalCard
     title="Upgrade Plan Modal Example"
     description="Click on the below buttons to launch <br/>a upgrade plan example."
-    image="media/illustrations/sketchy-1/8.png"
+    :image="getIllustrationsPath('8.png')"
     button-text="Upgrade Plan"
     modal-id="kt_modal_upgrade_plan"
   ></KTModalCard>
@@ -10,10 +10,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { getAssetPath, getIllustrationsPath } from "@/core/helpers/assets";
+import { defineComponent } from "vue";
 import KTModalCard from "@/components/cards/Card.vue";
 import KTUpgradePlanModal from "@/components/modals/general/UpgradePlanModal.vue";
-import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 
 export default defineComponent({
   name: "upgrade-plan",
@@ -22,9 +22,10 @@ export default defineComponent({
     KTUpgradePlanModal,
   },
   setup() {
-    onMounted(() => {
-      setCurrentPageBreadcrumbs("Upgrade Plan", ["Modals", "General"]);
-    });
+    return {
+      getIllustrationsPath,
+      getAssetPath,
+    };
   },
 });
 </script>

@@ -59,7 +59,7 @@
             <span v-if="!loading" class="indicator-label">
               Submit
               <span class="svg-icon svg-icon-3 ms-2 me-0">
-                <inline-svg src="icons/duotune/arrows/arr064.svg" />
+                <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
               </span>
             </span>
             <span v-if="loading" class="indicator-progress">
@@ -78,56 +78,56 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, watch} from "vue";
+import { defineComponent, ref, watch } from "vue";
 import { hideModal } from "@/core/helpers/dom";
 import Swal from "sweetalert2/dist/sweetalert2.js";
-import store from "@/store";
-import { Actions } from "@/store/enums/StoreEnums";
+import { useCustomerStore } from "@/stores/customer-score";
 
 export default defineComponent({
   name: "sync-kalapa-modal",
   props: {
     syncPayload: { type: Array, required: false, default: () => [] },
-    syncType: { type: String, required: false, default: () => ""}
+    syncType: { type: String, required: false, default: () => "" },
   },
   setup(props) {
+    const store = useCustomerStore();
     const loading = ref(false);
     const syncKalapaModalRef = ref<null | HTMLElement>(null);
     const syncPropData = ref(props.syncPayload);
     const temSyncData = ref(JSON.parse(JSON.stringify(syncPropData.value)));
     watch(
       () => props.syncPayload,
-      (newVal, oldVal) => {
+      (newVal) => {
         syncPropData.value = newVal;
         temSyncData.value = syncPropData.value;
       }
     );
 
     watch(
-        () => props.syncType,
-        (newVal, oldVal) => {
-          if (newVal === 'all') {
-            syncPropData.value = [];
-          } else {
-            syncPropData.value = temSyncData.value;
-          }
+      () => props.syncType,
+      (newVal) => {
+        if (newVal === "all") {
+          syncPropData.value = [];
+        } else {
+          syncPropData.value = temSyncData.value;
         }
+      }
     );
 
     async function callAPISyncKalapaData() {
       console.log(`call API sync Kalapa`);
       loading.value = true;
       const rawPropData = JSON.parse(JSON.stringify(syncPropData.value));
-      console.log(rawPropData)
-      const syncPayload = rawPropData.map(e => {
+      console.log(rawPropData);
+      const syncPayload = rawPropData.map((e) => {
         return {
           id: e.idno,
           name: e.custNM,
-          mobile: e.tel
-        }
+          mobile: e.tel,
+        };
       });
-      await store.dispatch(Actions.SYNC_KALAPA_SCORE_ACTION, syncPayload);
-      const syncStatusCode = store.getters.getSyncKalapaStatusCode;
+      await store.syncKalapaScore(syncPayload);
+      const syncStatusCode = store.syncKalapaStatusCode;
       loading.value = false;
       return syncStatusCode;
     }

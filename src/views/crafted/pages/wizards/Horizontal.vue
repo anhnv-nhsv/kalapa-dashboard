@@ -46,7 +46,7 @@
         <!--begin::Form-->
         <form
           class="mx-auto mw-600px w-100 pt-15 pb-10"
-          novalidate="novalidate"
+          novalidate
           id="kt_create_account_form"
           @submit="handleStep"
         >
@@ -90,9 +90,7 @@
                 data-kt-stepper-action="previous"
                 @click="previousStep"
               >
-                <span class="svg-icon svg-icon-4 me-1">
-                  <inline-svg src="media/icons/duotune/arrows/arr063.svg" />
-                </span>
+                <KTIcon icon-name="arrow-left" icon-class="fs-4 me-1" />
                 Back
               </button>
             </div>
@@ -109,9 +107,7 @@
               >
                 <span class="indicator-label">
                   Submit
-                  <span class="svg-icon svg-icon-3 ms-2 me-0">
-                    <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
-                  </span>
+                  <KTIcon icon-name="arrow-right" icon-class="fs-3 ms-2 me-0" />
                 </span>
                 <span class="indicator-progress">
                   Please wait...
@@ -123,9 +119,7 @@
 
               <button v-else type="submit" class="btn btn-lg btn-primary">
                 Continue
-                <span class="svg-icon svg-icon-4 ms-1 me-0">
-                  <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
-                </span>
+                <KTIcon icon-name="arrow-right" icon-class="fs-4 ms-2 me-0" />
               </button>
             </div>
             <!--end::Wrapper-->
@@ -142,43 +136,43 @@
 </template>
 
 <script lang="ts">
+import { getAssetPath } from "@/core/helpers/assets";
 import { computed, defineComponent, onMounted, ref } from "vue";
 import { StepperComponent } from "@/assets/ts/components";
 import { useForm } from "vee-validate";
-import Swal from "sweetalert2/dist/sweetalert2.min.js";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 import * as Yup from "yup";
 import Step1 from "@/components/wizard/steps/Step1.vue";
 import Step2 from "@/components/wizard/steps/Step2.vue";
 import Step3 from "@/components/wizard/steps/Step3.vue";
 import Step4 from "@/components/wizard/steps/Step4.vue";
 import Step5 from "@/components/wizard/steps/Step5.vue";
-import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 
 interface IStep1 {
-  accountType: string;
+  accountType?: string;
 }
 
 interface IStep2 {
-  accountTeamSize: string;
-  accountName: string;
-  accountPlan: string;
+  accountTeamSize?: string;
+  accountName?: string;
+  accountPlan?: string;
 }
 
 interface IStep3 {
-  businessName: string;
-  businessDescriptor: string;
-  businessType: string;
-  businessDescription: string;
-  businessEmail: string;
+  businessName?: string;
+  businessDescriptor?: string;
+  businessType?: string;
+  businessDescription?: string;
+  businessEmail?: string;
 }
 
 interface IStep4 {
-  nameOnCard: string;
-  cardNumber: string;
-  cardExpiryMonth: string;
-  cardExpiryYear: string;
-  cardCvv: string;
-  saveCard: string;
+  nameOnCard?: string;
+  cardNumber?: string;
+  cardExpiryMonth?: string;
+  cardExpiryYear?: string;
+  cardCvv?: string;
+  saveCard?: string;
 }
 
 interface CreateAccount extends IStep1, IStep2, IStep3, IStep4 {}
@@ -219,8 +213,6 @@ export default defineComponent({
       _stepperObj.value = StepperComponent.createInsance(
         horizontalWizardRef.value as HTMLElement
       );
-
-      setCurrentPageBreadcrumbs("Horizontal", ["Pages", "Wizards"]);
     });
 
     const createAccountSchema = [
@@ -258,26 +250,21 @@ export default defineComponent({
     });
 
     const totalSteps = computed(() => {
-      if (!_stepperObj.value) {
-        return;
+      if (_stepperObj.value) {
+        return _stepperObj.value.totalStepsNumber;
+      } else {
+        return 1;
       }
-
-      return _stepperObj.value.totatStepsNumber;
-    });
-
-    resetForm({
-      values: {
-        ...formData.value,
-      },
     });
 
     const handleStep = handleSubmit((values) => {
-      console.log(values);
+      resetForm({
+        values: {
+          ...formData.value,
+        },
+      });
 
-      formData.value = {
-        ...formData.value,
-        ...values,
-      };
+      formData.value = { ...values };
 
       currentStepIndex.value++;
 
@@ -304,8 +291,9 @@ export default defineComponent({
         icon: "success",
         buttonsStyling: false,
         confirmButtonText: "Ok, got it!",
+        heightAuto: false,
         customClass: {
-          confirmButton: "btn fw-bold btn-light-primary",
+          confirmButton: "btn fw-semobold btn-light-primary",
         },
       }).then(() => {
         window.location.reload();
@@ -319,6 +307,7 @@ export default defineComponent({
       formSubmit,
       totalSteps,
       currentStepIndex,
+      getAssetPath,
     };
   },
 });

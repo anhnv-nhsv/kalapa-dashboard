@@ -17,9 +17,7 @@
             class="btn btn-sm btn-icon btn-active-color-primary"
             data-bs-dismiss="modal"
           >
-            <span class="svg-icon svg-icon-1">
-              <inline-svg src="media/icons/duotune/arrows/arr061.svg" />
-            </span>
+            <KTIcon icon-name="cross" icon-class="fs-1" />
           </div>
           <!--end::Close-->
         </div>
@@ -36,9 +34,9 @@
               <!--end::Title-->
 
               <!--begin::Description-->
-              <div class="text-gray-400 fw-bold fs-5">
+              <div class="text-gray-400 fw-semobold fs-5">
                 If you need more info, please check
-                <a href="#" class="link-primary fw-bolder">Author Commision</a>.
+                <a href="#" class="link-primary fw-bold">Author Commision</a>.
               </div>
               <!--end::Description-->
             </div>
@@ -47,7 +45,7 @@
             <!--begin::Input group-->
             <div class="mb-10">
               <!--begin::Title-->
-              <h4 class="fs-5 fw-bold text-gray-800">
+              <h4 class="fs-5 fw-semobold text-gray-800">
                 Share my referral link with friends
               </h4>
               <!--end::Title-->
@@ -66,7 +64,7 @@
                 <button
                   ref="copyButtonRef"
                   id="kt_share_earn_link_copy_button"
-                  class="btn btn-light fw-bolder flex-shrink-0"
+                  class="btn btn-light fw-bold flex-shrink-0"
                   data-clipboard-target="#kt_share_earn_link_input"
                 >
                   Copy Link
@@ -81,7 +79,7 @@
               <a href="#" class="btn btn-light-primary w-100">
                 <img
                   alt="Logo"
-                  src="media/svg/brand-logos/google-icon.svg"
+                  :src="getAssetPath('media/svg/brand-logos/google-icon.svg')"
                   class="h-15px me-3"
                 />
                 Import Contacts
@@ -90,7 +88,7 @@
               <a href="#" class="btn btn-icon btn-facebook w-100 mx-6">
                 <img
                   alt="Logo"
-                  src="media/svg/brand-logos/facebook-2.svg"
+                  :src="getAssetPath('media/svg/brand-logos/facebook-2.svg')"
                   class="h-20px me-3"
                 />
                 Facebook
@@ -99,7 +97,7 @@
               <a href="#" class="btn btn-icon btn-twitter w-100">
                 <img
                   alt="Logo"
-                  src="media/svg/brand-logos/twitter.svg"
+                  :src="getAssetPath('media/svg/brand-logos/twitter.svg')"
                   class="h-20px me-3"
                 />
                 Twitter
@@ -111,11 +109,11 @@
             <div class="d-flex align-items-center mt-10">
               <!--begin::Label-->
               <div class="flex-grow-1">
-                <span class="fs-6 fw-bold text-gray-800 d-block"
+                <span class="fs-6 fw-semobold text-gray-800 d-block"
                   >Adding Users by Team Members</span
                 >
 
-                <span class="fs-7 fw-bold text-gray-400"
+                <span class="fs-7 fw-semobold text-gray-400"
                   >If you need more info, please check budget planning</span
                 >
               </div>
@@ -123,15 +121,13 @@
 
               <!--begin::Switch-->
               <label
-                class="
-                  form-check form-switch form-check-custom form-check-solid
-                "
+                class="form-check form-switch form-check-custom form-check-solid"
               >
                 <input
                   class="form-check-input"
                   type="checkbox"
                   value="1"
-                  checked="checked"
+                  checked
                 />
                 <span class="form-check-label"> Allowed </span>
               </label>
@@ -151,7 +147,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { getAssetPath } from "@/core/helpers/assets";
+import { defineComponent, onMounted, ref } from "vue";
 import ClipboardJS from "clipboard";
 
 export default defineComponent({
@@ -191,6 +188,7 @@ export default defineComponent({
     return {
       copyButtonRef,
       inputRef,
+      getAssetPath,
     };
   },
 });

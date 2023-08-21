@@ -14,11 +14,11 @@
                 data-kt-menu-attach="parent"
               >
                 <span class="svg-icon svg-icon-2">
-                  <inline-svg src="media/icons/duotune/general/gen021.svg"/>
+                  <inline-svg src="media/icons/duotune/general/gen021.svg" />
                 </span>
                 Search
               </button>
-              <SearchCustomerDropdown @search="searchCustomerScore"/>
+              <SearchCustomerDropdown @search="searchCustomerScore" />
             </div>
             <div class="w-auto me-5">
               <button
@@ -28,9 +28,10 @@
                 ref="syncKLPBtn"
                 @click.prevent="changeSyncType('selection')"
                 data-bs-toggle="modal"
-                data-bs-target="#kt_modal_sync_kalapa_data">
+                data-bs-target="#kt_modal_sync_kalapa_data"
+              >
                 <span class="svg-icon svg-icon-2">
-                  <inline-svg src="media/icons/duotune/coding/cod007.svg"/>
+                  <inline-svg src="media/icons/duotune/coding/cod007.svg" />
                 </span>
                 Sync selected
               </button>
@@ -46,10 +47,10 @@
                 data-kt-menu-attach="parent"
               >
                 <span class="svg-icon svg-icon-2">
-                  <inline-svg src="media/icons/duotune/general/gen053.svg"/>
+                  <inline-svg src="media/icons/duotune/general/gen053.svg" />
                 </span>
               </button>
-              <AdvancedActionDropdown />
+              <AdvancedActionDropdown :search-payload="formSearch" />
             </div>
           </div>
         </div>
@@ -65,15 +66,17 @@
             data-kt-menu-attach="parent"
           >
             <span class="svg-icon svg-icon-2">
-              <inline-svg src="media/icons/duotune/general/gen031.svg"/>
+              <inline-svg src="media/icons/duotune/general/gen031.svg" />
             </span>
           </button>
-          <ColumnVisibilityDropdown @selection-change="handleColumnsVisibility"/>
+          <ColumnVisibilityDropdown
+            @selection-change="handleColumnsVisibility"
+          />
         </div>
       </div>
     </div>
     <div class="card-body pt-0">
-      <Datatable
+      <NHDatatable
         :table-header="tableHeader2"
         :table-data="customerScoreData"
         :pagination="pagination"
@@ -88,16 +91,13 @@
     </div>
   </div>
 
-  <SyncKalapaModal :sync-payload="syncPayload" :sync-type="syncType"/>
+  <SyncKalapaModal :sync-payload="syncPayload" :sync-type="syncType" />
 </template>
 
 <script lang="ts">
-import {defineComponent, onBeforeMount, onMounted, ref, toRaw} from "vue";
-import {MenuComponent} from "@/assets/ts/components";
-import {setCurrentPageBreadcrumbs} from "@/core/helpers/breadcrumb";
-import store from "@/store";
-import {Actions} from "@/store/enums/StoreEnums";
-import Datatable from "@/components/nh-datatable/Datatable.vue";
+import { defineComponent, onBeforeMount, onMounted, ref } from "vue";
+import { useCustomerStore } from "@/stores/customer-score";
+import NHDatatable from "@/components/nh-datatable/NHDatatable.vue";
 import SyncKalapaModal from "@/components/customers/modal/SyncKalapaModal.vue";
 import ColumnVisibilityDropdown from "@/components/customers/dropdown/ColumnVisibilityDropdown.vue";
 import SearchCustomerDropdown from "@/components/customers/dropdown/SearchCustomerDropdown.vue";
@@ -110,81 +110,96 @@ export default defineComponent({
     SearchCustomerDropdown,
     AdvancedActionDropdown,
     SyncKalapaModal,
-    Datatable,
+    NHDatatable,
   },
   setup() {
+    const store = useCustomerStore();
     const formSearch = ref({
       idNo: "",
-      phoneNum: "",
-      fullName: "",
+      tel: "",
+      name: "",
       acctNo: "",
       userScore: "",
       blacklist: "",
       dateRange: [],
     });
     const tableHeader2 = ref([
-      {label: "STT", prop: "seq", visible: true, width: 70},
-      {label: "Số ID của KH", prop: "idno", visible: true},
-      {label: "Số điện thoại của KH", prop: "tel", visible: true},
-      {label: "Tên khách hàng", prop: "custNM", visible: true, width: 150},
+      { label: "STT", prop: "seq", visible: true, width: 70 },
+      { label: "Số ID của KH", prop: "idno", visible: true },
+      { label: "Số điện thoại của KH", prop: "tel", visible: true },
+      { label: "Tên khách hàng", prop: "custNM", visible: true, width: 150 },
       {
-        label: "USER SCORE", visible: false, children: [
-          {label: "Score", prop: "userScore.score"},
-          {label: "Mô tả kết quả", prop: "cnte", width: 300},
-          {label: "Name similar score", prop: "userScore.nameSimilarScore"},
-          {label: "Phone similar score", prop: "userScore.phoneMatched"},
-        ]
+        label: "USER SCORE",
+        visible: false,
+        children: [
+          { label: "Score", prop: "userScore.score" },
+          { label: "Mô tả kết quả", prop: "cnte", width: 300 },
+          { label: "Name similar score", prop: "userScore.nameSimilarScore" },
+          { label: "Phone similar score", prop: "userScore.phoneMatched" },
+        ],
       },
       {
-        label: "BLACKLIST", visible: false, children: [
-          {label: "FI", prop: "blacklist.fi"},
-          {label: "PDL", prop: "blacklist.pdl"},
-        ]
+        label: "BLACKLIST",
+        visible: false,
+        children: [
+          { label: "FI", prop: "blacklist.fi" },
+          { label: "PDL", prop: "blacklist.pdl" },
+        ],
       },
       {
-        label: "CREDIT SCORE", visible: false, children: [
-          {label: "E-wallet, Buy now pay later", prop: "creditScore.creditScore1"},
-          {label: "Bank & FI", prop: "creditScore.creditScore2"},
-          {label: "Microlending (Short-term loan app)", prop: "creditScore.creditScore3"},
-        ]
+        label: "CREDIT SCORE",
+        visible: false,
+        children: [
+          {
+            label: "E-wallet, Buy now pay later",
+            prop: "creditScore.creditScore1",
+          },
+          { label: "Bank & FI", prop: "creditScore.creditScore2" },
+          {
+            label: "Microlending (Short-term loan app)",
+            prop: "creditScore.creditScore3",
+          },
+        ],
       },
       {
-        label: "JOB SCORE", visible: false, children: [
-          {label: "Score 1", prop: "jobScore.job1Score"},
-          {label: "Tên Công ty của KH 1", prop: "jobScore.job1Nm"},
-          {label: "Mã số thuế của Công ty 1", prop: "jobScore.job1TaxCd"},
-          {label: "Start date 1", prop: "jobScore.job1StrtDt"},
-          {label: "End date 1", prop: "jobScore.job1EndDt"},
-          {label: "Score 2", prop: "jobScore.job2Score"},
-          {label: "Tên Công ty của KH 2", prop: "jobScore.job2Nm"},
-          {label: "Mã số thuế của Công ty 2", prop: "jobScore.job2TaxCd"},
-          {label: "Start date 2", prop: "jobScore.job2StrtDt"},
-          {label: "End date 2", prop: "jobScore.job2EndDt"},
-          {label: "Score 3", prop: "jobScore.job3Score"},
-          {label: "Tên Công ty của KH 3", prop: "jobScore.job3Nm"},
-          {label: "Mã số thuế của Công ty 3", prop: "jobScore.job3TaxCd"},
-          {label: "Start date 3", prop: "jobScore.job3StrtDt"},
-          {label: "End date 3", prop: "jobScore.job3EndDt"},
-        ]
+        label: "JOB SCORE",
+        visible: false,
+        children: [
+          { label: "Score 1", prop: "jobScore.job1Score" },
+          { label: "Tên Công ty của KH 1", prop: "jobScore.job1Nm" },
+          { label: "Mã số thuế của Công ty 1", prop: "jobScore.job1TaxCd" },
+          { label: "Start date 1", prop: "jobScore.job1StrtDt" },
+          { label: "End date 1", prop: "jobScore.job1EndDt" },
+          { label: "Score 2", prop: "jobScore.job2Score" },
+          { label: "Tên Công ty của KH 2", prop: "jobScore.job2Nm" },
+          { label: "Mã số thuế của Công ty 2", prop: "jobScore.job2TaxCd" },
+          { label: "Start date 2", prop: "jobScore.job2StrtDt" },
+          { label: "End date 2", prop: "jobScore.job2EndDt" },
+          { label: "Score 3", prop: "jobScore.job3Score" },
+          { label: "Tên Công ty của KH 3", prop: "jobScore.job3Nm" },
+          { label: "Mã số thuế của Công ty 3", prop: "jobScore.job3TaxCd" },
+          { label: "Start date 3", prop: "jobScore.job3StrtDt" },
+          { label: "End date 3", prop: "jobScore.job3EndDt" },
+        ],
       },
-      {label: "Số Tài khoản GDCK", visible: true, prop: "acntNo"},
-      {label: "Người xử lý", visible: true, prop: "procNm"},
-      {label: "Ngày xử lý", visible: true, prop: "procDt"},
-      {label: "Kalapa data application", visible: true, prop: "kalapaAppDat"},
+      { label: "Số Tài khoản GDCK", visible: true, prop: "acntNo" },
+      { label: "Người xử lý", visible: true, prop: "procNm" },
+      { label: "Ngày xử lý", visible: true, prop: "procDt" },
+      { label: "Kalapa data application", visible: true, prop: "kalapaAppDat" },
     ]);
     const loading = ref(false);
     let customerScoreData = ref();
     let pagination = ref();
-    let userRole = ref('all');
+    let userRole = ref("all");
     let syncKLPBtn = ref<HTMLElement | null>(null);
     let syncPayload = ref<any[]>([]);
-    let syncType = ref('');
+    let syncType = ref("");
 
     async function getCustomersScore(
       page?: number,
       idNo?: string,
       tel?: string,
-      fullName?: string,
+      name?: string,
       accountNo?: string,
       fromDate?: string,
       toDate?: string,
@@ -192,15 +207,15 @@ export default defineComponent({
       endScore?: string,
       blacklist?: string,
       pageSize = 10,
-      updateFlag = 'N'
+      updateFlag = "N"
     ) {
       console.log(`call API`);
       loading.value = true;
-      await store.dispatch(Actions.GET_CUSTOMERS_SCORE_ACTION, {
+      await store.getCustomersScore({
         params: {
           idNo: idNo ? idNo : "",
           tel: tel ? tel : "",
-          name: fullName ? fullName : "",
+          name: name ? name : "",
           accountNo: accountNo ? accountNo : "",
           fromDate: fromDate ? fromDate : "",
           toDate: toDate ? toDate : "",
@@ -212,7 +227,9 @@ export default defineComponent({
           pageSize: pageSize,
         },
       });
-      const customersScoreResp = store.getters.getCustomersScore;
+      const customersScoreResp = JSON.parse(
+        JSON.stringify(store.customersScoreResp)
+      );
       customerScoreData.value = customersScoreResp.data;
       pagination.value = {
         totalPages: customersScoreResp.totalPages,
@@ -229,17 +246,17 @@ export default defineComponent({
       formSearch.value = formData;
       const formDataRaw = JSON.parse(JSON.stringify(formData));
       getCustomersScore(
-          1,
-          formDataRaw.idNo,
-          formDataRaw.phoneNum,
-          formDataRaw.fullName,
-          formDataRaw.acctNo,
-          formDataRaw.dateRange[0],
-          formDataRaw.dateRange[1],
-          formDataRaw.userScore.split("-")[0],
-          formDataRaw.userScore.split("-")[1],
-          formDataRaw.blacklist,
-          pagination.value.pageSize
+        1,
+        formDataRaw.idNo,
+        formDataRaw.tel,
+        formDataRaw.name,
+        formDataRaw.acctNo,
+        formDataRaw.dateRange[0],
+        formDataRaw.dateRange[1],
+        formDataRaw.userScore.split("-")[0],
+        formDataRaw.userScore.split("-")[1],
+        formDataRaw.blacklist,
+        pagination.value.pageSize
       );
     };
 
@@ -247,17 +264,17 @@ export default defineComponent({
       console.log("changePage");
       const formDataRaw = JSON.parse(JSON.stringify(formSearch.value));
       getCustomersScore(
-          page,
-          formDataRaw.idNo,
-          formDataRaw.phoneNum,
-          formDataRaw.fullName,
-          formDataRaw.acctNo,
-          formDataRaw.dateRange[0],
-          formDataRaw.dateRange[1],
-          formDataRaw.userScore.split("-")[0],
-          formDataRaw.userScore.split("-")[1],
-          formDataRaw.blacklist,
-          pagination.value.pageSize
+        page,
+        formDataRaw.idNo,
+        formDataRaw.tel,
+        formDataRaw.name,
+        formDataRaw.acctNo,
+        formDataRaw.dateRange[0],
+        formDataRaw.dateRange[1],
+        formDataRaw.userScore.split("-")[0],
+        formDataRaw.userScore.split("-")[1],
+        formDataRaw.blacklist,
+        pagination.value.pageSize
       );
     };
 
@@ -266,27 +283,22 @@ export default defineComponent({
       const formDataRaw = JSON.parse(JSON.stringify(formSearch.value));
       pagination.value.pageSize = pageSize;
       getCustomersScore(
-          1,
-          formDataRaw.idNo,
-          formDataRaw.phoneNum,
-          formDataRaw.fullName,
-          formDataRaw.acctNo,
-          formDataRaw.dateRange[0],
-          formDataRaw.dateRange[1],
-          formDataRaw.userScore.split("-")[0],
-          formDataRaw.userScore.split("-")[1],
-          formDataRaw.blacklist,
-          pageSize
+        1,
+        formDataRaw.idNo,
+        formDataRaw.tel,
+        formDataRaw.name,
+        formDataRaw.acctNo,
+        formDataRaw.dateRange[0],
+        formDataRaw.dateRange[1],
+        formDataRaw.userScore.split("-")[0],
+        formDataRaw.userScore.split("-")[1],
+        formDataRaw.blacklist,
+        pageSize
       );
     };
 
     onBeforeMount(() => {
       getCustomersScore(1);
-    });
-
-    onMounted(() => {
-      MenuComponent.reinitialization();
-      setCurrentPageBreadcrumbs("Customers Score", ["Apps", "Customers"]);
     });
 
     const handleSingleSelection = (val) => {
@@ -315,22 +327,38 @@ export default defineComponent({
 
     const handleColumnsVisibility = (val) => {
       const selectedCols = JSON.parse(JSON.stringify(val));
-      tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'USER SCORE')].visible = false;
-      tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'BLACKLIST')].visible = false;
-      tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'CREDIT SCORE')].visible = false;
-      tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'JOB SCORE')].visible = false;
+      tableHeader2.value[
+        tableHeader2.value.findIndex((e) => e.label == "USER SCORE")
+      ].visible = false;
+      tableHeader2.value[
+        tableHeader2.value.findIndex((e) => e.label == "BLACKLIST")
+      ].visible = false;
+      tableHeader2.value[
+        tableHeader2.value.findIndex((e) => e.label == "CREDIT SCORE")
+      ].visible = false;
+      tableHeader2.value[
+        tableHeader2.value.findIndex((e) => e.label == "JOB SCORE")
+      ].visible = false;
       for (const selectedCol of selectedCols) {
-        if (selectedCol.key == 'user-score') {
-          tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'USER SCORE')].visible = true;
+        if (selectedCol.key == "user-score") {
+          tableHeader2.value[
+            tableHeader2.value.findIndex((e) => e.label == "USER SCORE")
+          ].visible = true;
         }
-        if (selectedCol.key == 'blacklist') {
-          tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'BLACKLIST')].visible = true;
+        if (selectedCol.key == "blacklist") {
+          tableHeader2.value[
+            tableHeader2.value.findIndex((e) => e.label == "BLACKLIST")
+          ].visible = true;
         }
-        if (selectedCol.key == 'credit-score') {
-          tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'CREDIT SCORE')].visible = true;
+        if (selectedCol.key == "credit-score") {
+          tableHeader2.value[
+            tableHeader2.value.findIndex((e) => e.label == "CREDIT SCORE")
+          ].visible = true;
         }
-        if (selectedCol.key == 'job-score') {
-          tableHeader2.value[tableHeader2.value.findIndex(e => e.label == 'JOB SCORE')].visible = true;
+        if (selectedCol.key == "job-score") {
+          tableHeader2.value[
+            tableHeader2.value.findIndex((e) => e.label == "JOB SCORE")
+          ].visible = true;
         }
       }
     };
@@ -348,6 +376,7 @@ export default defineComponent({
       syncPayload,
       syncType,
       userRole,
+      formSearch,
       changePage,
       changePageSize,
       searchCustomerScore,

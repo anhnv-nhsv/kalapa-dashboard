@@ -11,7 +11,7 @@
 
     <!--begin::Body-->
     <div class="card-body py-0">
-      <div class="fs-5 fw-bold text-gray-500 mb-4">
+      <div class="fs-5 fw-semobold text-gray-500 mb-4">
         Last 30 day earnings calculated. Apart from arranging the order of
         topics.
       </div>
@@ -22,27 +22,18 @@
         <div class="d-flex flex-wrap">
           <!--begin::Col-->
           <div
-            class="
-              border border-dashed border-gray-300
-              w-150px
-              rounded
-              my-3
-              p-4
-              me-6
-            "
+            class="border border-dashed border-gray-300 w-150px rounded my-3 p-4 me-6"
           >
-            <span class="fs-1 fw-bolder text-gray-800 lh-1">
+            <span class="fs-1 fw-bold text-gray-800 lh-1">
               <span
                 data-kt-countup="true"
                 data-kt-countup-value="6,840"
                 data-kt-countup-prefix="$"
                 >6,840$</span
               >
-              <span class="svg-icon svg-icon-1 svg-icon-success">
-                <inline-svg src="media/icons/duotune/arrows/arr066.svg" />
-              </span>
+              <KTIcon icon-name="arrow-up" icon-class="fs-1 text-success" />
             </span>
-            <span class="fs-6 fw-bold text-muted d-block lh-1 pt-2"
+            <span class="fs-6 fw-semobold text-muted d-block lh-1 pt-2"
               >Net Earnings</span
             >
           </div>
@@ -50,24 +41,15 @@
 
           <!--begin::Col-->
           <div
-            class="
-              border border-dashed border-gray-300
-              w-125px
-              rounded
-              my-3
-              p-4
-              me-6
-            "
+            class="border border-dashed border-gray-300 w-125px rounded my-3 p-4 me-6"
           >
-            <span class="fs-1 fw-bolder text-gray-800 lh-1">
+            <span class="fs-1 fw-bold text-gray-800 lh-1">
               <span class="" data-kt-countup="true" data-kt-countup-value="16"
                 >16</span
               >%
-              <span class="svg-icon svg-icon-1 svg-icon-danger">
-                <inline-svg src="icons/duotune/arrows/arr065.svg" />
-              </span>
+              <KTIcon icon-name="arrow-down" icon-class="fs-1 text-danger" />
             </span>
-            <span class="fs-6 fw-bold text-muted d-block lh-1 pt-2"
+            <span class="fs-6 fw-semobold text-muted d-block lh-1 pt-2"
               >Change</span
             >
           </div>
@@ -75,16 +57,9 @@
 
           <!--begin::Col-->
           <div
-            class="
-              border border-dashed border-gray-300
-              w-150px
-              rounded
-              my-3
-              p-4
-              me-6
-            "
+            class="border border-dashed border-gray-300 w-150px rounded my-3 p-4 me-6"
           >
-            <span class="fs-1 fw-bolder text-gray-800 lh-1">
+            <span class="fs-1 fw-bold text-gray-800 lh-1">
               <span
                 data-kt-countup="true"
                 data-kt-countup-value="1,240"
@@ -93,7 +68,9 @@
               >
               <span class="text-primary">--</span>
             </span>
-            <span class="fs-6 fw-bold text-muted d-block lh-1 pt-2">Fees</span>
+            <span class="fs-6 fw-semobold text-muted d-block lh-1 pt-2"
+              >Fees</span
+            >
           </div>
           <!--end::Col-->
         </div>
@@ -111,13 +88,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import {getAssetPath} from "@/core/helpers/assets";
+import {defineComponent} from "vue";
 
 export default defineComponent({
-  name: "earnings",
+  name: "earnings-card",
   props: {
     cardClasses: String,
   },
   components: {},
+  setup() {
+    return {
+      getAssetPath,
+    };
+  },
 });
 </script>

@@ -7,10 +7,10 @@
     <div class="px-7 py-5">
       <div class="d-flex justify-content-start">
         <button
-            type="button"
-            class="btn btn-light-primary me-5"
-            data-bs-toggle="modal"
-            data-bs-target="#kt_modal_sync_kalapa_data"
+          type="button"
+          class="btn btn-light-primary me-5"
+          data-bs-toggle="modal"
+          data-bs-target="#kt_modal_sync_kalapa_data"
         >
           <span class="svg-icon svg-icon-2">
             <inline-svg src="media/icons/duotune/files/fil019.svg" />
@@ -18,10 +18,10 @@
           Sync Kalapa
         </button>
         <button
-            type="button"
-            class="btn btn-light-primary me-5"
-            data-bs-toggle="modal"
-            data-bs-target="#kt_customer_export_modal"
+          type="button"
+          class="btn btn-light-primary me-5"
+          data-bs-toggle="modal"
+          data-bs-target="#kt_customer_export_modal"
         >
           <span class="svg-icon svg-icon-2">
             <inline-svg src="media/icons/duotune/files/fil010.svg" />
@@ -29,9 +29,10 @@
           Export report
         </button>
         <button
-            type="button"
-            class="btn btn-light-primary"
-            disabled
+          type="button"
+          class="btn btn-light-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#kt_customer_import_modal"
         >
           <span class="svg-icon svg-icon-2">
             <inline-svg src="media/icons/duotune/files/fil009.svg" />
@@ -42,70 +43,33 @@
     </div>
   </div>
 
-<!--  <SyncKalapaModal :sync-payload="[]"/>-->
-  <ExportCustomerModal />
+  <!--  <SyncKalapaModal :sync-payload="[]"/>-->
+  <ExportCustomerModal :search-payload="searchPayload" />
+  <ImportCustomerModal />
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from "vue";
+import { defineComponent } from "vue";
 import ExportCustomerModal from "@/components/customers/modal/ExportCustomerModal.vue";
-import SyncKalapaModal from "@/components/customers/modal/SyncKalapaModal.vue";
-
-interface Filter {
-  status: string;
-  author: boolean;
-  customer: boolean;
-  notifications: boolean;
-}
+import ImportCustomerModal from "@/components/customers/modal/ImportCustomerModal.vue";
 
 export default defineComponent({
   name: "advanced-action-dropdown",
   components: {
+    ImportCustomerModal,
     ExportCustomerModal,
-    // SyncKalapaModal,
+  },
+  props: {
+    searchPayload: {
+      type: Object,
+      required: false,
+      default: () => {
+        return {};
+      },
+    },
   },
   setup(props, ctx) {
-    const columns = ref([
-      {
-        name: 'User Score',
-        key: 'user-score',
-      }, {
-        name: 'Blacklist',
-        key: 'blacklist',
-      }, {
-        name: 'Credit Score',
-        key: 'credit-score',
-      }, {
-        name: 'Job Score',
-        key: 'job-score',
-      }
-    ]);
-    const formSearch = ref({
-      idNo: "",
-      phoneNum: "",
-      fullName: "",
-      acctNo: "",
-      userScore: "",
-      blacklist: "",
-    });
-
-    const searchCustomerHandler = () => {
-      ctx.emit("search", formSearch.value);
-      formSearch.value = {
-        idNo: "",
-        phoneNum: "",
-        fullName: "",
-        acctNo: "",
-        userScore: "",
-        blacklist: "",
-      };
-    }
-
-    return {
-      columns,
-      formSearch,
-      searchCustomerHandler,
-    };
+    return {};
   },
 });
 </script>

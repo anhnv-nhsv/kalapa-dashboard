@@ -2,7 +2,7 @@
   <KTModalCard
     title="New Address Modal Example"
     description="Click on the below buttons to launch <br/>a new address example."
-    image="media/illustrations/sketchy-1/19.png"
+    :image="getIllustrationsPath('19.png')"
     button-text="Add New Address"
     modal-id="kt_modal_new_address"
   ></KTModalCard>
@@ -11,10 +11,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { defineComponent } from "vue";
 import KTModalCard from "@/components/cards/Card.vue";
 import KTNewAddressModal from "@/components/modals/forms/NewAddressModal.vue";
-import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
+import { getIllustrationsPath } from "@/core/helpers/assets";
 
 export default defineComponent({
   name: "new-address",
@@ -23,9 +23,9 @@ export default defineComponent({
     KTNewAddressModal,
   },
   setup() {
-    onMounted(() => {
-      setCurrentPageBreadcrumbs("New Address", ["Modals", "Forms"]);
-    });
+    return {
+      getIllustrationsPath,
+    };
   },
 });
 </script>

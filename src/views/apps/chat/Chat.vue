@@ -3,11 +3,7 @@
   <div class="d-flex flex-column flex-lg-row">
     <!--begin::Sidebar-->
     <div
-      class="
-        flex-column flex-lg-row-auto
-        w-100 w-lg-300px w-xl-400px
-        mb-10 mb-lg-0
-      "
+      class="flex-column flex-lg-row-auto w-100 w-lg-300px w-xl-400px mb-10 mb-lg-0"
     >
       <!--begin::Contacts-->
       <div class="card card-flush">
@@ -16,17 +12,10 @@
           <!--begin::Form-->
           <form class="w-100 position-relative" autocomplete="off">
             <!--begin::Icon-->
-            <span
-              class="
-                svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500
-                position-absolute
-                top-50
-                ms-5
-                translate-middle-y
-              "
-            >
-              <inline-svg src="media/icons/duotune/general/gen021.svg" />
-            </span>
+            <KTIcon
+              icon-name="magnifier"
+              icon-class="fs-2 fs-lg-1 text-gray-500 position-absolute top-50 ms-5 translate-middle-y"
+            />
             <!--end::Icon-->
 
             <!--begin::Input-->
@@ -65,22 +54,12 @@
                     <span
                       v-else
                       :class="`bg-light-${item.color} text-${item.color}`"
-                      class="symbol-label fs-6 fw-bolder"
+                      class="symbol-label fs-6 fw-bold"
                       >{{ item.name.charAt(0) }}</span
                     >
                     <div
                       v-if="item.online"
-                      class="
-                        symbol-badge
-                        bg-success
-                        start-100
-                        top-100
-                        border-4
-                        h-15px
-                        w-15px
-                        ms-n2
-                        mt-n2
-                      "
+                      class="symbol-badge bg-success start-100 top-100 border-4 h-15px w-15px ms-n2 mt-n2"
                     ></div>
                   </div>
                   <!--end::Avatar-->
@@ -88,15 +67,12 @@
                   <div class="ms-5">
                     <a
                       href="#"
-                      class="
-                        fs-5
-                        fw-bolder
-                        text-gray-900 text-hover-primary
-                        mb-2
-                      "
+                      class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2"
                       >{{ item.name }}</a
                     >
-                    <div class="fw-bold text-gray-400">{{ item.email }}</div>
+                    <div class="fw-semobold text-gray-400">
+                      {{ item.email }}
+                    </div>
                   </div>
                   <!--end::Details-->
                 </div>
@@ -130,10 +106,16 @@
             <div class="d-flex justify-content-center flex-column me-3">
               <div v-if="isGroupChat" class="symbol-group symbol-hover">
                 <div class="symbol symbol-35px symbol-circle">
-                  <img alt="Pic" src="media/avatars/150-4.jpg" />
+                  <img
+                    alt="Pic"
+                    :src="getAssetPath('media/avatars/300-5.jpg')"
+                  />
                 </div>
                 <div class="symbol symbol-35px symbol-circle">
-                  <img alt="Pic" src="media/avatars/150-15.jpg" />
+                  <img
+                    alt="Pic"
+                    :src="getAssetPath('media/avatars/300-25.jpg')"
+                  />
                 </div>
                 <div class="symbol symbol-35px symbol-circle">
                   <span class="symbol-label bg-light-warning text-warning 40px"
@@ -141,7 +123,10 @@
                   >
                 </div>
                 <div class="symbol symbol-35px symbol-circle">
-                  <img alt="Pic" src="media/avatars/150-8.jpg" />
+                  <img
+                    alt="Pic"
+                    :src="getAssetPath('media/avatars/300-9.jpg')"
+                  />
                 </div>
                 <div class="symbol symbol-35px symbol-circle">
                   <span class="symbol-label bg-light-danger text-danger 40px"
@@ -154,7 +139,10 @@
                   >
                 </div>
                 <div class="symbol symbol-35px symbol-circle">
-                  <img alt="Pic" src="media/avatars/150-6.jpg" />
+                  <img
+                    alt="Pic"
+                    :src="getAssetPath('media/avatars/300-23.jpg')"
+                  />
                 </div>
                 <a
                   href="#"
@@ -163,7 +151,7 @@
                   data-bs-target="#kt_modal_view_users"
                 >
                   <span
-                    class="symbol-label fs-8 fw-bolder"
+                    class="symbol-label fs-8 fw-bold"
                     data-bs-toggle="tooltip"
                     data-bs-trigger="hover"
                     title=""
@@ -176,14 +164,7 @@
               <template v-else>
                 <a
                   href="#"
-                  class="
-                    fs-4
-                    fw-bolder
-                    text-gray-900 text-hover-primary
-                    me-1
-                    mb-2
-                    lh-1
-                  "
+                  class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 mb-2 lh-1"
                   >Brian Cox</a
                 >
 
@@ -192,7 +173,7 @@
                   <span
                     class="badge badge-success badge-circle w-10px h-10px me-1"
                   ></span>
-                  <span class="fs-7 fw-bold text-gray-400">Active</span>
+                  <span class="fs-7 fw-semobold text-gray-400">Active</span>
                 </div>
                 <!--end::Info-->
               </template>
@@ -225,15 +206,15 @@
         <div class="card-body" id="kt_chat_messenger_body">
           <!--begin::Messages-->
           <div
-            class="scroll-y me-n5 pe-5 h-800px"
+            class="scroll-y me-n5 pe-5 h-300px h-lg-auto"
             ref="messagesRef"
             data-kt-element="messages"
             data-kt-scroll="true"
             data-kt-scroll-activate="{default: false, lg: true}"
             data-kt-scroll-max-height="auto"
-            data-kt-scroll-dependencies="#kt_header, #kt_toolbar, #kt_footer, #kt_chat_messenger_header, #kt_chat_messenger_footer"
-            data-kt-scroll-wrappers="#kt_content, #kt_chat_messenger_body"
-            data-kt-scroll-offset="-2px"
+            data-kt-scroll-dependencies="#kt_header, #kt_app_header, #kt_app_toolbar, #kt_toolbar, #kt_footer, #kt_app_footer, #kt_chat_messenger_header, #kt_chat_messenger_footer"
+            data-kt-scroll-wrappers="#kt_content, #kt_app_content, #kt_chat_messenger_body"
+            data-kt-scroll-offset="5px"
           >
             <template v-for="(item, index) in messages" :key="index">
               <MessageIn
@@ -315,14 +296,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from "vue";
+import { getAssetPath } from "@/core/helpers/assets";
+import { computed, defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 import Dropdown4 from "@/components/dropdown/Dropdown4.vue";
-import { ScrollComponent } from "@/assets/ts/components";
 import contacts from "@/core/data/contacts";
 import MessageIn from "@/components/messenger-parts/MessageIn.vue";
 import MessageOut from "@/components/messenger-parts/MessageOut.vue";
-import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 
 interface KTMessage {
   type: string;
@@ -350,46 +330,46 @@ export default defineComponent({
       {
         type: "in",
         name: "Brian Cox",
-        image: "media/avatars/150-15.jpg",
+        image: getAssetPath("media/avatars/300-25.jpg"),
         time: "5 Hours",
         text: "How likely are you to recommend our company to your friends and family ?",
       },
       {
         type: "out",
-        image: "media/avatars/150-2.jpg",
+        image: getAssetPath("media/avatars/300-1.jpg"),
         time: "2 Hours",
         text: "Hey there, we’re just writing to let you know that you’ve been subscribed to a repository on GitHub.",
       },
       {
         type: "in",
         name: "Brian Cox",
-        image: "media/avatars/150-15.jpg",
+        image: getAssetPath("media/avatars/300-25.jpg"),
         time: "2 Hour",
         text: "Ok, Understood!",
       },
       {
         type: "out",
-        image: "media/avatars/150-2.jpg",
+        image: getAssetPath("media/avatars/300-1.jpg"),
         time: "2 Hours",
         text: "You’ll receive notifications for all issues, pull requests!",
       },
       {
         type: "in",
         name: "Brian Cox",
-        image: "media/avatars/150-15.jpg",
+        image: getAssetPath("media/avatars/300-25.jpg"),
         time: "1 Hour",
         text: "You can unwatch this repository immediately by clicking here: Keenthemes.com",
       },
       {
         type: "out",
-        image: "media/avatars/150-2.jpg",
+        image: getAssetPath("media/avatars/300-1.jpg"),
         time: "4 mins",
         text: "Most purchased Business courses during this sale!",
       },
       {
         type: "in",
         name: "Brian Cox",
-        image: "media/avatars/150-15.jpg",
+        image: getAssetPath("media/avatars/300-25.jpg"),
         time: "2 mins",
         text: "Company BBQ to celebrate the last quater achievements and goals. Food and drinks provided",
       },
@@ -403,7 +383,7 @@ export default defineComponent({
       }
       messages.value.push({
         type: "out",
-        image: "media/avatars/150-2.jpg",
+        image: getAssetPath("media/avatars/300-1.jpg"),
         time: "Just now",
         text: newMessageText.value,
       });
@@ -419,7 +399,7 @@ export default defineComponent({
         messages.value.push({
           type: "in",
           name: "Ja Morant",
-          image: "media/avatars/150-15.jpg",
+          image: getAssetPath("media/avatars/300-25.jpg"),
           time: "Just now",
           text: "Thank you for your awesome support!",
         });
@@ -436,19 +416,6 @@ export default defineComponent({
       return route.path.indexOf("/group-chat") !== -1;
     });
 
-    onMounted(() => {
-      setCurrentPageBreadcrumbs("Overview", ["Chat"]);
-
-      if (!messagesRef.value) {
-        return;
-      }
-
-      console.log(messagesRef.value);
-      console.log(ScrollComponent.getInstance(messagesRef.value));
-
-      ScrollComponent.bootstrap();
-    });
-
     return {
       messages,
       messagesRef,
@@ -458,6 +425,7 @@ export default defineComponent({
       messagesOutRef,
       contacts,
       isGroupChat,
+      getAssetPath,
     };
   },
 });

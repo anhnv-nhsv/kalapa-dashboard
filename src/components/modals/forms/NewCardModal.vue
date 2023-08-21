@@ -22,9 +22,7 @@
             class="btn btn-sm btn-icon btn-active-color-primary"
             data-bs-dismiss="modal"
           >
-            <span class="svg-icon svg-icon-1">
-              <inline-svg src="media/icons/duotune/arrows/arr061.svg" />
-            </span>
+            <KTIcon icon-name="cross" icon-class="fs-1" />
           </div>
           <!--end::Close-->
         </div>
@@ -33,7 +31,7 @@
         <!--begin::Modal body-->
         <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
           <!--begin::Form-->
-          <Form
+          <VForm
             id="kt_modal_new_card_form"
             class="form"
             @submit="submit"
@@ -43,7 +41,7 @@
             <div class="d-flex flex-column mb-7 fv-row">
               <!--begin::Label-->
               <label
-                class="d-flex align-items-center fs-6 fw-bold form-label mb-2"
+                class="d-flex align-items-center fs-6 fw-semobold form-label mb-2"
               >
                 <span class="required">Name On Card</span>
                 <i
@@ -72,7 +70,7 @@
             <!--begin::Input group-->
             <div class="d-flex flex-column mb-7 fv-row">
               <!--begin::Label-->
-              <label class="required fs-6 fw-bold form-label mb-2"
+              <label class="required fs-6 fw-semobold form-label mb-2"
                 >Card Number</label
               >
               <!--end::Label-->
@@ -99,17 +97,19 @@
                   class="position-absolute translate-middle-y top-50 end-0 me-5"
                 >
                   <img
-                    src="media/svg/card-logos/visa.svg"
+                    :src="getAssetPath('media/svg/card-logos/visa.svg')"
                     alt=""
                     class="h-25px"
                   />
                   <img
-                    src="media/svg/card-logos/mastercard.svg"
+                    :src="getAssetPath('media/svg/card-logos/mastercard.svg')"
                     alt=""
                     class="h-25px"
                   />
                   <img
-                    src="media/svg/card-logos/american-express.svg"
+                    :src="
+                      getAssetPath('media/svg/card-logos/american-express.svg')
+                    "
                     alt=""
                     class="h-25px"
                   />
@@ -125,7 +125,7 @@
               <!--begin::Col-->
               <div class="col-md-8 fv-row">
                 <!--begin::Label-->
-                <label class="required fs-6 fw-bold form-label mb-2"
+                <label class="required fs-6 fw-semobold form-label mb-2"
                   >Expiration Date</label
                 >
                 <!--end::Label-->
@@ -190,7 +190,7 @@
               <div class="col-md-4 fv-row">
                 <!--begin::Label-->
                 <label
-                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2"
+                  class="d-flex align-items-center fs-6 fw-semobold form-label mb-2"
                 >
                   <span class="required">CVV</span>
                   <i
@@ -217,19 +217,9 @@
 
                   <!--begin::CVV icon-->
                   <div
-                    class="
-                      position-absolute
-                      translate-middle-y
-                      top-50
-                      end-0
-                      me-3
-                    "
+                    class="position-absolute translate-middle-y top-50 end-0 me-3"
                   >
-                    <span class="svg-icon svg-icon-2hx">
-                      <inline-svg
-                        src="media/icons/duotune/finance/fin002.svg"
-                      />
-                    </span>
+                    <KTIcon icon-name="credit-cart" icon-class="fs-2hx" />
                   </div>
                   <!--end::CVV icon-->
                 </div>
@@ -248,10 +238,10 @@
             <div class="d-flex flex-stack">
               <!--begin::Label-->
               <div class="me-5">
-                <label class="fs-6 fw-bold form-label"
+                <label class="fs-6 fw-semobold form-label"
                   >Save Card for further billing?</label
                 >
-                <div class="fs-7 fw-bold text-gray-400">
+                <div class="fs-7 fw-semobold text-gray-400">
                   If you need more info, please check budget planning
                 </div>
               </div>
@@ -259,17 +249,15 @@
 
               <!--begin::Switch-->
               <label
-                class="
-                  form-check form-switch form-check-custom form-check-solid
-                "
+                class="form-check form-switch form-check-custom form-check-solid"
               >
                 <input
                   class="form-check-input"
                   type="checkbox"
                   value="1"
-                  checked="checked"
+                  checked
                 />
-                <span class="form-check-label fw-bold text-gray-400">
+                <span class="form-check-label fw-semobold text-gray-400">
                   Save Card
                 </span>
               </label>
@@ -282,7 +270,7 @@
               <button
                 type="reset"
                 id="kt_modal_new_card_cancel"
-                class="btn btn-white me-3"
+                class="btn btn-light me-3"
               >
                 Discard
               </button>
@@ -303,7 +291,7 @@
               </button>
             </div>
             <!--end::Actions-->
-          </Form>
+          </VForm>
           <!--end::Form-->
         </div>
         <!--end::Modal body-->
@@ -316,8 +304,9 @@
 </template>
 
 <script lang="ts">
+import { getAssetPath } from "@/core/helpers/assets";
 import { defineComponent, ref } from "vue";
-import { ErrorMessage, Field, Form } from "vee-validate";
+import { ErrorMessage, Field, Form as VForm } from "vee-validate";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { hideModal } from "@/core/helpers/dom";
 import * as Yup from "yup";
@@ -335,7 +324,7 @@ export default defineComponent({
   components: {
     ErrorMessage,
     Field,
-    Form,
+    VForm,
   },
   setup() {
     const submitButtonRef = ref<null | HTMLButtonElement>(null);
@@ -379,6 +368,7 @@ export default defineComponent({
           icon: "success",
           buttonsStyling: false,
           confirmButtonText: "Ok, got it!",
+          heightAuto: false,
           customClass: {
             confirmButton: "btn btn-primary",
           },
@@ -394,6 +384,7 @@ export default defineComponent({
       submit,
       submitButtonRef,
       newCardModalRef,
+      getAssetPath,
     };
   },
 });
