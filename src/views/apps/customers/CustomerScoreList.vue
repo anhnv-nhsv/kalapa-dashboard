@@ -125,7 +125,7 @@ export default defineComponent({
     });
     const tableHeader2 = ref([
       { label: "STT", prop: "seq", visible: true, width: 70 },
-      { label: "Số ID của KH", prop: "idno", visible: true },
+      { label: "CMND/CCCD", prop: "idno", visible: true },
       { label: "Số điện thoại của KH", prop: "tel", visible: true },
       { label: "Tên khách hàng", prop: "custNM", visible: true, width: 150 },
       {
