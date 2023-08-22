@@ -22,79 +22,79 @@
     >
       <KTMenuPages></KTMenuPages>
 
-      <div
-        data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-        data-kt-menu-placement="bottom-start"
-        class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2"
-      >
-        <!--begin:Menu link-->
-        <span class="menu-link">
-          <span class="menu-title">Help</span>
-          <span class="menu-arrow d-lg-none"></span>
-        </span>
-        <!--end:Menu link-->
-        <!--begin:Menu sub-->
-        <div
-          class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-200px"
-        >
-          <!--begin:Menu item-->
-          <div class="menu-item">
-            <!--begin:Menu link-->
-            <a
-              class="menu-link"
-              href="https://preview.keenthemes.com/metronic8/vue/docs/#/utilities"
-              title="Check out over 200 in-house components, plugins and ready for use solutions"
-              data-bs-toggle="tooltip"
-              data-bs-trigger="hover"
-              data-bs-dismiss="click"
-              data-bs-placement="right"
-            >
-              <span class="menu-icon">
-                <KTIcon icon-name="rocket" icon-class="fs-3" />
-              </span>
-              <span class="menu-title">Components</span>
-            </a>
-            <!--end:Menu link-->
-          </div>
-          <!--end:Menu item-->
-          <!--begin:Menu item-->
-          <div class="menu-item">
-            <!--begin:Menu link-->
-            <a
-              class="menu-link"
-              href="https://preview.keenthemes.com/metronic8/vue/docs/#/doc-overview"
-              title="Check out the complete documentation"
-              data-bs-toggle="tooltip"
-              data-bs-trigger="hover"
-              data-bs-dismiss="click"
-              data-bs-placement="right"
-            >
-              <span class="menu-icon">
-                <KTIcon icon-name="abstract-26" icon-class="fs-3" />
-              </span>
-              <span class="menu-title">Documentation</span>
-            </a>
-            <!--end:Menu link-->
-          </div>
-          <!--end:Menu item-->
-          <!--begin:Menu item-->
-          <div class="menu-item">
-            <!--begin:Menu link-->
-            <a
-              class="menu-link"
-              href="https://preview.keenthemes.com/metronic8/vue/docs/#/changelog"
-            >
-              <span class="menu-icon">
-                <KTIcon icon-name="code" icon-class="fs-3" />
-              </span>
-              <span class="menu-title">Changelog v{{ version }}</span>
-            </a>
-            <!--end:Menu link-->
-          </div>
-          <!--end:Menu item-->
-        </div>
-        <!--end:Menu sub-->
-      </div>
+      <!--      <div-->
+      <!--        data-kt-menu-trigger="{default: 'click', lg: 'hover'}"-->
+      <!--        data-kt-menu-placement="bottom-start"-->
+      <!--        class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2"-->
+      <!--      >-->
+      <!--        &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+      <!--        <span class="menu-link">-->
+      <!--          <span class="menu-title">Help</span>-->
+      <!--          <span class="menu-arrow d-lg-none"></span>-->
+      <!--        </span>-->
+      <!--        &lt;!&ndash;end:Menu link&ndash;&gt;-->
+      <!--        &lt;!&ndash;begin:Menu sub&ndash;&gt;-->
+      <!--        <div-->
+      <!--          class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-200px"-->
+      <!--        >-->
+      <!--          &lt;!&ndash;begin:Menu item&ndash;&gt;-->
+      <!--          <div class="menu-item">-->
+      <!--            &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+      <!--            <a-->
+      <!--              class="menu-link"-->
+      <!--              href="https://preview.keenthemes.com/metronic8/vue/docs/#/utilities"-->
+      <!--              title="Check out over 200 in-house components, plugins and ready for use solutions"-->
+      <!--              data-bs-toggle="tooltip"-->
+      <!--              data-bs-trigger="hover"-->
+      <!--              data-bs-dismiss="click"-->
+      <!--              data-bs-placement="right"-->
+      <!--            >-->
+      <!--              <span class="menu-icon">-->
+      <!--                <KTIcon icon-name="rocket" icon-class="fs-3" />-->
+      <!--              </span>-->
+      <!--              <span class="menu-title">Components</span>-->
+      <!--            </a>-->
+      <!--            &lt;!&ndash;end:Menu link&ndash;&gt;-->
+      <!--          </div>-->
+      <!--          &lt;!&ndash;end:Menu item&ndash;&gt;-->
+      <!--          &lt;!&ndash;begin:Menu item&ndash;&gt;-->
+      <!--          <div class="menu-item">-->
+      <!--            &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+      <!--            <a-->
+      <!--              class="menu-link"-->
+      <!--              href="https://preview.keenthemes.com/metronic8/vue/docs/#/doc-overview"-->
+      <!--              title="Check out the complete documentation"-->
+      <!--              data-bs-toggle="tooltip"-->
+      <!--              data-bs-trigger="hover"-->
+      <!--              data-bs-dismiss="click"-->
+      <!--              data-bs-placement="right"-->
+      <!--            >-->
+      <!--              <span class="menu-icon">-->
+      <!--                <KTIcon icon-name="abstract-26" icon-class="fs-3" />-->
+      <!--              </span>-->
+      <!--              <span class="menu-title">Documentation</span>-->
+      <!--            </a>-->
+      <!--            &lt;!&ndash;end:Menu link&ndash;&gt;-->
+      <!--          </div>-->
+      <!--          &lt;!&ndash;end:Menu item&ndash;&gt;-->
+      <!--          &lt;!&ndash;begin:Menu item&ndash;&gt;-->
+      <!--          <div class="menu-item">-->
+      <!--            &lt;!&ndash;begin:Menu link&ndash;&gt;-->
+      <!--            <a-->
+      <!--              class="menu-link"-->
+      <!--              href="https://preview.keenthemes.com/metronic8/vue/docs/#/changelog"-->
+      <!--            >-->
+      <!--              <span class="menu-icon">-->
+      <!--                <KTIcon icon-name="code" icon-class="fs-3" />-->
+      <!--              </span>-->
+      <!--              <span class="menu-title">Changelog v{{ version }}</span>-->
+      <!--            </a>-->
+      <!--            &lt;!&ndash;end:Menu link&ndash;&gt;-->
+      <!--          </div>-->
+      <!--          &lt;!&ndash;end:Menu item&ndash;&gt;-->
+      <!--        </div>-->
+      <!--        &lt;!&ndash;end:Menu sub&ndash;&gt;-->
+      <!--      </div>-->
       <!--end:Menu item-->
     </div>
     <!--end::Menu-->
