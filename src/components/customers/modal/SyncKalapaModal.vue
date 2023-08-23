@@ -134,12 +134,56 @@ export default defineComponent({
 
     function syncKalapa() {
       loading.value = true;
-      if (
-        (window.localStorage.getItem("limit_req_to_kalapa") &&
+      if (window.localStorage.getItem("limit_req_to_kalapa")) {
+        if (
           syncPropData.value.length >
-            Number(window.localStorage.getItem("limit_req_to_kalapa"))) ||
-        props.syncType == "all"
-      ) {
+            Number(window.localStorage.getItem("limit_req_to_kalapa")) ||
+          props.syncType == "all"
+        ) {
+          loading.value = false;
+          Swal.fire({
+            text: "Maximum number of customers reached. Please try again later.",
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+              confirmButton: "btn btn-primary",
+            },
+          }).then(() => {
+            hideModal(syncKalapaModalRef.value);
+          });
+        } else {
+          setTimeout(async () => {
+            const syncStatusCode = await callAPISyncKalapaData();
+            loading.value = false;
+            if (syncStatusCode == 204) {
+              Swal.fire({
+                text: "Request has been received. Wait a minute while synchronizing then reload page!",
+                icon: "success",
+                buttonsStyling: false,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                  confirmButton: "btn btn-primary",
+                },
+              }).then(() => {
+                hideModal(syncKalapaModalRef.value);
+              });
+            } else {
+              Swal.fire({
+                text: "Request has been failed. Please contact administrator!",
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                  confirmButton: "btn btn-primary",
+                },
+              }).then(() => {
+                hideModal(syncKalapaModalRef.value);
+              });
+            }
+          }, 1000);
+        }
+      } else {
         loading.value = false;
         Swal.fire({
           text: "Maximum number of customers reached. Please try again later.",
@@ -152,36 +196,6 @@ export default defineComponent({
         }).then(() => {
           hideModal(syncKalapaModalRef.value);
         });
-      } else {
-        setTimeout(async () => {
-          const syncStatusCode = await callAPISyncKalapaData();
-          loading.value = false;
-          if (syncStatusCode == 204) {
-            Swal.fire({
-              text: "Request has been received. Wait a minute while synchronizing then reload page!",
-              icon: "success",
-              buttonsStyling: false,
-              confirmButtonText: "Ok, got it!",
-              customClass: {
-                confirmButton: "btn btn-primary",
-              },
-            }).then(() => {
-              hideModal(syncKalapaModalRef.value);
-            });
-          } else {
-            Swal.fire({
-              text: "Request has been failed. Please contact administrator!",
-              icon: "error",
-              buttonsStyling: false,
-              confirmButtonText: "Ok, got it!",
-              customClass: {
-                confirmButton: "btn btn-primary",
-              },
-            }).then(() => {
-              hideModal(syncKalapaModalRef.value);
-            });
-          }
-        }, 1000);
       }
     }
     return {
