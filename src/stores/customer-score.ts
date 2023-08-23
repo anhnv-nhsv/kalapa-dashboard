@@ -5,6 +5,7 @@ import ApiService from "@/core/services/ApiService";
 export const useCustomerStore = defineStore("customer-score", () => {
   const customersScoreResp = ref([]);
   const syncKalapaStatusCode = ref(-1);
+  const importedFileStatusCode = ref(-1);
   const exportedCustomerResp = ref({});
   const errors = ref({});
 
@@ -22,6 +23,10 @@ export const useCustomerStore = defineStore("customer-score", () => {
 
   function setExportedResult(data) {
     exportedCustomerResp.value = data;
+  }
+
+  function setImportedFileStatusCode(status) {
+    importedFileStatusCode.value = status;
   }
 
   function getCustomersScore(params) {
@@ -54,6 +59,10 @@ export const useCustomerStore = defineStore("customer-score", () => {
       });
   }
 
+  function importExcel(path, params, config) {
+    return ApiService.post(path, params, config);
+  }
+
   return {
     customersScoreResp,
     syncKalapaStatusCode,
@@ -62,5 +71,6 @@ export const useCustomerStore = defineStore("customer-score", () => {
     getCustomersScore,
     syncKalapaScore,
     exportCustomersScore,
+    importExcel,
   };
 });
