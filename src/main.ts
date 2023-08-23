@@ -16,6 +16,7 @@ import { initApexCharts } from "@/core/plugins/apexcharts";
 import { initInlineSvg } from "@/core/plugins/inline-svg";
 import { initVeeValidate } from "@/core/plugins/vee-validate";
 import { initKtIcon } from "@/core/plugins/keenthemes";
+import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 import "@/core/plugins/prismjs";
 
@@ -24,7 +25,9 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 app.use(ElementPlus);
-
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component);
+}
 ApiService.init(app);
 initApexCharts(app);
 initInlineSvg(app);
