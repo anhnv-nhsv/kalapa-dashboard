@@ -39,8 +39,8 @@ export const useCustomerStore = defineStore("customer-score", () => {
       });
   }
 
-  function syncKalapaScore(params) {
-    return ApiService.post("/api/account-info/sync-kalapa", params)
+  function syncKalapaScore(params, config) {
+    return ApiService.post("/api/account-info/sync-kalapa", params, config)
       .then(({ status }) => {
         setSyncKalapaStatus(status);
       })

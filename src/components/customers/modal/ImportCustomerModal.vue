@@ -22,12 +22,12 @@
           </div>
         </div>
         <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-          <el-form ref="formRef">
+          <form class="form row" enctype="multipart/form-data">
             <div class="row fv-row mb-5">
               <el-upload
                 ref="uploadRef"
                 class="upload-demo"
-                action="/api/account-info/import"
+                action="http://localhost:8081/api/account-info/import"
                 accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 drag
                 :limit="1"
@@ -43,7 +43,8 @@
                 </div>
                 <template #tip>
                   <div class="el-upload__tip text-red">
-                    Limit 1 file, new file will cover the old file.<br/>Please check carefully before import.
+                    Limit 1 file, new file will cover the old file.<br />Please
+                    check carefully before import.
                   </div>
                 </template>
                 <template v-slot:file="file">
@@ -87,14 +88,18 @@
                     </li>
                   </ul>
                   <el-alert
-                    :title="importStatus ? 'Request has been received. Wait a minute while synchronizing then reload page!' : 'Import failed'"
+                    :title="
+                      importStatus
+                        ? 'Request has been received. Wait a minute while synchronizing then reload page!'
+                        : 'Import failed'
+                    "
                     :type="importStatus ? 'success' : 'error'"
                     show-icon
                   />
                 </template>
               </el-upload>
             </div>
-          </el-form>
+          </form>
         </div>
       </div>
     </div>
@@ -133,12 +138,10 @@ export default defineComponent({
     };
 
     const handleError = async (err) => {
-      importStatus.value = false;
       await closeAlert(2000);
     };
 
     const handleSuccess = async (res) => {
-      importStatus.value = true;
       await closeAlert(3000);
     };
 
@@ -147,13 +150,25 @@ export default defineComponent({
       formData.append("file", options.file);
       await store
         .importExcel(options.action, formData, options.headers)
-        .then((res) => (options.onSuccess = handleSuccess(res)))
-        .catch((err) => (options.onError = handleError(err)));
+        .then((res) => {
+          console.log(res);
+          importStatus.value = true;
+          options.onSuccess = handleSuccess(res);
+        })
+        .catch((err) => {
+          console.log(err);
+          importStatus.value = false;
+          options.onError = handleError(err);
+        });
     };
 
     const closeAlert = (ms) => {
       setTimeout(() => {
-        document.querySelector('#kt_customer_import_modal .el-icon.el-alert__close-btn').click();
+        document
+          .querySelector(
+            "#kt_customer_import_modal .el-icon.el-alert__close-btn"
+          )
+          .click();
       }, ms);
     };
 
