@@ -149,7 +149,7 @@ export default defineComponent({
     ];
     const checkAll = ref(false);
     const isIndeterminate = ref(false);
-    const syncForm = reactive({
+    const syncForm = reactive<any>({
       checkedTypes: [],
     });
     watch(
