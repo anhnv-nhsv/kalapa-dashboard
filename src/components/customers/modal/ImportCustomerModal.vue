@@ -7,7 +7,7 @@
     aria-hidden="true"
   >
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-500px">
+    <div class="modal-dialog modal-dialog-centered mw-700px">
       <div class="modal-content">
         <div class="modal-header">
           <h2 class="fw-bolder">Import Customers</h2>
@@ -22,84 +22,80 @@
           </div>
         </div>
         <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-          <form class="form row" enctype="multipart/form-data">
+          <el-form
+            ref="formRef"
+            :model="syncForm"
+            @submit.prevent="syncKalapa(formRef)"
+          >
             <div class="row fv-row mb-5">
-              <el-upload
-                ref="uploadRef"
-                class="upload-demo"
-                action="http://localhost:8081/api/account-info/import"
-                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                drag
-                :limit="1"
-                :headers="{ 'Content-Type': 'multipart/form-data;' }"
-                :on-exceed="handleExceed"
-                :http-request="handleRequest"
-              >
-                <el-icon class="el-icon--upload">
-                  <upload-filled />
-                </el-icon>
-                <div class="el-upload__text">
-                  Drop file here or <em>click to upload</em>
-                </div>
-                <template #tip>
-                  <div class="el-upload__tip text-red">
-                    Limit 1 file, new file will cover the old file.<br />Please
-                    check carefully before import.
-                  </div>
-                </template>
-                <template v-slot:file="file">
-                  <ul class="el-upload-list el-upload-list--text mb-5">
-                    <li
-                      class="el-upload-list__item is-success"
-                      tabindex="0"
-                      style=""
-                    >
-                      <!--v-if-->
-                      <div class="el-upload-list__item-info">
-                        <a class="el-upload-list__item-name">
-                          <el-icon><Document /></el-icon>
-                          <span
-                            class="el-upload-list__item-file-name"
-                            :title="file.file.name"
-                            >{{ file.file.name }}</span
-                          ></a
-                        >
-                        <!--v-if-->
-                      </div>
-                      <label class="el-upload-list__item-status-label">
-                        <el-icon
-                          :class="{
-                            'el-icon--upload-success': importStatus,
-                            'el-icon--upload-error': !importStatus,
-                          }"
-                        >
-                          <CircleCheck v-if="importStatus" />
-                          <CircleClose v-if="!importStatus" />
-                        </el-icon>
-                      </label>
-                      <i class="el-icon el-icon--close" @click="removeFile">
-                        <el-icon><Close /></el-icon>
-                      </i>
-                      <!-- Due to close btn only appears when li gets focused disappears after li gets blurred, thus keyboard navigation can never reach close btn-->
-                      <!-- This is a bug which needs to be fixed -->
-                      <!-- TODO: Fix the incorrect navigation interaction -->
-                      <!--                      <i class="el-icon--close-tip">press delete to remove</i>-->
-                      <!--v-if-->
-                    </li>
-                  </ul>
-                  <el-alert
-                    :title="
-                      importStatus
-                        ? 'Request has been received. Wait a minute while synchronizing then reload page!'
-                        : 'Import failed'
-                    "
-                    :type="importStatus ? 'success' : 'error'"
-                    show-icon
-                  />
-                </template>
-              </el-upload>
+              <input
+                type="file"
+                class="form-control"
+                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                @change="changeFile($event)"
+              />
             </div>
-          </form>
+            <el-checkbox
+              v-model="checkAll"
+              :indeterminate="isIndeterminate"
+              @change="handleCheckAllChange"
+            >
+              Check all
+            </el-checkbox>
+            <el-form-item
+              prop="checkedTypes"
+              :rules="[
+                {
+                  required: true,
+                  message: 'Please select at least one sync type',
+                },
+              ]"
+            >
+              <el-checkbox-group
+                v-model="syncForm.checkedTypes"
+                @change="handleCheckedTypesChange"
+              >
+                <el-checkbox
+                  v-for="type in syncTypes"
+                  :key="type.typeId"
+                  :label="type.typeId"
+                  :disabled="type.disabled"
+                >
+                  {{ type.typeName }}
+                </el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+            <div class="text-center">
+              <button
+                type="reset"
+                id="kt_customer_export_cancel"
+                class="btn btn-light me-3"
+                data-bs-dismiss="modal"
+              >
+                Discard
+              </button>
+              <button
+                :data-kt-indicator="loading ? 'on' : null"
+                type="submit"
+                class="btn btn-lg btn-primary"
+              >
+                <span v-if="!loading" class="indicator-label">
+                  Submit
+                  <span class="svg-icon svg-icon-3 ms-2 me-0">
+                    <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
+                  </span>
+                </span>
+                <span v-if="loading" class="indicator-progress">
+                  Please wait...
+                  <span
+                    class="spinner-border spinner-border-sm align-middle ms-2"
+                  ></span>
+                </span>
+              </button>
+              <!--end::Button-->
+            </div>
+            <!--end::Actions-->
+          </el-form>
         </div>
       </div>
     </div>
@@ -107,81 +103,184 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import { genFileId } from "element-plus";
-import type { UploadProps, UploadInstance, UploadRawFile } from "element-plus";
+import { defineComponent, reactive, ref } from "vue";
+import type { FormInstance } from "element-plus";
 import Swal from "sweetalert2/dist/sweetalert2.js";
-import ApiService from "@/core/services/ApiService";
 import { useCustomerStore } from "@/stores/customer-score";
-import { Document } from "@element-plus/icons-vue";
+import * as XLSX from "xlsx";
 
 export default defineComponent({
   name: "import-customer-modal",
-  components: { Document },
   setup() {
-    const loading = ref(false);
-    const importStatus = ref(false);
-    const fileList = ref();
-    const uploadRef = ref<UploadInstance>();
     const store = useCustomerStore();
+    const loading = ref(false);
+    const formRef = ref<FormInstance>();
+    const syncTypes = [
+      {
+        typeId: 1,
+        typeName: "User score",
+        disabled: true,
+      },
+      {
+        typeId: 2,
+        typeName: "Blacklist score",
+        disabled: false,
+      },
+      {
+        typeId: 3,
+        typeName: "Job score",
+        disabled: true,
+      },
+      {
+        typeId: 4,
+        typeName: "Credit score",
+        disabled: true,
+      },
+    ];
+    const checkAll = ref(false);
+    const isIndeterminate = ref(false);
+    const syncForm = reactive<any>({
+      checkedTypes: [],
+    });
+    const dataFromFile = ref<any[]>([]);
 
-    const handleExceed: UploadProps["onExceed"] = (files) => {
-      uploadRef.value!.clearFiles();
-      const file = files[0] as UploadRawFile;
-      file.uid = genFileId();
-      uploadRef.value!.handleStart(file);
-      uploadRef.value!.submit();
+    async function callAPISyncKalapaData(payload) {
+      console.log(`call API sync Kalapa`);
+      loading.value = true;
+      await store.syncKalapaScore(payload, {
+        params: {
+          searchType: syncForm.checkedTypes.join(","),
+        },
+      });
+      const syncStatusCode = store.syncKalapaStatusCode;
+      loading.value = false;
+      return syncStatusCode;
+    }
+
+    function syncKalapa(formEl: FormInstance | undefined) {
+      loading.value = true;
+      if (!formEl) return;
+      formEl.validate((valid) => {
+        if (valid) {
+          if (window.localStorage.getItem("limit_req_to_kalapa")) {
+            if (
+              dataFromFile.value.length >
+              Number(window.localStorage.getItem("limit_req_to_kalapa"))
+            ) {
+              loading.value = false;
+              dataFromFile.value = [];
+              Swal.fire({
+                text: "Maximum number of customers reached. Please try again later.",
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                  confirmButton: "btn btn-primary",
+                },
+              });
+            } else {
+              setTimeout(async () => {
+                const payload = dataFromFile.value.map((e) => {
+                  const obj = JSON.parse(JSON.stringify(e));
+                  return {
+                    id: obj["Column 1"],
+                    name: obj["Column 3"],
+                    mobile: obj["Column 2"],
+                  };
+                });
+                const syncStatusCode = await callAPISyncKalapaData(payload);
+                loading.value = false;
+                if (syncStatusCode == 204) {
+                  Swal.fire({
+                    text: "Request has been received. Wait a minute while synchronizing then reload page!",
+                    icon: "success",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: {
+                      confirmButton: "btn btn-primary",
+                    },
+                  });
+                } else {
+                  dataFromFile.value = [];
+                  Swal.fire({
+                    text: "Request has been failed. Please contact administrator!",
+                    icon: "error",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: {
+                      confirmButton: "btn btn-primary",
+                    },
+                  });
+                }
+              }, 1000);
+            }
+          } else {
+            loading.value = false;
+            dataFromFile.value = [];
+            Swal.fire({
+              text: "Maximum number of customers reached. Please try again later.",
+              icon: "error",
+              buttonsStyling: false,
+              confirmButtonText: "Ok, got it!",
+              customClass: {
+                confirmButton: "btn btn-primary",
+              },
+            });
+          }
+        } else {
+          loading.value = false;
+          return false;
+        }
+      });
+    }
+
+    const handleCheckAllChange = (val: boolean) => {
+      syncForm.checkedTypes = val
+        ? syncTypes.filter((e) => !e.disabled).map((e) => e.typeId)
+        : [];
+      isIndeterminate.value = false;
+    };
+    const handleCheckedTypesChange = (value: any[]) => {
+      const checkedCount = value.length;
+      checkAll.value = checkedCount === syncTypes.length;
+      isIndeterminate.value =
+        checkedCount > 0 && checkedCount < syncTypes.length;
     };
 
-    const removeFile = () => {
-      uploadRef.value!.clearFiles();
-    };
+    const changeFile = async (e) => {
+      const file = e.target.files[0];
+      const reader: FileReader = new FileReader();
 
-    const handleError = async (err) => {
-      await closeAlert(2000);
-    };
-
-    const handleSuccess = async (res) => {
-      await closeAlert(3000);
-    };
-
-    const handleRequest = async (options) => {
-      const formData = new FormData();
-      formData.append("file", options.file);
-      await store
-        .importExcel(options.action, formData, options.headers)
-        .then((res) => {
-          console.log(res);
-          importStatus.value = true;
-          options.onSuccess = handleSuccess(res);
-        })
-        .catch((err) => {
-          console.log(err);
-          importStatus.value = false;
-          options.onError = handleError(err);
+      try {
+        reader.readAsArrayBuffer(file);
+      } catch (err) {
+        dataFromFile.value = [];
+      }
+      reader.onload = (e: any) => {
+        // upload file
+        const binarystr = new Uint8Array(e.target.result);
+        const wb: XLSX.WorkBook = XLSX.read(binarystr, {
+          type: "array",
+          raw: true,
+          cellFormula: false,
         });
-    };
-
-    const closeAlert = (ms) => {
-      setTimeout(() => {
-        document
-          .querySelector(
-            "#kt_customer_import_modal .el-icon.el-alert__close-btn"
-          )
-          .click();
-      }, ms);
+        const wsname = wb.SheetNames[0];
+        const data = XLSX.utils.sheet_to_json(wb.Sheets[wsname]);
+        dataFromFile.value = data;
+      };
     };
 
     return {
       loading,
-      fileList,
-      uploadRef,
-      importStatus,
-      handleExceed,
-      handleError,
-      handleSuccess,
-      handleRequest,
-      removeFile,
+      formRef,
+      syncTypes,
+      checkAll,
+      isIndeterminate,
+      syncForm,
+      changeFile,
+      syncKalapa,
+      handleCheckAllChange,
+      handleCheckedTypesChange,
     };
   },
 });
