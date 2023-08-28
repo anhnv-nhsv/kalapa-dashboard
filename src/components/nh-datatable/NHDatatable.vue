@@ -40,9 +40,11 @@
             "
             :label="item.label"
           >
-            <template #default="scope" v-if="item.hasOwnProperty('prop')">{{
-              scope.row[item.prop]
-            }}</template>
+            <template #default="scope" v-if="item.hasOwnProperty('prop')">
+              <slot :name="item.prop" :row="scope.row">
+                {{ scope.row[item.prop] }}
+              </slot>
+            </template>
             <template v-if="item.hasOwnProperty('children')">
               <el-table-column
                 :show-overflow-tooltip="showOverflowTooltip"
