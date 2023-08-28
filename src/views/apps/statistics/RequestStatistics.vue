@@ -32,7 +32,7 @@
             <button
               :data-kt-indicator="loading ? 'on' : null"
               type="submit"
-              class="btn btn-primary"
+              class="btn btn-primary btn-sm"
             >
               <span v-if="!loading" class="indicator-label">Search</span>
               <span v-if="loading" class="indicator-progress"
@@ -56,7 +56,18 @@
         :show-overflow-tooltip="true"
         @change-page="changePage"
         @change-page-size="changePageSize"
-      />
+      >
+        <template v-slot:statusCode="{ row }">
+          <span :class="['badge', row.statusCode === '200' ? 'badge-success' : row.statusCode === '400' ? 'badge-warning' : 'badge-danger']">
+            {{ row.statusCode }}
+          </span>
+        </template>
+        <template v-slot:thirtyResponseTime="{ row }">
+          <span :class="['badge', Number(row['thirtyResponseTime']) <= 180000 ? 'badge-light-success' : 'badge-light-danger']">
+            {{ row["thirtyResponseTime"] }}
+          </span>
+        </template>
+      </NHDatatable>
     </div>
   </div>
 </template>
@@ -89,9 +100,20 @@ export default defineComponent({
         width: 70,
       },
       {
-        label: "Tên",
+        label: "Người tra cứu",
         prop: "clientUserName",
         visible: true,
+      },
+      {
+        label: "Loại dịch vụ",
+        prop: "serviceType",
+        visible: true,
+      },
+      {
+        label: "ID Khách hàng",
+        prop: "customerId",
+        visible: true,
+        width: 180,
       },
       {
         label: "IP",
@@ -122,6 +144,12 @@ export default defineComponent({
         label: "Thời gian phản hồi Kalapa (ms)",
         prop: "thirtyResponseTime",
         visible: true,
+      },
+      {
+        label: "Ngày tra cứu",
+        prop: "createdDtm",
+        visible: true,
+        width: 200,
       },
     ]);
     const loading = ref<boolean>(false);
