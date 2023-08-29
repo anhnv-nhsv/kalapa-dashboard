@@ -13,9 +13,7 @@
       <div class="card-toolbar">
         <!--begin::Button-->
         <button type="button" class="btn btn-sm btn-light-primary">
-          <span class="svg-icon svg-icon-3">
-            <inline-svg src="media/icons/duotune/files/fil021.svg" />
-          </span>
+          <KTIcon icon-name="cloud-change" icon-class="fs-3" />
           Download Report
         </button>
         <!--end::Button-->
@@ -30,15 +28,7 @@
       <div class="table-responsive">
         <!--begin::Table-->
         <table
-          class="
-            table
-            align-middle
-            table-row-dashed
-            fw-bold
-            text-gray-600
-            fs-6
-            gy-5
-          "
+          class="table align-middle table-row-dashed fw-semobold text-gray-600 fs-6 gy-5"
           id="kt_table_customers_logs"
         >
           <!--begin::Table body-->
@@ -79,10 +69,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import {getAssetPath} from "@/core/helpers/assets";
+import {defineComponent, ref} from "vue";
 
 export default defineComponent({
-  name: "logs",
+  name: "logs-card",
   components: {},
   props: {
     cardClasses: String,
@@ -165,6 +156,7 @@ export default defineComponent({
 
     return {
       logs,
+      getAssetPath,
     };
   },
 });

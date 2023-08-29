@@ -17,9 +17,7 @@
             class="btn btn-sm btn-icon btn-active-color-primary"
             data-bs-dismiss="modal"
           >
-            <span class="svg-icon svg-icon-1">
-              <inline-svg src="media/icons/duotune/arrows/arr061.svg" />
-            </span>
+            <KTIcon icon-name="cross" icon-class="fs-1" />
           </div>
           <!--end::Close-->
         </div>
@@ -31,9 +29,9 @@
           <div class="mb-13 text-center">
             <h1 class="mb-3">Upgrade a Plan</h1>
 
-            <div class="text-gray-400 fw-bold fs-5">
+            <div class="text-gray-400 fw-semobold fs-5">
               If you need more info, please check
-              <a href="#" class="link-primary fw-bolder">Pricing Guidelines</a>.
+              <a href="#" class="link-primary fw-bold">Pricing Guidelines</a>.
             </div>
           </div>
           <!--end::Heading-->
@@ -48,23 +46,14 @@
               <button
                 @click="current = 'month'"
                 :class="[current === 'month' && 'active']"
-                class="
-                  btn btn-color-gray-400 btn-active btn-active-secondary
-                  px-6
-                  py-3
-                  me-2
-                "
+                class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3 me-2"
               >
                 Monthly
               </button>
               <button
                 @click="current = 'annual'"
                 :class="[current === 'annual' && 'active']"
-                class="
-                  btn btn-color-gray-400 btn-active btn-active-secondary
-                  px-6
-                  py-3
-                "
+                class="btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3"
               >
                 Annual
               </button>
@@ -81,14 +70,7 @@
                     <!--begin::Tab link-->
                     <div
                       @click="selected = plan.title"
-                      class="
-                        nav-link
-                        btn btn-outline btn-outline-dashed btn-color-dark
-                        d-flex
-                        flex-stack
-                        text-start
-                        p-6
-                      "
+                      class="nav-link btn btn-outline btn-outline-dashed btn-color-dark d-flex flex-stack text-start p-6"
                       :class="[
                         index !== plans.length - 1 && 'mb-6',
                         plan.default && 'active',
@@ -101,13 +83,7 @@
                       <div class="d-flex align-items-center me-2">
                         <!--begin::Radio-->
                         <div
-                          class="
-                            form-check
-                            form-check-custom
-                            form-check-solid
-                            form-check-success
-                            me-6
-                          "
+                          class="form-check form-check-custom form-check-solid form-check-success me-6"
                         >
                           <input
                             class="form-check-input"
@@ -122,13 +98,7 @@
                         <!--begin::Info-->
                         <div class="flex-grow-1">
                           <h2
-                            class="
-                              d-flex
-                              align-items-center
-                              fs-2
-                              fw-bolder
-                              flex-wrap
-                            "
+                            class="d-flex align-items-center fs-2 fw-bold flex-wrap"
                           >
                             {{ plan.title }}
 
@@ -138,7 +108,7 @@
                               >{{ plan.label }}</span
                             >
                           </h2>
-                          <div class="fw-bold opacity-50">
+                          <div class="fw-semobold opacity-50">
                             {{ plan.subTitle }}
                           </div>
                         </div>
@@ -157,7 +127,7 @@
                         <template v-else>
                           <span class="mb-2">$</span>
 
-                          <span class="fs-3x fw-bolder">
+                          <span class="fs-3x fw-bold">
                             {{
                               current === "month"
                                 ? plan.priceMonth
@@ -194,11 +164,11 @@
                     >
                       <!--begin::Heading-->
                       <div class="pb-5">
-                        <h2 class="fw-bolder text-dark">
+                        <h2 class="fw-bold text-dark">
                           What’s in Startup Plan?
                         </h2>
 
-                        <div class="text-gray-400 fw-bold">
+                        <div class="text-gray-400 fw-semobold">
                           {{ plan.description }}
                         </div>
                       </div>
@@ -210,40 +180,40 @@
                           v-for="(feature, i) in plan.features"
                           :key="i"
                         >
-                          <!--begin::Item-->
-                          <div
-                            :class="[i !== plan.features - 1 && 'mb-7']"
-                            class="d-flex align-items-center"
-                          >
-                            <template v-if="feature.supported">
-                              <span
-                                class="fw-bold fs-5 text-gray-700 flex-grow-1"
-                              >
-                                {{ feature.title }}
-                              </span>
+                          <template v-if="plan.features">
+                            <!--begin::Item-->
+                            <div
+                              :class="{
+                                'mb-7': i !== plan.features.length - 1,
+                              }"
+                              class="d-flex align-items-center"
+                            >
+                              <template v-if="feature.supported">
+                                <span
+                                  class="fw-semobold fs-5 text-gray-700 flex-grow-1"
+                                >
+                                  {{ feature.title }}
+                                </span>
 
-                              <span
-                                class="svg-icon svg-icon-1 svg-icon-success"
-                              >
-                                <inline-svg
-                                  src="media/icons/duotune/general/gen043.svg"
+                                <KTIcon
+                                  icon-name="check-circle"
+                                  icon-class="fs-1 text-success"
                                 />
-                              </span>
-                            </template>
-                            <template v-else>
-                              <span
-                                class="fw-bold fs-5 text-gray-400 flex-grow-1"
-                              >
-                                {{ feature.title }}
-                              </span>
-                              <span class="svg-icon svg-icon-1">
-                                <inline-svg
-                                  src="media/icons/duotune/general/gen040.svg"
+                              </template>
+                              <template v-else>
+                                <span
+                                  class="fw-semobold fs-5 text-gray-400 flex-grow-1"
+                                >
+                                  {{ feature.title }}
+                                </span>
+                                <KTIcon
+                                  icon-name="cross-circle"
+                                  icon-class="fs-1"
                                 />
-                              </span>
-                            </template>
-                          </div>
-                          <!--end::Item-->
+                              </template>
+                            </div>
+                            <!--end::Item-->
+                          </template>
                         </template>
                       </div>
                       <!--end::Body-->
@@ -263,7 +233,7 @@
           <div class="d-flex flex-center flex-row-fluid pt-12">
             <button
               type="reset"
-              class="btn btn-white me-3"
+              class="btn btn-light me-3"
               data-bs-dismiss="modal"
             >
               Cancel
@@ -283,7 +253,20 @@
 </template>
 
 <script lang="ts">
+import { getAssetPath } from "@/core/helpers/assets";
 import { defineComponent, ref } from "vue";
+
+interface IPlans {
+  title: string;
+  subTitle: string;
+  description?: string;
+  label?: string;
+  priceMonth?: string;
+  priceAnnual?: string;
+  default: boolean;
+  custom: boolean;
+  features?: Array<{ title: string; supported: boolean }>;
+}
 
 export default defineComponent({
   name: "upgrade-plan-modal",
@@ -293,7 +276,7 @@ export default defineComponent({
 
     const selected = ref("Startup");
 
-    const plans = [
+    const plans: Array<IPlans> = [
       {
         title: "Startup",
         subTitle: "Best for startups",
@@ -427,6 +410,7 @@ export default defineComponent({
       plans,
       current,
       selected,
+      getAssetPath,
     };
   },
 });

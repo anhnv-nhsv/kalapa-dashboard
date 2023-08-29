@@ -13,13 +13,7 @@
       <div class="card-toolbar">
         <!--begin::Tab nav-->
         <ul
-          class="
-            nav nav-stretch
-            fs-5
-            fw-bold
-            nav-line-tabs nav-line-tabs-2x
-            border-transparent
-          "
+          class="nav nav-stretch fs-5 fw-semobold nav-line-tabs nav-line-tabs-2x border-transparent"
           role="tablist"
         >
           <li class="nav-item" role="presentation">
@@ -82,25 +76,26 @@
           role="tabpanel"
         >
           <Datatable
-            :table-header="tableHeader"
-            :table-data="tableData1"
-            :rows-per-page="10"
+            :header="tableHeader"
+            :data="tableData1"
+            :items-per-page="10"
+            :items-per-page-dropdown-enabled="false"
           >
-            <template v-slot:cell-date="{ row: invoice }">
+            <template v-slot:date="{ row: invoice }">
               {{ invoice.date }}
             </template>
-            <template v-slot:cell-order="{ row: invoice }">
+            <template v-slot:order="{ row: invoice }">
               {{ invoice.order }}
             </template>
-            <template v-slot:cell-details="{ row: invoice }">
+            <template v-slot:details="{ row: invoice }">
               {{ invoice.details }}
             </template>
-            <template v-slot:cell-amount="{ row: invoice }">
+            <template v-slot:amount="{ row: invoice }">
               <span :class="`text-${invoice.color}`">
                 {{ invoice.amount }}
               </span>
             </template>
-            <template v-slot:cell-invoice>
+            <template v-slot:invoice>
               <button class="btn btn-sm btn-light btn-active-light-primary">
                 Download
               </button>
@@ -113,25 +108,26 @@
           role="tabpanel"
         >
           <Datatable
-            :table-header="tableHeader"
-            :table-data="tableData2"
-            :rows-per-page="10"
+            :header="tableHeader"
+            :data="tableData2"
+            :items-per-page="10"
+            :items-per-page-dropdown-enabled="false"
           >
-            <template v-slot:cell-date="{ row: invoice }">
+            <template v-slot:date="{ row: invoice }">
               {{ invoice.date }}
             </template>
-            <template v-slot:cell-order="{ row: invoice }">
+            <template v-slot:order="{ row: invoice }">
               {{ invoice.order }}
             </template>
-            <template v-slot:cell-details="{ row: invoice }">
+            <template v-slot:details="{ row: invoice }">
               {{ invoice.details }}
             </template>
-            <template v-slot:cell-amount="{ row: invoice }">
+            <template v-slot:amount="{ row: invoice }">
               <span :class="`text-${invoice.color}`">
                 {{ invoice.amount }}
               </span>
             </template>
-            <template v-slot:cell-invoice>
+            <template v-slot:invoice>
               <button class="btn btn-sm btn-light btn-active-light-primary">
                 Download
               </button>
@@ -144,25 +140,26 @@
           role="tabpanel"
         >
           <Datatable
-            :table-header="tableHeader"
-            :table-data="tableData3"
-            :rows-per-page="10"
+            :header="tableHeader"
+            :data="tableData3"
+            :items-per-page="10"
+            :items-per-page-dropdown-enabled="false"
           >
-            <template v-slot:cell-date="{ row: invoice }">
+            <template v-slot:date="{ row: invoice }">
               {{ invoice.date }}
             </template>
-            <template v-slot:cell-order="{ row: invoice }">
+            <template v-slot:order="{ row: invoice }">
               {{ invoice.order }}
             </template>
-            <template v-slot:cell-details="{ row: invoice }">
+            <template v-slot:details="{ row: invoice }">
               {{ invoice.details }}
             </template>
-            <template v-slot:cell-amount="{ row: invoice }">
+            <template v-slot:amount="{ row: invoice }">
               <span :class="`text-${invoice.color}`">
                 {{ invoice.amount }}
               </span>
             </template>
-            <template v-slot:cell-invoice>
+            <template v-slot:invoice>
               <button class="btn btn-sm btn-light btn-active-light-primary">
                 Download
               </button>
@@ -175,25 +172,26 @@
           role="tabpanel"
         >
           <Datatable
-            :table-header="tableHeader"
-            :table-data="tableData4"
-            :rows-per-page="10"
+            :header="tableHeader"
+            :data="tableData4"
+            :items-per-page="10"
+            :items-per-page-dropdown-enabled="false"
           >
-            <template v-slot:cell-date="{ row: invoice }">
+            <template v-slot:date="{ row: invoice }">
               {{ invoice.date }}
             </template>
-            <template v-slot:cell-order="{ row: invoice }">
+            <template v-slot:order="{ row: invoice }">
               {{ invoice.order }}
             </template>
-            <template v-slot:cell-details="{ row: invoice }">
+            <template v-slot:details="{ row: invoice }">
               {{ invoice.details }}
             </template>
-            <template v-slot:cell-amount="{ row: invoice }">
+            <template v-slot:amount="{ row: invoice }">
               <span :class="`text-${invoice.color}`">
                 {{ invoice.amount }}
               </span>
             </template>
-            <template v-slot:cell-invoice>
+            <template v-slot:invoice>
               <button class="btn btn-sm btn-light btn-active-light-primary">
                 Download
               </button>
@@ -210,10 +208,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import Datatable from "@/components/kt-datatable/Datatable.vue";
+import Datatable from "@/components/kt-datatable/KTDataTable.vue";
 
 export default defineComponent({
-  name: "statement",
+  name: "statement-card",
   props: {
     cardClasses: String,
   },
@@ -223,29 +221,29 @@ export default defineComponent({
   setup() {
     const tableHeader = ref([
       {
-        name: "Date",
-        key: "date",
-        sortable: true,
+        columnName: "Date",
+        columnLabel: "date",
+        sortEnabled: true,
       },
       {
-        name: "Order id",
-        key: "order",
-        sortable: true,
+        columnName: "Order id",
+        columnLabel: "order",
+        sortEnabled: true,
       },
       {
-        name: "Details",
-        key: "details",
-        sortable: true,
+        columnName: "Details",
+        columnLabel: "details",
+        sortEnabled: true,
       },
       {
-        name: "Amount",
-        key: "amount",
-        sortable: true,
+        columnName: "Amount",
+        columnLabel: "amount",
+        sortEnabled: true,
       },
       {
-        name: "Invoice",
-        key: "invoice",
-        sortable: false,
+        columnName: "Invoice",
+        columnLabel: "invoice",
+        sortEnabled: false,
       },
     ]);
     const tableData1 = ref([

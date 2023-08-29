@@ -89,7 +89,7 @@
                 <span v-if="!loading" class="indicator-label">
                   Submit
                   <span class="svg-icon svg-icon-3 ms-2 me-0">
-                    <inline-svg src="icons/duotune/arrows/arr064.svg" />
+                    <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
                   </span>
                 </span>
                 <span v-if="loading" class="indicator-progress">
@@ -115,17 +115,23 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import store from "@/store";
-import { Actions } from "@/store/enums/StoreEnums";
+import { useCustomerStore } from "@/stores/customer-score";
 import { hideModal } from "@/core/helpers/dom";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 
 export default defineComponent({
   name: "export-customer-modal",
-  setup() {
-    const formData = ref({
-      exportType: "",
-    });
+  props: {
+    searchPayload: {
+      type: Object,
+      required: false,
+      default: () => {
+        return {};
+      },
+    },
+  },
+  setup(props) {
+    const store = useCustomerStore();
     const checkAll = ref(false);
     const isIndeterminate = ref(false);
     const checkedTypes = ref<number[]>([]);
@@ -153,34 +159,55 @@ export default defineComponent({
     async function exportCustomersScoreAPI(
       searchType?: string,
       idNo?: string,
-      phone?: string,
-      fullName?: string
+      tel?: string,
+      name?: string,
+      accountNo?: string,
+      fromDate?: string,
+      toDate?: string,
+      startScore?: string,
+      endScore?: string,
+      blacklist?: string
     ) {
       console.log(`call API`);
       loading.value = true;
-      await store.dispatch(Actions.EXPORT_CUSTOMERS_SCORE_ACTION, {
+      await store.exportCustomersScore({
         params: {
           idNo: idNo ? idNo : "",
-          phone: phone ? phone : "",
-          name: fullName ? fullName : "",
+          tel: tel ? tel : "",
+          name: name ? name : "",
+          accountNo: accountNo ? accountNo : "",
+          fromDate: fromDate ? fromDate : "",
+          toDate: toDate ? toDate : "",
+          startScore: startScore ? startScore : "",
+          endScore: endScore ? endScore : "",
+          blacklist: blacklist ? blacklist : "",
           searchType: searchType ? searchType : "",
         },
         responseType: "blob",
       });
-      const exportCustomerResp = store.getters.getExportCustomerResp;
       loading.value = false;
-      return exportCustomerResp;
+      return store.exportedCustomerResp;
     }
 
     const submitExport = async () => {
       console.log(`submit export ${checkedTypes.value}`);
+      const formDataRaw = JSON.parse(JSON.stringify(props.searchPayload));
       const exportCustomerResp = await exportCustomersScoreAPI(
-        checkedTypes.value.join(",")
+        checkedTypes.value.join(","),
+        formDataRaw.idNo,
+        formDataRaw.tel,
+        formDataRaw.name,
+        formDataRaw.acctNo,
+        formDataRaw.dateRange[0],
+        formDataRaw.dateRange[1],
+        formDataRaw.userScore.split("-")[0],
+        formDataRaw.userScore.split("-")[1],
+        formDataRaw.blacklist
       );
-      if (exportCustomerResp.status == 200) {
+      if (exportCustomerResp) {
         console.log(exportCustomerResp);
         let filename = "";
-        let disposition = exportCustomerResp.headers["content-disposition"];
+        let disposition = exportCustomerResp["headers"]["content-disposition"];
         if (disposition && disposition.indexOf("attachment") !== -1) {
           let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
           let matches = filenameRegex.exec(disposition);
@@ -189,7 +216,7 @@ export default defineComponent({
           }
         }
         const temp = window.URL.createObjectURL(
-          new Blob([exportCustomerResp.data])
+          new Blob([exportCustomerResp["data"]])
         );
         const link = document.createElement("a");
         link.href = temp;
@@ -225,16 +252,15 @@ export default defineComponent({
     };
 
     return {
-      submitExport,
-      formData,
       loading,
       checkAll,
       isIndeterminate,
       checkedTypes,
       exportTypes,
+      exportCustomerModalRef,
+      submitExport,
       handleCheckAllChange,
       handleCheckedTypesChange,
-      exportCustomerModalRef,
     };
   },
 });

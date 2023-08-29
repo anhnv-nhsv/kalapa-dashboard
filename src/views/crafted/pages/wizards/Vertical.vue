@@ -1,141 +1,139 @@
 <template>
   <!--begin::Stepper-->
   <div
-    class="
-      stepper stepper-pills stepper-column
-      d-flex
-      flex-column flex-xl-row flex-row-fluid
-    "
+    class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
     id="kt_create_account_stepper"
     ref="verticalWizardRef"
   >
     <!--begin::Aside-->
     <div
-      class="
-        d-flex
-        justify-content-center
-        bg-white
-        rounded
-        justify-content-xl-start
-        flex-row-auto
-        w-100 w-xl-300px w-xxl-400px
-        me-9
-      "
+      class="card d-flex justify-content-center justify-content-xl-start flex-row-auto w-100 w-xl-300px w-xxl-400px me-9"
     >
       <!--begin::Wrapper-->
-      <div class="px-6 px-lg-10 px-xxl-15 py-20">
+      <div class="card-body px-6 px-lg-10 px-xxl-15 py-20">
         <!--begin::Nav-->
         <div class="stepper-nav">
           <!--begin::Step 1-->
           <div class="stepper-item current" data-kt-stepper-element="nav">
+            <div class="stepper-wrapper">
+              <!--begin::Icon-->
+              <div class="stepper-icon w-40px h-40px">
+                <i class="stepper-check fas fa-check"></i>
+                <span class="stepper-number">1</span>
+              </div>
+              <!--end::Icon-->
+
+              <!--begin::Label-->
+              <div class="stepper-label">
+                <h3 class="stepper-title">Account Type</h3>
+
+                <div class="stepper-desc fw-semobold">
+                  Setup Your Account Details
+                </div>
+              </div>
+              <!--end::Label-->
+            </div>
+
             <!--begin::Line-->
-            <div class="stepper-line w-40px"></div>
+            <div class="stepper-line h-40px"></div>
             <!--end::Line-->
-
-            <!--begin::Icon-->
-            <div class="stepper-icon w-40px h-40px">
-              <i class="stepper-check fas fa-check"></i>
-              <span class="stepper-number">1</span>
-            </div>
-            <!--end::Icon-->
-
-            <!--begin::Label-->
-            <div class="stepper-label">
-              <h3 class="stepper-title">Account Type</h3>
-
-              <div class="stepper-desc fw-bold">Setup Your Account Details</div>
-            </div>
-            <!--end::Label-->
           </div>
           <!--end::Step 1-->
 
           <!--begin::Step 2-->
           <div class="stepper-item" data-kt-stepper-element="nav">
-            <!--begin::Line-->
-            <div class="stepper-line w-40px"></div>
-            <!--end::Line-->
-
-            <!--begin::Icon-->
-            <div class="stepper-icon w-40px h-40px">
-              <i class="stepper-check fas fa-check"></i>
-              <span class="stepper-number">2</span>
-            </div>
-            <!--end::Icon-->
-
-            <!--begin::Label-->
-            <div class="stepper-label">
-              <h3 class="stepper-title">Account Settings</h3>
-              <div class="stepper-desc fw-bold">
-                Setup Your Account Settings
+            <div class="stepper-wrapper">
+              <!--begin::Icon-->
+              <div class="stepper-icon w-40px h-40px">
+                <i class="stepper-check fas fa-check"></i>
+                <span class="stepper-number">2</span>
               </div>
+              <!--end::Icon-->
+
+              <!--begin::Label-->
+              <div class="stepper-label">
+                <h3 class="stepper-title">Account Settings</h3>
+                <div class="stepper-desc fw-semobold">
+                  Setup Your Account Settings
+                </div>
+              </div>
+              <!--end::Label-->
             </div>
-            <!--end::Label-->
+            <!--begin::Line-->
+            <div class="stepper-line h-40px"></div>
+            <!--end::Line-->
           </div>
           <!--end::Step 2-->
 
           <!--begin::Step 3-->
           <div class="stepper-item" data-kt-stepper-element="nav">
+            <div class="stepper-wrapper">
+              <!--begin::Icon-->
+              <div class="stepper-icon w-40px h-40px">
+                <i class="stepper-check fas fa-check"></i>
+                <span class="stepper-number">3</span>
+              </div>
+              <!--end::Icon-->
+
+              <!--begin::Label-->
+              <div class="stepper-label">
+                <h3 class="stepper-title">Business Info</h3>
+                <div class="stepper-desc fw-semobold">
+                  Your Business Related Info
+                </div>
+              </div>
+              <!--end::Label-->
+            </div>
+
             <!--begin::Line-->
-            <div class="stepper-line w-40px"></div>
+            <div class="stepper-line h-40px"></div>
             <!--end::Line-->
-
-            <!--begin::Icon-->
-            <div class="stepper-icon w-40px h-40px">
-              <i class="stepper-check fas fa-check"></i>
-              <span class="stepper-number">3</span>
-            </div>
-            <!--end::Icon-->
-
-            <!--begin::Label-->
-            <div class="stepper-label">
-              <h3 class="stepper-title">Business Info</h3>
-              <div class="stepper-desc fw-bold">Your Business Related Info</div>
-            </div>
-            <!--end::Label-->
           </div>
           <!--end::Step 3-->
 
           <!--begin::Step 4-->
           <div class="stepper-item" data-kt-stepper-element="nav">
+            <div class="stepper-wrapper">
+              <!--begin::Icon-->
+              <div class="stepper-icon w-40px h-40px">
+                <i class="stepper-check fas fa-check"></i>
+                <span class="stepper-number">4</span>
+              </div>
+              <!--end::Icon-->
+
+              <!--begin::Label-->
+              <div class="stepper-label">
+                <h3 class="stepper-title">Billing Details</h3>
+                <div class="stepper-desc fw-semobold">
+                  Set Your Payment Methods
+                </div>
+              </div>
+              <!--end::Label-->
+            </div>
+
             <!--begin::Line-->
-            <div class="stepper-line w-40px"></div>
+            <div class="stepper-line h-40px"></div>
             <!--end::Line-->
-
-            <!--begin::Icon-->
-            <div class="stepper-icon w-40px h-40px">
-              <i class="stepper-check fas fa-check"></i>
-              <span class="stepper-number">4</span>
-            </div>
-            <!--end::Icon-->
-
-            <!--begin::Label-->
-            <div class="stepper-label">
-              <h3 class="stepper-title">Billing Details</h3>
-              <div class="stepper-desc fw-bold">Set Your Payment Methods</div>
-            </div>
-            <!--end::Label-->
           </div>
           <!--end::Step 4-->
 
           <!--begin::Step 5-->
           <div class="stepper-item" data-kt-stepper-element="nav">
-            <!--begin::Line-->
-            <div class="stepper-line w-40px"></div>
-            <!--end::Line-->
+            <div class="stepper-wrapper">
+              <!--begin::Icon-->
+              <div class="stepper-icon w-40px h-40px">
+                <i class="stepper-check fas fa-check"></i>
+                <span class="stepper-number">5</span>
+              </div>
+              <!--end::Icon-->
 
-            <!--begin::Icon-->
-            <div class="stepper-icon w-40px h-40px">
-              <i class="stepper-check fas fa-check"></i>
-              <span class="stepper-number">5</span>
+              <!--begin::Label-->
+              <div class="stepper-label">
+                <h3 class="stepper-title">Completed</h3>
+                <div class="stepper-desc fw-semobold">Woah, we are here</div>
+              </div>
+              <!--end::Label-->
             </div>
-            <!--end::Icon-->
-
-            <!--begin::Label-->
-            <div class="stepper-label">
-              <h3 class="stepper-title">Completed</h3>
-              <div class="stepper-desc fw-bold">Woah, we are here</div>
-            </div>
-            <!--end::Label-->
           </div>
           <!--end::Step 5-->
         </div>
@@ -146,11 +144,11 @@
     <!--begin::Aside-->
 
     <!--begin::Content-->
-    <div class="d-flex flex-row-fluid flex-center bg-white rounded">
+    <div class="card d-flex flex-row-fluid flex-center">
       <!--begin::Form-->
       <form
         class="py-20 w-100 w-xl-700px px-9"
-        novalidate="novalidate"
+        novalidate
         id="kt_create_account_form"
         @submit="handleStep"
       >
@@ -194,9 +192,7 @@
               data-kt-stepper-action="previous"
               @click="previousStep"
             >
-              <span class="svg-icon svg-icon-4 me-1">
-                <inline-svg src="media/icons/duotune/arrows/arr063.svg" />
-              </span>
+              <KTIcon icon-name="arrow-left" icon-class="fs-4 me-1" />
               Back
             </button>
           </div>
@@ -213,9 +209,7 @@
             >
               <span class="indicator-label">
                 Submit
-                <span class="svg-icon svg-icon-3 ms-2 me-0">
-                  <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
-                </span>
+                <KTIcon icon-name="arrow-right" icon-class="fs-3 ms-2 me-0" />
               </span>
               <span class="indicator-progress">
                 Please wait...
@@ -227,9 +221,7 @@
 
             <button v-else type="submit" class="btn btn-lg btn-primary">
               Continue
-              <span class="svg-icon svg-icon-4 ms-1 me-0">
-                <inline-svg src="media/icons/duotune/arrows/arr064.svg" />
-              </span>
+              <KTIcon icon-name="arrow-right" icon-class="fs-4 ms-2 me-0" />
             </button>
           </div>
           <!--end::Wrapper-->
@@ -244,6 +236,7 @@
 </template>
 
 <script lang="ts">
+import { getAssetPath } from "@/core/helpers/assets";
 import { computed, defineComponent, onMounted, ref } from "vue";
 import Step1 from "@/components/wizard/steps/Step1.vue";
 import Step2 from "@/components/wizard/steps/Step2.vue";
@@ -251,10 +244,9 @@ import Step3 from "@/components/wizard/steps/Step3.vue";
 import Step4 from "@/components/wizard/steps/Step4.vue";
 import Step5 from "@/components/wizard/steps/Step5.vue";
 import { StepperComponent } from "@/assets/ts/components";
-import Swal from "sweetalert2/dist/sweetalert2.min.js";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 import * as Yup from "yup";
 import { useForm } from "vee-validate";
-import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 
 interface IStep1 {
   accountType: string;
@@ -321,8 +313,6 @@ export default defineComponent({
       _stepperObj.value = StepperComponent.createInsance(
         verticalWizardRef.value as HTMLElement
       );
-
-      setCurrentPageBreadcrumbs("Vertical", ["Pages", "Wizards"]);
     });
 
     const createAccountSchema = [
@@ -360,21 +350,19 @@ export default defineComponent({
     });
 
     const totalSteps = computed(() => {
-      if (!_stepperObj.value) {
-        return;
+      if (_stepperObj.value) {
+        return _stepperObj.value.totalStepsNumber;
+      } else {
+        return 1;
       }
-
-      return _stepperObj.value.totatStepsNumber;
-    });
-
-    resetForm({
-      values: {
-        ...formData.value,
-      },
     });
 
     const handleStep = handleSubmit((values) => {
-      console.log(values);
+      resetForm({
+        values: {
+          ...formData.value,
+        },
+      });
 
       formData.value = {
         ...formData.value,
@@ -406,8 +394,9 @@ export default defineComponent({
         icon: "success",
         buttonsStyling: false,
         confirmButtonText: "Ok, got it!",
+        heightAuto: false,
         customClass: {
-          confirmButton: "btn fw-bold btn-light-primary",
+          confirmButton: "btn fw-semobold btn-light-primary",
         },
       }).then(() => {
         window.location.reload();
@@ -421,6 +410,7 @@ export default defineComponent({
       formSubmit,
       totalSteps,
       currentStepIndex,
+      getAssetPath,
     };
   },
 });

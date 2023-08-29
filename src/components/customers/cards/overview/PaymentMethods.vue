@@ -4,7 +4,7 @@
     <div class="card-header border-0">
       <!--begin::Card title-->
       <div class="card-title">
-        <h2 class="fw-bolder mb-0">Payment Methods</h2>
+        <h2 class="fw-bold mb-0">Payment Methods</h2>
       </div>
       <!--end::Card title-->
       <!--begin::Card toolbar-->
@@ -15,9 +15,7 @@
           data-bs-toggle="modal"
           data-bs-target="#kt_modal_new_card"
         >
-          <span class="svg-icon svg-icon-3">
-            <inline-svg src="media/icons/duotune/general/gen035.svg" />
-          </span>
+          <KTIcon icon-name="plus-square" icon-class="fs-3" />
           Add new method</a
         >
       </div>
@@ -41,14 +39,12 @@
           >
             <!--begin::Arrow-->
             <div class="me-3 rotate-90">
-              <span class="svg-icon svg-icon-3">
-                <inline-svg src="media/icons/duotune/arrows/arr071.svg" />
-              </span>
+              <KTIcon icon-name="right" icon-class="fs-3" />
             </div>
             <!--end::Arrow-->
             <!--begin::Logo-->
             <img
-              src="media/svg/card-logos/mastercard.svg"
+              :src="getAssetPath('media/svg/card-logos/mastercard.svg')"
               class="w-40px me-3"
               alt=""
             />
@@ -56,7 +52,7 @@
             <!--begin::Summary-->
             <div class="me-3">
               <div class="d-flex align-items-center">
-                <div class="text-gray-800 fw-bolder">Mastercard</div>
+                <div class="text-gray-800 fw-bold">Mastercard</div>
                 <div class="badge badge-light-primary ms-5">Primary</div>
               </div>
               <div class="text-muted">Expires Dec 2024</div>
@@ -79,9 +75,7 @@
                 title=""
                 data-bs-original-title="Edit"
               >
-                <span class="svg-icon svg-icon-3">
-                  <inline-svg src="media/icons/duotune/art/art005.svg" />
-                </span>
+                <KTIcon icon-name="pencil" icon-class="fs-3" />
               </span>
             </a>
             <!--end::Edit-->
@@ -94,10 +88,7 @@
               data-kt-customer-payment-method="delete"
               data-bs-original-title="Delete"
             >
-              <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
-              <span class="svg-icon svg-icon-3">
-                <inline-svg src="media/icons/duotune/general/gen027.svg" />
-              </span>
+              <KTIcon icon-name="trash" icon-class="fs-3" />
             </a>
             <!--end::Delete-->
             <!--begin::More-->
@@ -110,24 +101,11 @@
               data-kt-menu-placement="bottom-end"
               data-bs-original-title="More Options"
             >
-              <span class="svg-icon svg-icon-3">
-                <inline-svg src="media/icons/duotune/general/gen019.svg" />
-              </span>
+              <KTIcon icon-name="switch" icon-class="fs-3" />
             </a>
             <!--begin::Menu-->
             <div
-              class="
-                menu
-                menu-sub
-                menu-sub-dropdown
-                menu-column
-                menu-rounded
-                menu-gray-600
-                menu-state-bg-light-primary
-                fw-bold
-                w-150px
-                py-3
-              "
+              class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semobold w-150px py-3"
               data-kt-menu="true"
             >
               <!--begin::Menu item-->
@@ -158,7 +136,7 @@
           <div class="d-flex flex-wrap py-5">
             <!--begin::Col-->
             <div class="flex-equal me-5">
-              <table class="table table-flush fw-bold gy-1">
+              <table class="table table-flush fw-semobold gy-1">
                 <tbody>
                   <tr>
                     <td class="text-muted min-w-125px w-125px">Name</td>
@@ -190,7 +168,7 @@
             <!--end::Col-->
             <!--begin::Col-->
             <div class="flex-equal">
-              <table class="table table-flush fw-bold gy-1">
+              <table class="table table-flush fw-semobold gy-1">
                 <tbody>
                   <tr>
                     <td class="text-muted min-w-125px w-125px">
@@ -215,7 +193,7 @@
                     <td class="text-gray-800">
                       Australia
                       <div class="symbol symbol-20px symbol-circle ms-2">
-                        <img src="media/flags/australia.svg" />
+                        <img :src="getAssetPath('media/flags/australia.svg')" />
                       </div>
                     </td>
                   </tr>
@@ -223,11 +201,10 @@
                     <td class="text-muted min-w-125px w-125px">CVC check</td>
                     <td class="text-gray-800">
                       Passed
-                      <span class="svg-icon svg-icon-2 svg-icon-success">
-                        <inline-svg
-                          src="media/icons/duotune/general/gen043.svg"
-                        />
-                      </span>
+                      <KTIcon
+                        icon-name="check-circle"
+                        icon-class="fs-2 text-success"
+                      />
                     </td>
                   </tr>
                 </tbody>
@@ -256,14 +233,12 @@
           >
             <!--begin::Arrow-->
             <div class="me-3 rotate-90">
-              <span class="svg-icon svg-icon-3">
-                <inline-svg src="media/icons/duotune/arrows/arr071.svg" />
-              </span>
+              <KTIcon icon-name="right" icon-class="fs-3" />
             </div>
             <!--end::Arrow-->
             <!--begin::Logo-->
             <img
-              src="media/svg/card-logos/visa.svg"
+              :src="getAssetPath('media/svg/card-logos/visa.svg')"
               class="w-40px me-3"
               alt=""
             />
@@ -271,7 +246,7 @@
             <!--begin::Summary-->
             <div class="me-3">
               <div class="d-flex align-items-center">
-                <div class="text-gray-800 fw-bolder">Visa</div>
+                <div class="text-gray-800 fw-bold">Visa</div>
               </div>
               <div class="text-muted">Expires Feb 2022</div>
             </div>
@@ -293,9 +268,7 @@
                 title=""
                 data-bs-original-title="Edit"
               >
-                <span class="svg-icon svg-icon-3">
-                  <inline-svg src="media/icons/duotune/art/art005.svg" />
-                </span>
+                <KTIcon icon-name="pencil" icon-class="fs-3" />
               </span>
             </a>
             <!--end::Edit-->
@@ -308,9 +281,7 @@
               data-kt-customer-payment-method="delete"
               data-bs-original-title="Delete"
             >
-              <span class="svg-icon svg-icon-3">
-                <inline-svg src="media/icons/duotune/general/gen027.svg" />
-              </span>
+              <KTIcon icon-name="trash" icon-class="fs-3" />
             </a>
             <!--end::Delete-->
             <!--begin::More-->
@@ -323,24 +294,11 @@
               data-kt-menu-placement="bottom-end"
               data-bs-original-title="More Options"
             >
-              <span class="svg-icon svg-icon-3">
-                <inline-svg src="media/icons/duotune/general/gen019.svg" />
-              </span>
+              <KTIcon icon-name="switch" icon-class="fs-3" />
             </a>
             <!--begin::Menu-->
             <div
-              class="
-                menu
-                menu-sub
-                menu-sub-dropdown
-                menu-column
-                menu-rounded
-                menu-gray-600
-                menu-state-bg-light-primary
-                fw-bold
-                w-150px
-                py-3
-              "
+              class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semobold w-150px py-3"
               data-kt-menu="true"
             >
               <!--begin::Menu item-->
@@ -371,7 +329,7 @@
           <div class="d-flex flex-wrap py-5">
             <!--begin::Col-->
             <div class="flex-equal me-5">
-              <table class="table table-flush fw-bold gy-1">
+              <table class="table table-flush fw-semobold gy-1">
                 <tbody>
                   <tr>
                     <td class="text-muted min-w-125px w-125px">Name</td>
@@ -403,7 +361,7 @@
             <!--end::Col-->
             <!--begin::Col-->
             <div class="flex-equal">
-              <table class="table table-flush fw-bold gy-1">
+              <table class="table table-flush fw-semobold gy-1">
                 <tbody>
                   <tr>
                     <td class="text-muted min-w-125px w-125px">
@@ -428,7 +386,9 @@
                     <td class="text-gray-800">
                       United Kingdom
                       <div class="symbol symbol-20px symbol-circle ms-2">
-                        <img src="media/flags/united-kingdom.svg" />
+                        <img
+                          :src="getAssetPath('media/flags/united-kingdom.svg')"
+                        />
                       </div>
                     </td>
                   </tr>
@@ -436,12 +396,10 @@
                     <td class="text-muted min-w-125px w-125px">CVC check</td>
                     <td class="text-gray-800">
                       Passed
-
-                      <span class="svg-icon svg-icon-2 svg-icon-success">
-                        <inline-svg
-                          src="media/icons/duotune/arrows/arr012.svg"
-                        />
-                      </span>
+                      <KTIcon
+                        icon-name="check"
+                        icon-class="fs-2 text-success"
+                      />
                     </td>
                   </tr>
                 </tbody>
@@ -470,14 +428,12 @@
           >
             <!--begin::Arrow-->
             <div class="me-3 rotate-90">
-              <span class="svg-icon svg-icon-3">
-                <inline-svg src="media/icons/duotune/arrows/arr071.svg" />
-              </span>
+              <KTIcon icon-name="right" icon-class="fs-3" />
             </div>
             <!--end::Arrow-->
             <!--begin::Logo-->
             <img
-              src="media/svg/card-logos/american-express.svg"
+              :src="getAssetPath('media/svg/card-logos/american-express.svg')"
               class="w-40px me-3"
               alt=""
             />
@@ -485,7 +441,7 @@
             <!--begin::Summary-->
             <div class="me-3">
               <div class="d-flex align-items-center">
-                <div class="text-gray-800 fw-bolder">American Express</div>
+                <div class="text-gray-800 fw-bold">American Express</div>
                 <div class="badge badge-light-danger ms-5">Expired</div>
               </div>
               <div class="text-muted">Expires Aug 2021</div>
@@ -508,9 +464,7 @@
                 title=""
                 data-bs-original-title="Edit"
               >
-                <span class="svg-icon svg-icon-3">
-                  <inline-svg src="media/icons/duotune/art/art005.svg" />
-                </span>
+                <KTIcon icon-name="pencil" icon-class="fs-3" />
               </span>
             </a>
             <!--end::Edit-->
@@ -523,9 +477,7 @@
               data-kt-customer-payment-method="delete"
               data-bs-original-title="Delete"
             >
-              <span class="svg-icon svg-icon-3">
-                <inline-svg src="media/icons/duotune/general/gen027.svg" />
-              </span>
+              <KTIcon icon-name="trash" icon-class="fs-3" />
             </a>
             <!--end::Delete-->
             <!--begin::More-->
@@ -538,24 +490,11 @@
               data-kt-menu-placement="bottom-end"
               data-bs-original-title="More Options"
             >
-              <span class="svg-icon svg-icon-3">
-                <inline-svg src="media/icons/duotune/general/gen019.svg" />
-              </span>
+              <KTIcon icon-name="switch" icon-class="fs-3" />
             </a>
             <!--begin::Menu-->
             <div
-              class="
-                menu
-                menu-sub
-                menu-sub-dropdown
-                menu-column
-                menu-rounded
-                menu-gray-600
-                menu-state-bg-light-primary
-                fw-bold
-                w-150px
-                py-3
-              "
+              class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semobold w-150px py-3"
               data-kt-menu="true"
             >
               <!--begin::Menu item-->
@@ -585,7 +524,7 @@
           <div class="d-flex flex-wrap py-5">
             <!--begin::Col-->
             <div class="flex-equal me-5">
-              <table class="table table-flush fw-bold gy-1">
+              <table class="table table-flush fw-semobold gy-1">
                 <tbody>
                   <tr>
                     <td class="text-muted min-w-125px w-125px">Name</td>
@@ -617,7 +556,7 @@
             <!--end::Col-->
             <!--begin::Col-->
             <div class="flex-equal">
-              <table class="table table-flush fw-bold gy-1">
+              <table class="table table-flush fw-semobold gy-1">
                 <tbody>
                   <tr>
                     <td class="text-muted min-w-125px w-125px">
@@ -642,7 +581,9 @@
                     <td class="text-gray-800">
                       United States of America
                       <div class="symbol symbol-20px symbol-circle ms-2">
-                        <img src="media/flags/united-states.svg" />
+                        <img
+                          :src="getAssetPath('media/flags/united-states.svg')"
+                        />
                       </div>
                     </td>
                   </tr>
@@ -651,11 +592,7 @@
                     <td class="text-gray-800">
                       Failed
 
-                      <span class="svg-icon svg-icon-2 svg-icon-danger">
-                        <inline-svg
-                          src="media/icons/duotune/arrows/arr061.svg"
-                        />
-                      </span>
+                      <KTIcon icon-name="cross" icon-class="fs-2 text-danger" />
                     </td>
                   </tr>
                 </tbody>
@@ -674,7 +611,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import {getAssetPath} from "@/core/helpers/assets";
+import {defineComponent} from "vue";
 
 export default defineComponent({
   name: "payment-methods",
@@ -682,5 +620,10 @@ export default defineComponent({
     cardClasses: String,
   },
   components: {},
+  setup() {
+    return {
+      getAssetPath,
+    };
+  },
 });
 </script>
