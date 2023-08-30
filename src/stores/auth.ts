@@ -7,6 +7,7 @@ export interface User {
   success: boolean;
   token: string;
   limit_req_to_kalapa: string;
+  username: string;
 }
 
 export const useAuthStore = defineStore("auth", () => {
@@ -23,6 +24,7 @@ export const useAuthStore = defineStore("auth", () => {
       "limit_req_to_kalapa",
       user.value.limit_req_to_kalapa
     );
+    window.localStorage.setItem("username", user.value.username);
   }
 
   function setError(error: any) {
@@ -35,6 +37,7 @@ export const useAuthStore = defineStore("auth", () => {
     errors.value = [];
     JwtService.destroyToken();
     window.localStorage.removeItem("limit_req_to_kalapa");
+    window.localStorage.removeItem("username");
   }
 
   function login(credentials: User) {
