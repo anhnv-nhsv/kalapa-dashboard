@@ -73,6 +73,8 @@ const messages = {
     viewSubscription: "View Subscription",
     statistics: "Statistics",
     requestStatistics: "Request Statistics",
+    users: "Users",
+    userManagement: "User Management",
   },
   es: {
     dashboard: "Tablero",
@@ -146,6 +148,8 @@ const messages = {
     viewSubscription: "Suscripción",
     statistics: "Statistics",
     requestStatistics: "Request Statistics",
+    users: "Users",
+    userManagement: "User Management",
   },
   de: {
     dashboard: "Instrumententafel",
@@ -219,6 +223,8 @@ const messages = {
     viewSubscription: "Abonnement Anzeigen.",
     statistics: "Statistics",
     requestStatistics: "Request Statistics",
+    users: "Users",
+    userManagement: "User Management",
   },
   ja: {
     dashboard: "ダッシュボード",
@@ -292,6 +298,8 @@ const messages = {
     viewSubscription: "購読を見る",
     statistics: "Statistics",
     requestStatistics: "Request Statistics",
+    users: "Users",
+    userManagement: "User Management",
   },
   fr: {
     dashboard: "Générateur de mise",
@@ -365,6 +373,8 @@ const messages = {
     viewSubscription: "Voir L'Abonnement",
     statistics: "Statistics",
     requestStatistics: "Request Statistics",
+    users: "Users",
+    userManagement: "User Management",
   },
 };
 
