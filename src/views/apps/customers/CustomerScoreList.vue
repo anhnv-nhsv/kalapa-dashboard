@@ -87,7 +87,17 @@
         @change-page-size="changePageSize"
         @single-select="handleSingleSelection"
         @multiple-select="handleMultipleSelection"
-      />
+      >
+        <template v-slot:indexColumn>
+          <el-table-column
+            header-align="center"
+            class-name="text-center"
+            v-if="userRole === 'all'"
+            type="selection"
+            width="55"
+          />
+        </template>
+      </NHDatatable>
     </div>
   </div>
 
