@@ -13,6 +13,10 @@ body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown):not(.modal-open
 }
 
 // Popup
+.swal2-popup.swal2-toast {
+	background-color: var(--#{$prefix}body-bg);
+}
+
 .swal2-popup {
 	background-color: var(--#{$prefix}body-bg);
 	padding: 2rem;
