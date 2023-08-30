@@ -68,7 +68,7 @@
             <div class="text-center">
               <button
                 type="reset"
-                id="kt_customer_export_cancel"
+                id="kt_customer_import_cancel"
                 class="btn btn-light me-3"
                 data-bs-dismiss="modal"
               >
