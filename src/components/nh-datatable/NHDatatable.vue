@@ -20,13 +20,7 @@
         "
         v-loading="loading"
       >
-        <el-table-column
-          header-align="center"
-          class-name="text-center"
-          v-if="userRole === 'all'"
-          type="selection"
-          width="55"
-        />
+        <slot name="indexColumn"></slot>
         <template v-for="(item, i) in tableHeader" :key="i">
           <el-table-column
             :show-overflow-tooltip="showOverflowTooltip"
@@ -63,6 +57,7 @@
             </template>
           </el-table-column>
         </template>
+        <slot name="actionColumn"></slot>
       </el-table>
     </div>
 
@@ -96,7 +91,7 @@
         class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"
       >
         <el-pagination
-          v-if="!isEmptyTableData"
+          v-if="!isEmptyTableData && Object.keys(paginationObj).length !== 0"
           background
           layout="prev, pager, next"
           @current-change="setCurrent"
@@ -115,6 +110,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, watch, toRaw } from "vue";
 import { useThemeStore } from "@/stores/theme";
+import { ThemeModeComponent } from "@/assets/ts/layout";
 
 export default defineComponent({
   name: "nh-datatable",
@@ -165,6 +161,9 @@ export default defineComponent({
     );
 
     const themeMode = computed(() => {
+      if (store.mode === "system") {
+        return ThemeModeComponent.getSystemMode();
+      }
       return store.mode;
     });
 
