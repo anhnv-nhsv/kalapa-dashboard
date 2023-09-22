@@ -110,6 +110,14 @@ const routes: Array<RouteRecordRaw> = [
         },
       },
       {
+        path: "/403",
+        name: "403",
+        component: () => import("@/views/crafted/authentication/Error403.vue"),
+        meta: {
+          pageTitle: "Error 403",
+        },
+      },
+      {
         path: "/500",
         name: "500",
         component: () => import("@/views/crafted/authentication/Error500.vue"),
@@ -146,7 +154,16 @@ router.beforeEach((to, from, next) => {
   // before page access check if page requires authentication
   if (to.meta.middleware == "auth") {
     if (authStore.isAuthenticated) {
-      next();
+      // await authStore.getPermissionsList();
+      if (to.name === "apps-user-management") {
+        if (window.localStorage.getItem("role") === "admin") {
+          next();
+        } else {
+          next({ name: "403" });
+        }
+      } else {
+        next();
+      }
     } else {
       next({ name: "sign-in" });
     }

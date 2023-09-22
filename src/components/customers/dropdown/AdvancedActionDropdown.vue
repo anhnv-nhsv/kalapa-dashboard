@@ -7,6 +7,7 @@
     <div class="px-7 py-5">
       <div class="d-flex justify-content-start">
         <button
+          v-if="role.grantedPermissions.customer['sync_selected'] === '1'"
           type="button"
           class="btn btn-light-primary me-5"
           data-bs-toggle="modal"
@@ -19,6 +20,7 @@
           Sync Kalapa
         </button>
         <button
+          v-if="role.grantedPermissions.customer['export_file'] === '1'"
           type="button"
           class="btn btn-light-primary me-5"
           data-bs-toggle="modal"
@@ -30,6 +32,7 @@
           Export report
         </button>
         <button
+          v-if="role.grantedPermissions.customer['import_file'] === '1'"
           type="button"
           class="btn btn-light-primary"
           data-bs-toggle="modal"
@@ -70,7 +73,10 @@ export default defineComponent({
     },
   },
   setup(props, ctx) {
-    return {};
+    const role = JSON.parse(localStorage.getItem("grantedPermissions") || "{}");
+    return {
+      role,
+    };
   },
 });
 </script>

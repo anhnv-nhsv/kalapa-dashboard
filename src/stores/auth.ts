@@ -8,12 +8,24 @@ export interface User {
   token: string;
   limit_req_to_kalapa: string;
   username: string;
+  role: string;
 }
 
 export const useAuthStore = defineStore("auth", () => {
   const errors = ref({});
   const user = ref<User>({} as User);
   const isAuthenticated = ref(!!JwtService.getToken());
+  const permissionsList = ref([]);
+
+  function setPermissionsList(data) {
+    permissionsList.value = data;
+    window.localStorage.setItem(
+      "grantedPermissions",
+      JSON.stringify(
+        data.data.filter((x: any) => x.role === localStorage.getItem("role"))[0]
+      )
+    );
+  }
 
   function setAuth(authUser: User) {
     isAuthenticated.value = true;
@@ -25,6 +37,7 @@ export const useAuthStore = defineStore("auth", () => {
       user.value.limit_req_to_kalapa
     );
     window.localStorage.setItem("username", user.value.username);
+    window.localStorage.setItem("role", user.value.role);
   }
 
   function setError(error: any) {
@@ -38,15 +51,31 @@ export const useAuthStore = defineStore("auth", () => {
     JwtService.destroyToken();
     window.localStorage.removeItem("limit_req_to_kalapa");
     window.localStorage.removeItem("username");
+    window.localStorage.removeItem("role");
+    window.localStorage.removeItem("grantedPermissions");
   }
 
   function login(credentials: User) {
     return ApiService.post("/auth", credentials)
-      .then(({ data }) => {
+      .then(async ({ data }) => {
         setAuth(data);
+        if (JwtService.getToken()) {
+          await getPermissionsList();
+        }
       })
       .catch((response) => {
         setError(response.data.errors);
+      });
+  }
+
+  function getPermissionsList(params?: any) {
+    return ApiService.query("/users/get-all-permission", params)
+      .then(({ data }) => {
+        setPermissionsList(data);
+      })
+      .catch((response) => {
+        console.error(response);
+        // setError(response.data.errors);
       });
   }
 

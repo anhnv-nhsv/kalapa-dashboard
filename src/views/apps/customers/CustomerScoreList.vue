@@ -4,7 +4,7 @@
       <div class="card-title flex-column">
         <div class="row">
           <div class="d-flex">
-            <div class="w-auto me-5">
+            <div v-if="role.grantedPermissions.customer['search'] === '1'" class="w-auto me-5">
               <button
                 type="button"
                 class="btn btn-primary btn-active-light-primary"
@@ -20,7 +20,7 @@
               </button>
               <SearchCustomerDropdown @search="searchCustomerScore" />
             </div>
-            <div class="w-auto me-5">
+            <div v-if="role.grantedPermissions.customer['sync_selected'] === '1'" class="w-auto me-5">
               <button
                 type="button"
                 class="btn btn-primary"
@@ -204,6 +204,7 @@ export default defineComponent({
     let syncKLPBtn = ref<HTMLElement | null>(null);
     let syncPayload = ref<any[]>([]);
     let syncType = ref("");
+    const role = JSON.parse(localStorage.getItem("grantedPermissions") || "{}");
 
     async function getCustomersScore(
       page?: number,
@@ -387,6 +388,7 @@ export default defineComponent({
       syncType,
       userRole,
       formSearch,
+      role,
       changePage,
       changePageSize,
       searchCustomerScore,
