@@ -186,6 +186,7 @@ export default defineComponent({
       await store.syncKalapaScore(syncPayload, {
         params: {
           searchType: syncForm.checkedTypes.join(","),
+          processedBy: localStorage.getItem("username"),
         },
       });
       const syncStatusCode = store.syncKalapaStatusCode;
@@ -213,8 +214,6 @@ export default defineComponent({
                 customClass: {
                   confirmButton: "btn btn-primary",
                 },
-              }).then(() => {
-                hideModal(syncKalapaModalRef.value);
               });
             } else {
               setTimeout(async () => {

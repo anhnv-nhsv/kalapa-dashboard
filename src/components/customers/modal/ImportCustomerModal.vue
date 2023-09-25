@@ -150,6 +150,7 @@ export default defineComponent({
       await store.syncKalapaScore(payload, {
         params: {
           searchType: syncForm.checkedTypes.join(","),
+          processedBy: localStorage.getItem("username"),
         },
       });
       const syncStatusCode = store.syncKalapaStatusCode;

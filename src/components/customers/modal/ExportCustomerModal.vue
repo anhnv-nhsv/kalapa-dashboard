@@ -182,6 +182,7 @@ export default defineComponent({
           endScore: endScore ? endScore : "",
           blacklist: blacklist ? blacklist : "",
           searchType: searchType ? searchType : "",
+          searchBy: localStorage.getItem("username"),
         },
         responseType: "blob",
       });

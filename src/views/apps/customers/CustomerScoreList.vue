@@ -88,7 +88,7 @@
         @single-select="handleSingleSelection"
         @multiple-select="handleMultipleSelection"
       >
-        <template v-slot:indexColumn>
+        <template v-slot:indexColumn v-if="role.grantedPermissions.customer['sync_selected'] === '1'">
           <el-table-column
             header-align="center"
             class-name="text-center"
@@ -234,6 +234,7 @@ export default defineComponent({
           endScore: endScore ? endScore : "",
           blacklist: blacklist ? blacklist : "",
           updateFlag: updateFlag ? updateFlag : "N",
+          searchBy: localStorage.getItem("username"),
           page: page,
           pageSize: pageSize,
         },
