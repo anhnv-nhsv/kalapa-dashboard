@@ -1,5 +1,5 @@
 <template>
-  <div class="menu menu-sub menu-sub-dropdown w-550px" data-kt-menu="true">
+  <div class="menu menu-sub menu-sub-dropdown w-auto" data-kt-menu="true">
     <div class="px-7 py-5">
       <div class="fs-5 text-dark fw-bolder">Advanced action</div>
     </div>
