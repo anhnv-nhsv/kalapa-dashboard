@@ -60,6 +60,7 @@ export const useAuthStore = defineStore("auth", () => {
       .then(async ({ data }) => {
         setAuth(data);
         if (JwtService.getToken()) {
+          ApiService.setHeader();
           await getPermissionsList();
         }
       })
