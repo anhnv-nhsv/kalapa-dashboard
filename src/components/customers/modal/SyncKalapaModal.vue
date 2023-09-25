@@ -106,7 +106,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, watch } from "vue";
+import {defineComponent, onUpdated, reactive, ref, watch} from "vue";
 import { hideModal } from "@/core/helpers/dom";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import { useCustomerStore } from "@/stores/customer-score";
@@ -175,7 +175,6 @@ export default defineComponent({
       console.log(`call API sync Kalapa`);
       loading.value = true;
       const rawPropData = JSON.parse(JSON.stringify(syncPropData.value));
-      console.log(rawPropData);
       const syncPayload = rawPropData.map((e) => {
         return {
           id: e.idno,

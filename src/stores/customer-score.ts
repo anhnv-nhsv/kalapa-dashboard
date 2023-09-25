@@ -7,6 +7,7 @@ export const useCustomerStore = defineStore("customer-score", () => {
   const syncKalapaStatusCode = ref(-1);
   const importedFileStatusCode = ref(-1);
   const exportedCustomerResp = ref({});
+  const validSyncResp = ref(false);
   const errors = ref({});
 
   function setError(error: any) {
@@ -27,6 +28,10 @@ export const useCustomerStore = defineStore("customer-score", () => {
 
   function setImportedFileStatusCode(status) {
     importedFileStatusCode.value = status;
+  }
+
+  function setValidSync(res) {
+    validSyncResp.value = res.data.data.isLessThan30days;
   }
 
   function getCustomersScore(params) {
@@ -59,6 +64,16 @@ export const useCustomerStore = defineStore("customer-score", () => {
       });
   }
 
+  function validateSync(params) {
+    return ApiService.post("/api/account-info/validate-sync", params)
+      .then((response) => {
+        setValidSync(response);
+      })
+      .catch(({ response }) => {
+        setError(response.data.errors);
+      });
+  }
+
   function importExcel(path, params, config) {
     return ApiService.post(path, params, config);
   }
@@ -67,10 +82,12 @@ export const useCustomerStore = defineStore("customer-score", () => {
     customersScoreResp,
     syncKalapaStatusCode,
     exportedCustomerResp,
+    validSyncResp,
     errors,
     getCustomersScore,
     syncKalapaScore,
     exportCustomersScore,
     importExcel,
+    validateSync,
   };
 });

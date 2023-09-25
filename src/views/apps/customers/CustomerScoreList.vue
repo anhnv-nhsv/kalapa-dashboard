@@ -4,7 +4,10 @@
       <div class="card-title flex-column">
         <div class="row">
           <div class="d-flex">
-            <div v-if="role.grantedPermissions.customer['search'] === '1'" class="w-auto me-5">
+            <div
+              v-if="role.grantedPermissions.customer['search'] === '1'"
+              class="w-auto me-5"
+            >
               <button
                 type="button"
                 class="btn btn-primary btn-active-light-primary"
@@ -20,7 +23,10 @@
               </button>
               <SearchCustomerDropdown @search="searchCustomerScore" />
             </div>
-            <div v-if="role.grantedPermissions.customer['sync_selected'] === '1'" class="w-auto me-5">
+            <div
+              v-if="role.grantedPermissions.customer['sync_selected'] === '1'"
+              class="w-auto me-5"
+            >
               <button
                 type="button"
                 class="btn btn-primary"
@@ -88,7 +94,10 @@
         @single-select="handleSingleSelection"
         @multiple-select="handleMultipleSelection"
       >
-        <template v-slot:indexColumn v-if="role.grantedPermissions.customer['sync_selected'] === '1'">
+        <template
+          v-slot:indexColumn
+          v-if="role.grantedPermissions.customer['sync_selected'] === '1'"
+        >
           <el-table-column
             header-align="center"
             class-name="text-center"
@@ -101,7 +110,11 @@
     </div>
   </div>
 
-  <SyncKalapaModal :sync-payload="syncPayload" :sync-type="syncType" />
+  <SyncKalapaModal
+    ref="syncKalapaModalRef"
+    :sync-payload="syncPayload"
+    :sync-type="syncType"
+  />
 </template>
 
 <script lang="ts">
@@ -112,6 +125,8 @@ import SyncKalapaModal from "@/components/customers/modal/SyncKalapaModal.vue";
 import ColumnVisibilityDropdown from "@/components/customers/dropdown/ColumnVisibilityDropdown.vue";
 import SearchCustomerDropdown from "@/components/customers/dropdown/SearchCustomerDropdown.vue";
 import AdvancedActionDropdown from "@/components/customers/dropdown/AdvancedActionDropdown.vue";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import { hideModal } from "@/core/helpers/dom";
 
 export default defineComponent({
   name: "customer-score-list",
@@ -202,8 +217,10 @@ export default defineComponent({
     let pagination = ref();
     let userRole = ref("all");
     let syncKLPBtn = ref<HTMLElement | null>(null);
+    let syncKalapaModalRef = ref();
     let syncPayload = ref<any[]>([]);
     let syncType = ref("");
+    const isSyncLessThan30days = ref(false);
     const role = JSON.parse(localStorage.getItem("grantedPermissions") || "{}");
 
     async function getCustomersScore(
@@ -375,8 +392,39 @@ export default defineComponent({
       }
     };
 
-    const changeSyncType = (val) => {
+    const changeSyncType = async (val) => {
       syncType.value = val;
+      if (
+        localStorage.getItem("limit_req_to_kalapa") &&
+        Number(localStorage.getItem("limit_req_to_kalapa")) == 1
+      ) {
+        const rawPropData = JSON.parse(JSON.stringify(syncPayload.value));
+        await store.validateSync({
+          id: rawPropData[0].idno,
+          name: rawPropData[0].tel,
+          mobile: rawPropData[0].custNM,
+        });
+        isSyncLessThan30days.value = store.validSyncResp;
+        if (isSyncLessThan30days.value) {
+          Swal.fire({
+            text: "This customer had already synchronized less than 30 days. Do you want to continue?",
+            icon: "warning",
+            buttonsStyling: false,
+            showCancelButton: true,
+            confirmButtonText: "Continue",
+            cancelButtonText: "Cancel",
+            heightAuto: false,
+            customClass: {
+              confirmButton: "btn fw-semobold btn-light-primary",
+              cancelButton: "btn fw-semobold btn-light-dark",
+            },
+          }).then((result) => {
+            if (result.isDismissed) {
+              hideModal(syncKalapaModalRef.value.syncKalapaModalRef);
+            }
+          });
+        }
+      }
     };
 
     return {
@@ -385,6 +433,7 @@ export default defineComponent({
       loading,
       pagination,
       syncKLPBtn,
+      syncKalapaModalRef,
       syncPayload,
       syncType,
       userRole,

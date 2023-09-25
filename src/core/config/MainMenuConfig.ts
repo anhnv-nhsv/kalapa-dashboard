@@ -52,7 +52,7 @@ export interface MenuItem {
 //   },
 // ];
 
-export const getMainMenu = (role) => {
+export const getMainMenu = (role): Array<MenuItem> => {
   return [
     {
       accessible: true,
