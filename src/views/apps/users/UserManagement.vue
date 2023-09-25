@@ -35,23 +35,34 @@
             header-align="center"
             class-name="text-center"
             label="Thao tác"
-            width="120"
+            width="200"
           >
             <template #default="scope">
-              <el-button
-                size="small"
-                type="danger"
-                @click.prevent="deleteUser(scope.row)"
-              >
-                Delete
-              </el-button>
+              <div class="d-flex">
+                <el-button
+                  size="small"
+                  type="default"
+                  data-bs-toggle="modal"
+                  data-bs-target="#kt_user_action_modal"
+                  @click.prevent="changeAction('update-role', scope.row)"
+                >
+                  Change role
+                </el-button>
+                <el-button
+                  size="small"
+                  type="danger"
+                  @click.prevent="deleteUser(scope.row)"
+                >
+                  Delete
+                </el-button>
+              </div>
             </template>
           </el-table-column>
         </template>
       </NHDatatable>
     </div>
   </div>
-  <UserAction :action="userAction" @on-success="getUserList" />
+  <UserAction :action="userAction" :data="rowData" @on-success="getUserList" />
 </template>
 
 <script lang="ts">
@@ -92,6 +103,7 @@ export default defineComponent({
       },
     ]);
     let userList = ref();
+    const rowData = ref();
 
     const getUserList = async () => {
       console.log("call getUserList");
@@ -113,8 +125,11 @@ export default defineComponent({
       // return store.userDeletion;
     };
 
-    const changeAction = (action) => {
+    const changeAction = (action, row?) => {
       userAction.value = action;
+      if (row) {
+        rowData.value = row;
+      }
     };
 
     const themeMode = computed(() => {
@@ -198,6 +213,7 @@ export default defineComponent({
       loading,
       userAction,
       userList,
+      rowData,
       getUserList,
       changeAction,
       deleteUser,
