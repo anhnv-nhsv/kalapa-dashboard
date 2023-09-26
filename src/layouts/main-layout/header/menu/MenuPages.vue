@@ -1,7 +1,7 @@
 <template>
   <template v-for="(item, i) in mainMenuList" :key="i">
     <template v-if="item.accessible">
-      <template v-if="item.heading">
+      <template v-if="!item.heading">
         <template v-for="(menuItem, j) in item.pages" :key="j">
           <div v-if="menuItem.heading" class="menu-item me-lg-1">
             <router-link
@@ -135,7 +135,12 @@
                 :to="menuItem.route"
               >
                 <span class="menu-icon">
-                  <KTIcon icon-name="element-8" icon-class="fs-2" />
+                  <!--                  <KTIcon icon-name="element-8" icon-class="fs-2" />-->
+                  <KTIcon
+                    v-if="headerMenuIcons === 'keenthemes'"
+                    :icon-name="menuItem.keenthemesIcon"
+                    icon-class="fs-2"
+                  />
                 </span>
                 <span class="menu-title">{{
                   translate(menuItem.heading)
