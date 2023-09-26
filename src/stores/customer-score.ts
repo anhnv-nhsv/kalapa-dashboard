@@ -7,7 +7,7 @@ export const useCustomerStore = defineStore("customer-score", () => {
   const syncKalapaStatusCode = ref(-1);
   const importedFileStatusCode = ref(-1);
   const exportedCustomerResp = ref({});
-  const validSyncResp = ref(false);
+  const validSyncResp = ref({});
   const errors = ref({});
 
   function setError(error: any) {
@@ -31,7 +31,7 @@ export const useCustomerStore = defineStore("customer-score", () => {
   }
 
   function setValidSync(res) {
-    validSyncResp.value = res.data.data.isLessThan30days;
+    validSyncResp.value = res.data.data;
   }
 
   function getCustomersScore(params) {

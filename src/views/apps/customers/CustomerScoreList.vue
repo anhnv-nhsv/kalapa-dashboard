@@ -220,7 +220,7 @@ export default defineComponent({
     let syncKalapaModalRef = ref();
     let syncPayload = ref<any[]>([]);
     let syncType = ref("");
-    const isSyncLessThan30days = ref(false);
+    const validSyncResp = ref({});
     const role = JSON.parse(localStorage.getItem("grantedPermissions") || "{}");
 
     async function getCustomersScore(
@@ -404,10 +404,10 @@ export default defineComponent({
           name: rawPropData[0].tel,
           mobile: rawPropData[0].custNM,
         });
-        isSyncLessThan30days.value = store.validSyncResp;
-        if (isSyncLessThan30days.value) {
+        validSyncResp.value = store.validSyncResp;
+        if (validSyncResp.value["isLessThan30days"]) {
           Swal.fire({
-            text: "This customer had already synchronized less than 30 days. Do you want to continue?",
+            html: `This customer had already synchronized less than 30 days via <b>${validSyncResp.value["history"].join(", ")}</b>. Do you want to continue?`,
             icon: "warning",
             buttonsStyling: false,
             showCancelButton: true,
