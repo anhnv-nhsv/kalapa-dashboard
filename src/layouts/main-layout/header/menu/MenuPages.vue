@@ -34,7 +34,7 @@
         >
           <template v-for="(menuItem, j) in item.pages" :key="j">
             <div
-              v-if="menuItem.sectionTitle"
+              v-if="menuItem.sectionTitle && menuItem.accessible"
               data-kt-menu-trigger="{default:'click', lg: 'hover'}"
               data-kt-menu-placement="right-start"
               class="menu-item menu-lg-down-accordion"
@@ -127,7 +127,7 @@
                 </template>
               </div>
             </div>
-            <div v-if="menuItem.heading" class="menu-item">
+            <div v-if="menuItem.heading && menuItem.accessible" class="menu-item">
               <router-link
                 v-if="menuItem.route && menuItem.route"
                 class="menu-link"
